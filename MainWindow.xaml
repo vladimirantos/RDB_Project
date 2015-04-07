@@ -65,9 +65,6 @@
                 <TextBox Grid.Column="2" Grid.Row="2" Name="placeY" Text="" Width="30" 
                         HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 
-                <TextBox Name="aefwawefawefeawf" Text="" Width="30" 
-                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                
             </StackPanel>
             
             <Label Grid.Column="1" Grid.Row="3" Name="t_device" Content="Přístroj:" HorizontalAlignment="Left" VerticalAlignment="Center"
