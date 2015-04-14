@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
+using System.IO;
 
 namespace RDB_Project.DataWriting
 {
@@ -27,6 +28,11 @@ namespace RDB_Project.DataWriting
 
         public void Write(BlockingCollection<string> input)
         {
+            FileStream fs = new FileStream("database.csv",FileMode.Create, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(fs);
+
+            sw.WriteLine(input);
+
             throw new NotImplementedException();
         }
     }
