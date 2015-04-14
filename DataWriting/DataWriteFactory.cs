@@ -44,7 +44,7 @@ namespace RDB_Project.DataWriting
 
             BlockingCollection<DatabaseObjects> objectBuffer = 
                 new BlockingCollection<DatabaseObjects>(new ConcurrentQueue<DatabaseObjects>(), BufferSize);
-
+            //hovno
             //Dočasný objekt, použije se objectBuffer
             BlockingCollection<string> parserBuffer = 
                 new BlockingCollection<string>(new ConcurrentQueue<string>(), BufferSize); 
