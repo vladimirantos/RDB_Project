@@ -35,3 +35,7 @@ http://www.google.cz/url?sa=t&rct=j&q=&esrc=s&source=web&cd=9&ved=0CEgQFjAI&url=
 
 
 http://blog.netcorex.cz/c-sharp/task-parallel-library-tpl-predstaveni/
+
+
+Cteni souboru 
+http://stackoverflow.com/questions/11881929/reading-a-csv-file-with-a-million-rows-in-parallel-in-c-sharp
