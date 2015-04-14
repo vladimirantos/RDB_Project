@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="rdb_measurement" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(localdb)\ProjectsV12;Initial Catalog=rdb_measurement;Integrated Security=True" SettingsObjectName="RDB_Project.Properties.Settings" SettingsPropertyName="rdb_measurementConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.db_log" Member="db_logs">
+    <Type Name="db_log">
+      <Column Name="id_log" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="action" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="condition" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="count_rows" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.devices" Member="devices">
+    <Type Name="device">
+      <Column Name="id_device" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="serial_number" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="accuracy" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="device_measurement" Member="measurements" ThisKey="id_device" OtherKey="device" Type="measurement" />
+    </Type>
+  </Table>
+  <Table Name="dbo.measurements" Member="measurements">
+    <Type Name="measurement">
+      <Column Name="id_measurement" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="device" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="mtype" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Association Name="measurement_point" Member="points" ThisKey="id_measurement" OtherKey="measurement" Type="point" />
+      <Association Name="device_measurement" Member="device1" ThisKey="device" OtherKey="id_device" Type="device" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="mtype_measurement" Member="mtype1" ThisKey="mtype" OtherKey="id_mtype" Type="mtype" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.mtypes" Member="mtypes">
+    <Type Name="mtype">
+      <Column Name="id_mtype" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="mtype_measurement" Member="measurements" ThisKey="id_mtype" OtherKey="mtype" Type="measurement" />
+    </Type>
+  </Table>
+  <Table Name="dbo.points" Member="points">
+    <Type Name="point">
+      <Column Name="x" Type="System.Double" DbType="Float NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="y" Type="System.Double" DbType="Float NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="measurement" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="value1" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="value2" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="variance" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="measurement_point" Member="measurement1" ThisKey="measurement" OtherKey="id_measurement" Type="measurement" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+</Database>
