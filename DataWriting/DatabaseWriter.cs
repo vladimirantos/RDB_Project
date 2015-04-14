@@ -30,12 +30,12 @@ namespace RDB_Project.DataWriting
         {
             FileStream fs = new FileStream("database.csv",FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(fs);
-            foreach(string data in input)
-            {
-                sw.WriteLine(data);
-            }
-
-            throw new NotImplementedException();
+            foreach (string s in input.GetConsumingEnumerable())
+                sw.WriteLine(s);
+            //foreach(string data in input)
+            //{
+            //    sw.WriteLine(data);
+            //}
         }
     }
 }

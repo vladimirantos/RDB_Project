@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RDB_Project.DataWriting;
 
 namespace RDB_Project
 {
@@ -33,6 +34,11 @@ namespace RDB_Project
         private void _Log(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btn_search_Click(object sender, RoutedEventArgs e)
+        {
+            DataWriteFactory.Create("data.csv", 1).Save();
         }
     }
 }

@@ -23,9 +23,16 @@ namespace RDB_Project.DataWriting
 
         public void Parse(BlockingCollection<string> input, BlockingCollection<string> output)
         {
-            foreach (string item in input)
+            try
             {
-                output.Add(item);
+                foreach (string item in input.GetConsumingEnumerable())
+                {
+                    output.Add(item);
+                }
+            }
+            finally
+            {
+                output.CompleteAdding();
             }
         }
     }

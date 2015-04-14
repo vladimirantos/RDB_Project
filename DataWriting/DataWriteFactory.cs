@@ -17,11 +17,7 @@ namespace RDB_Project.DataWriting
 
         TaskFactory _taskFactory;
 
-        public int BufferSize
-        {
-            get;
-            set;
-        }
+        public int BufferSize{ get; set; }
 
         public DataWriteFactory(IFileReader reader, IParser parser, IDatabaseWriter writer)
         {
@@ -29,12 +25,20 @@ namespace RDB_Project.DataWriting
             _parser = parser;
             _writer = writer;
             _taskFactory =  new TaskFactory(TaskCreationOptions.LongRunning, 
-                                                     TaskContinuationOptions.None);
+                                                    TaskContinuationOptions.None);
         }
 
         public static DataWriteFactory Create(string path, int bufferSize)
         {
-            return new DataWriteFactory(new FileReader(path), new Parser(), new DatabaseWriter()) { BufferSize = bufferSize};
+            return new DataWriteFactory(
+                new FileReader(path), 
+                new Parser(), 
+                new DatabaseWriter()) { BufferSize = bufferSize};
+        }
+
+        public static DataWriteFactory Create(string path)
+        {
+            return Create(path, 100000);
         }
 
         public void Save()
@@ -44,7 +48,7 @@ namespace RDB_Project.DataWriting
 
             BlockingCollection<DatabaseObjects> objectBuffer = 
                 new BlockingCollection<DatabaseObjects>(new ConcurrentQueue<DatabaseObjects>(), BufferSize);
-            //hovno
+
             //Dočasný objekt, použije se objectBuffer
             BlockingCollection<string> parserBuffer = 
                 new BlockingCollection<string>(new ConcurrentQueue<string>(), BufferSize); 
@@ -54,6 +58,7 @@ namespace RDB_Project.DataWriting
             var fileParser = _taskFactory.StartNew(() => _parser.Parse(lineBuffer, parserBuffer));
             //var database = _taskFactory.StartNew(() => _writer.Write(objectBuffer));
             var database = _taskFactory.StartNew(() => _writer.Write(parserBuffer));
+
             Task.WaitAll(fileRead, fileParser, database);
         }
     }
