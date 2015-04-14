@@ -28,3 +28,10 @@ using (StreamReader streamReader = new StreamReader(path, Encoding.UTF8))
 
 http://stackoverflow.com/questions/7387085/how-to-read-an-entire-file-to-a-string-using-c-sharp
 http://www.codeproject.com/Articles/9258/A-Fast-CSV-Reader
+
+
+PARSOVÁNÍ SOUBORU - PLINQ
+http://www.google.cz/url?sa=t&rct=j&q=&esrc=s&source=web&cd=9&ved=0CEgQFjAI&url=http%3A%2F%2Fphysics.ujep.cz%2F~jkrejci%2Fvyuka%2Fprg2%2FParallelC.PDF&ei=61ctVYv4IsetygPgyoGQDQ&usg=AFQjCNEAG78qfhdweSgVK_RoQnSFfQisdg&bvm=bv.90790515,d.bGQ
+
+
+http://blog.netcorex.cz/c-sharp/task-parallel-library-tpl-predstaveni/
