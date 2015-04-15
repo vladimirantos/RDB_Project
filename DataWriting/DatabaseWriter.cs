@@ -19,23 +19,66 @@ namespace RDB_Project.DataWriting
         void Write(BlockingCollection<string> input);
     }
 
-    class DatabaseWriter : IDatabaseWriter
+    abstract class DatabaseWriter : IDatabaseWriter
     {
-        public void Write(BlockingCollection<DatabaseObjects> input)
+        public static void DeleteDatabase()
+        {
+            File.Delete("database.txt");
+        }
+
+        protected void Save(string str)
+        {
+            using (StreamWriter sw = new StreamWriter(@"database.txt", true))
+            {
+                sw.Write(str.ToString());
+            }
+        }
+
+        protected string ToSql(string s)
+        {
+            return string.Format("VALUES({0})", s);
+        }
+
+        public abstract void Write(BlockingCollection<DatabaseObjects> input);
+        public abstract void Write(BlockingCollection<string> input);
+    }
+
+    class BufferedDatabaseWriter : DatabaseWriter
+    {
+
+        StringBuilder str = new StringBuilder();
+
+        int _bufferSize;
+
+        public BufferedDatabaseWriter(int bufferSize)
+        {
+            _bufferSize = bufferSize;
+        }
+
+        public override void Write(BlockingCollection<DatabaseObjects> input)
         {
             throw new NotImplementedException();
         }
 
-        public void Write(BlockingCollection<string> input)
+        public override void Write(BlockingCollection<string> input)
         {
-            FileStream fs = new FileStream("database.csv",FileMode.Create, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-            foreach(string data in input)
+            int counter = 0;
+            
+            foreach (string s in input.GetConsumingEnumerable())
             {
-                sw.WriteLine(data);
+
+                if (counter == _bufferSize)
+                {
+                   // Save(str.ToString());
+                    counter = 0;
+                    str = new StringBuilder();
+                }
+                str.AppendLine(ToSql(s));
+                counter++;
             }
 
-            throw new NotImplementedException();
+            //if (input.IsAddingCompleted)
+            //    Save(str.ToString()); 
         }
     }
 }

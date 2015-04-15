@@ -34,6 +34,7 @@ namespace RDB_Project.DataWriting
                     while ((line = sr.ReadLine()) != null)
                     {
                         output.Add(line);
+                        //System.Windows.MessageBox.Show("Data reader: "+line);
                     }
                 }
             }
