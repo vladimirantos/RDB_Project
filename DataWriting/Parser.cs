@@ -23,10 +23,12 @@ namespace RDB_Project.DataWriting
 
         public void Parse(BlockingCollection<string> input, BlockingCollection<string> output)
         {
+            
             try
             {
                 foreach (string item in input.GetConsumingEnumerable())
                 {
+                    //System.Windows.MessageBox.Show("Data parser: " + item);
                     output.Add(item);
                 }
             }

@@ -19,6 +19,8 @@ namespace RDB_Project.DataWriting
 
         public int BufferSize{ get; set; }
 
+        public const int DefaultBufferSize = 100000;
+
         public DataWriteFactory(IFileReader reader, IParser parser, IDatabaseWriter writer)
         {
             _fileReader = reader;
@@ -33,12 +35,12 @@ namespace RDB_Project.DataWriting
             return new DataWriteFactory(
                 new FileReader(path), 
                 new Parser(), 
-                new DatabaseWriter()) { BufferSize = bufferSize};
+                new BufferedDatabaseWriter(bufferSize)) { BufferSize = bufferSize};
         }
 
         public static DataWriteFactory Create(string path)
         {
-            return Create(path, 100000);
+            return Create(path, DefaultBufferSize);
         }
 
         public void Save()
@@ -57,7 +59,7 @@ namespace RDB_Project.DataWriting
             //var fileParser = _taskFactory.StartNew(() => _parser.Parse(lineBuffer, objectBuffer));
             var fileParser = _taskFactory.StartNew(() => _parser.Parse(lineBuffer, parserBuffer));
             //var database = _taskFactory.StartNew(() => _writer.Write(objectBuffer));
-            var database = _taskFactory.StartNew(() => _writer.Write(parserBuffer));
+            var database = _taskFactory.StartNew(() =>  _writer.Write(parserBuffer));
 
             Task.WaitAll(fileRead, fileParser, database);
         }
