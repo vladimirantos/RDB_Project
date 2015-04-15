@@ -11,7 +11,7 @@ namespace RDB_Project.DataWriting
     {
         void Parse(BlockingCollection<string> input, BlockingCollection<DatabaseObjects> output);
 
-        void Parse(BlockingCollection<string> input, BlockingCollection<string> output);
+        void Parse(BlockingCollection<List<string>> input, BlockingCollection<List<string>> output);
     }
 
     class Parser : IParser
@@ -21,12 +21,12 @@ namespace RDB_Project.DataWriting
             throw new NotImplementedException();
         }
 
-        public void Parse(BlockingCollection<string> input, BlockingCollection<string> output)
+        public void Parse(BlockingCollection<List<string>> input, BlockingCollection<List<string>> output)
         {
-            
+            //System.Windows.MessageBox.Show(input.Count.ToString());   
             try
             {
-                foreach (string item in input.GetConsumingEnumerable())
+                foreach (List<string> item in input.GetConsumingEnumerable())
                 {
                     //System.Windows.MessageBox.Show("Data parser: " + item);
                     output.Add(item);
