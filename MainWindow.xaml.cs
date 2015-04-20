@@ -29,7 +29,8 @@ namespace RDB_Project
 
         private void _Add(object sender, RoutedEventArgs e)
         {
-
+            AddDialog dialog = new AddDialog();
+            dialog.Show();
         }
 
         private void _Log(object sender, RoutedEventArgs e)

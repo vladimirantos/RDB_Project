@@ -69,7 +69,7 @@ namespace RDB_Project.DataWriting
 
                 if (counter == _bufferSize)
                 {
-                   // Save(str.ToString());
+                    Save(str.ToString());
                     counter = 0;
                     str = new StringBuilder();
                 }
@@ -77,8 +77,8 @@ namespace RDB_Project.DataWriting
                 counter++;
             }
 
-            //if (input.IsAddingCompleted)
-            //    Save(str.ToString()); 
+            if (input.IsAddingCompleted)
+                Save(str.ToString()); 
         }
     }
 }
