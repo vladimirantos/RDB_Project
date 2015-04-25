@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using RDB_Project.DataWriting;
+using EntityFramework.BulkInsert.Extensions;
 
 namespace RDB_Project
 {
@@ -43,7 +44,20 @@ namespace RDB_Project
             Stopwatch stop = new Stopwatch();
             DatabaseWriter.DeleteDatabase();
             stop.Start();
-            DataWriteFactory.Create("data.csv", 1000000).Save();
+
+            ///////////////////////////////////////////////////////
+            // --- Entity test
+            using (var ctx = new HovnoEntities())
+            {
+                data1 data = new data1();
+                data.value1 = 1;
+                List<data1> da = new List<data1>() { data };
+
+                ctx.BulkInsert(da);
+            }
+            ///////////////////////////////////////////////////////
+
+           /* DataWriteFactory.Create("data.csv", 1000000).Save();*/
             stop.Stop();
             MessageBox.Show(stop.Elapsed.ToString());
         }

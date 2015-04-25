@@ -16,7 +16,7 @@ namespace RDB_Project.DataWriting
         /// Testovací metoda
         /// </summary>
         /// <param name="input"></param>
-        void Write(BlockingCollection<string> input);
+        void Write(BlockingCollection<List<string>> input);
     }
 
     abstract class DatabaseWriter : IDatabaseWriter
@@ -31,6 +31,7 @@ namespace RDB_Project.DataWriting
             using (StreamWriter sw = new StreamWriter(@"database.txt", true))
             {
                 sw.Write(str.ToString());
+                sw.WriteLine("*****************************************************");
             }
         }
 
@@ -39,8 +40,13 @@ namespace RDB_Project.DataWriting
             return string.Format("VALUES({0})", s);
         }
 
+        protected string ToSql(List<string> data)
+        {
+            return data.Aggregate((current, next) => current + ", " + next);
+        }
+
         public abstract void Write(BlockingCollection<DatabaseObjects> input);
-        public abstract void Write(BlockingCollection<string> input);
+        public abstract void Write(BlockingCollection<List<string>> input);
     }
 
     class BufferedDatabaseWriter : DatabaseWriter
@@ -60,11 +66,10 @@ namespace RDB_Project.DataWriting
             throw new NotImplementedException();
         }
 
-        public override void Write(BlockingCollection<string> input)
+        public override void Write(BlockingCollection<List<string>> input)
         {
-            int counter = 0;
-            
-            foreach (string s in input.GetConsumingEnumerable())
+           /* int counter = 0;
+            foreach (List<string> items in input.GetConsumingEnumerable())
             {
 
                 if (counter == _bufferSize)
@@ -75,10 +80,13 @@ namespace RDB_Project.DataWriting
                 }
                 str.AppendLine(ToSql(s));
                 counter++;
+                System.Windows.MessageBox.Show(items.Count.ToString());
+                string s = ToSql(items);
+                Save(s);
             }
 
             if (input.IsAddingCompleted)
-                Save(str.ToString()); 
+                Save(str.ToString()); */
         }
     }
 }

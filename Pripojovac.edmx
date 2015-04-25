@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HovnoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bigdata">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="value1" Type="int" />
+          <Property Name="value2" Type="int" />
+          <Property Name="value3" Type="int" />
+          <Property Name="value4" Type="int" />
+          <Property Name="value5" Type="int" />
+          <Property Name="value6" Type="int" />
+        </EntityType>
+        <EntityType Name="data1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="value1" Type="int" />
+          <Property Name="value2" Type="int" />
+        </EntityType>
+        <EntityType Name="data2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="value3" Type="int" />
+          <Property Name="value4" Type="int" />
+        </EntityType>
+        <EntityType Name="data3">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="value5" Type="int" />
+          <Property Name="value6" Type="int" />
+        </EntityType>
+        <EntityContainer Name="HovnoModelStoreContainer">
+          <EntitySet Name="bigdata" EntityType="Self.bigdata" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="data1" EntityType="Self.data1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="data2" EntityType="Self.data2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="data3" EntityType="Self.data3" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HovnoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bigdata">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="value1" Type="Int32" />
+          <Property Name="value2" Type="Int32" />
+          <Property Name="value3" Type="Int32" />
+          <Property Name="value4" Type="Int32" />
+          <Property Name="value5" Type="Int32" />
+          <Property Name="value6" Type="Int32" />
+        </EntityType>
+        <EntityType Name="data1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="value1" Type="Int32" />
+          <Property Name="value2" Type="Int32" />
+        </EntityType>
+        <EntityType Name="data2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="value3" Type="Int32" />
+          <Property Name="value4" Type="Int32" />
+        </EntityType>
+        <EntityType Name="data3">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="value5" Type="Int32" />
+          <Property Name="value6" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="HovnoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bigdatas" EntityType="Self.bigdata" />
+          <EntitySet Name="data1" EntityType="Self.data1" />
+          <EntitySet Name="data2" EntityType="Self.data2" />
+          <EntitySet Name="data3" EntityType="Self.data3" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HovnoModelStoreContainer" CdmEntityContainer="HovnoEntities">
+          <EntitySetMapping Name="bigdatas">
+            <EntityTypeMapping TypeName="HovnoModel.bigdata">
+              <MappingFragment StoreEntitySet="bigdata">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="value1" ColumnName="value1" />
+                <ScalarProperty Name="value2" ColumnName="value2" />
+                <ScalarProperty Name="value3" ColumnName="value3" />
+                <ScalarProperty Name="value4" ColumnName="value4" />
+                <ScalarProperty Name="value5" ColumnName="value5" />
+                <ScalarProperty Name="value6" ColumnName="value6" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="data1">
+            <EntityTypeMapping TypeName="HovnoModel.data1">
+              <MappingFragment StoreEntitySet="data1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="value1" ColumnName="value1" />
+                <ScalarProperty Name="value2" ColumnName="value2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="data2">
+            <EntityTypeMapping TypeName="HovnoModel.data2">
+              <MappingFragment StoreEntitySet="data2">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="value3" ColumnName="value3" />
+                <ScalarProperty Name="value4" ColumnName="value4" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="data3">
+            <EntityTypeMapping TypeName="HovnoModel.data3">
+              <MappingFragment StoreEntitySet="data3">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="value5" ColumnName="value5" />
+                <ScalarProperty Name="value6" ColumnName="value6" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
