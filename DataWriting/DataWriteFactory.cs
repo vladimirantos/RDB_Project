@@ -34,8 +34,8 @@ namespace RDB_Project.DataWriting
         {
             return new DataWriteFactory(
                 new FileReader(path), 
-                new Parser(), 
-                new BufferedDatabaseWriter(bufferSize)) { BufferSize = bufferSize};
+                new Parser(bufferSize), 
+                new DatabaseWriter()) { BufferSize = bufferSize};
         }
 
         public static DataWriteFactory Create(string path)
@@ -45,21 +45,17 @@ namespace RDB_Project.DataWriting
 
         public void Save()
         {
-            BlockingCollection<string> lineBuffer = 
+            BlockingCollection<string> lineBuffer =
                 new BlockingCollection<string>(new ConcurrentQueue<string>(), BufferSize);
 
             BlockingCollection<DatabaseObjects> objectBuffer = 
                 new BlockingCollection<DatabaseObjects>(new ConcurrentQueue<DatabaseObjects>(), BufferSize);
 
-            //Dočasný objekt, použije se objectBuffer
-            BlockingCollection<string> parserBuffer = 
-                new BlockingCollection<string>(new ConcurrentQueue<string>(), BufferSize); 
-
             var fileRead = _taskFactory.StartNew(() => _fileReader.Read(lineBuffer));
+            var fileParser = _taskFactory.StartNew(() => _parser.Parse(lineBuffer, objectBuffer));
             //var fileParser = _taskFactory.StartNew(() => _parser.Parse(lineBuffer, objectBuffer));
-            var fileParser = _taskFactory.StartNew(() => _parser.Parse(lineBuffer, parserBuffer));
-            //var database = _taskFactory.StartNew(() => _writer.Write(objectBuffer));
-            var database = _taskFactory.StartNew(() =>  _writer.Write(parserBuffer));
+            var database = _taskFactory.StartNew(() => _writer.Write(objectBuffer));
+            //var database = _taskFactory.StartNew(() =>  _writer.Write(parserBuffer));
 
             Task.WaitAll(fileRead, fileParser, database);
         }

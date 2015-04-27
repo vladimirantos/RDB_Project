@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using RDB_Project.DataWriting;
+using EntityFramework.BulkInsert.Extensions;
 
 namespace RDB_Project
 {
@@ -40,12 +41,7 @@ namespace RDB_Project
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-            Stopwatch stop = new Stopwatch();
-            DatabaseWriter.DeleteDatabase();
-            stop.Start();
-            DataWriteFactory.Create("data.csv", 1000000).Save();
-            stop.Stop();
-            MessageBox.Show(stop.Elapsed.ToString());
+           
         }
     }
 }

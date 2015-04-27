@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using RDB_Project.DataWriting;
+using System.Diagnostics;
 
 namespace RDB_Project
 {
@@ -50,7 +52,11 @@ namespace RDB_Project
 
         private void _Upload(object sender, RoutedEventArgs e)
         {
-            // zpracovani souboru
+            Stopwatch stop = new Stopwatch();
+            stop.Start();
+            DataWriteFactory.Create(_fileName, 1000000).Save();
+            stop.Stop();
+            MessageBox.Show("Ukládání dokončeno za: " + stop.Elapsed);
         }
     }
 }

@@ -33,8 +33,7 @@ namespace RDB_Project.DataWriting
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
-                        output.Add(line);
-                        //System.Windows.MessageBox.Show("Data reader: "+line);
+                            output.Add(line);
                     }
                 }
             }
