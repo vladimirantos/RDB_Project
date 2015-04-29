@@ -39,3 +39,10 @@ http://blog.netcorex.cz/c-sharp/task-parallel-library-tpl-predstaveni/
 
 Cteni souboru 
 http://stackoverflow.com/questions/11881929/reading-a-csv-file-with-a-million-rows-in-parallel-in-c-sharp
+
+
+Podmínka where ve vyhledávání
+http://www.codeproject.com/Questions/327162/Use-list-in-where-condition-in-entity-framework
+
+Výpis - testy
+http://stackoverflow.com/questions/8107439/entity-framework-4-1-most-efficient-way-to-get-multiple-entities-by-primary-key
