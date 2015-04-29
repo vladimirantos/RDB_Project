@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.Concurrent;
 
 namespace RDB_Project.DataWriting
@@ -48,8 +45,7 @@ namespace RDB_Project.DataWriting
                     d3.value5 = Int32.Parse(items[4]);
                     d3.value6 = Int32.Parse(items[5]);
                     ld3.Add(d3);
-                    items = null;
-                    if (ld1.Count == _bufferSize)
+                    if ((ld1.Count % _bufferSize) == 0)
                     {
                         databaseObjects.Data1 = new List<data1>(ld1);
                         databaseObjects.Data2 = new List<data2>(ld2);
@@ -59,6 +55,16 @@ namespace RDB_Project.DataWriting
                         ld3 = new List<data3>();
                         output.Add(databaseObjects);
                     }
+                }
+                if(ld1.Count > 0)
+                {
+                    databaseObjects.Data1 = new List<data1>(ld1);
+                    databaseObjects.Data2 = new List<data2>(ld2);
+                    databaseObjects.Data3 = new List<data3>(ld3);
+                    ld1 = new List<data1>();
+                    ld2 = new List<data2>();
+                    ld3 = new List<data3>();
+                    output.Add(databaseObjects);
                 }
             }
             finally

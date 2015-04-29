@@ -12,10 +12,17 @@ namespace RDB_Project
     using System;
     using System.Collections.Generic;
     
-    public partial class data1
+    public partial class Device
     {
-        public int id { get; set; }
-        public Nullable<int> value1 { get; set; }
-        public Nullable<int> value2 { get; set; }
+        public Device()
+        {
+            this.Measurements = new HashSet<Measurement>();
+        }
+    
+        public string serial_number { get; set; }
+        public double accuracy { get; set; }
+        public string description { get; set; }
+    
+        public virtual ICollection<Measurement> Measurements { get; set; }
     }
 }

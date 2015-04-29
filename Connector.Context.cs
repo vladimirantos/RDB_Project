@@ -13,10 +13,10 @@ namespace RDB_Project
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class HovnoEntities : DbContext
+    public partial class DbEntities : DbContext
     {
-        public HovnoEntities()
-            : base("name=HovnoEntities")
+        public DbEntities()
+            : base("name=DbEntities")
         {
         }
     
@@ -25,9 +25,10 @@ namespace RDB_Project
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<bigdata> bigdata { get; set; }
-        public virtual DbSet<data1> data1 { get; set; }
-        public virtual DbSet<data2> data2 { get; set; }
-        public virtual DbSet<data3> data3 { get; set; }
+        public virtual DbSet<Dblog> Dblogs { get; set; }
+        public virtual DbSet<Device> Devices { get; set; }
+        public virtual DbSet<Measurement> Measurements { get; set; }
+        public virtual DbSet<MType> MTypes { get; set; }
+        public virtual DbSet<Point> Points { get; set; }
     }
 }

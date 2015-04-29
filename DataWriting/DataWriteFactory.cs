@@ -46,10 +46,10 @@ namespace RDB_Project.DataWriting
         public void Save()
         {
             BlockingCollection<string> lineBuffer =
-                new BlockingCollection<string>(new ConcurrentQueue<string>(), BufferSize);
+                new BlockingCollection<string>(BufferSize);
 
             BlockingCollection<DatabaseObjects> objectBuffer = 
-                new BlockingCollection<DatabaseObjects>(new ConcurrentQueue<DatabaseObjects>(), BufferSize);
+                new BlockingCollection<DatabaseObjects>(BufferSize);
 
             var fileRead = _taskFactory.StartNew(() => _fileReader.Read(lineBuffer));
             var fileParser = _taskFactory.StartNew(() => _parser.Parse(lineBuffer, objectBuffer));

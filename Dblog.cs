@@ -12,10 +12,13 @@ namespace RDB_Project
     using System;
     using System.Collections.Generic;
     
-    public partial class data3
+    public partial class Dblog
     {
-        public int id { get; set; }
-        public Nullable<int> value5 { get; set; }
-        public Nullable<int> value6 { get; set; }
+        public int id_log { get; set; }
+        public string action { get; set; }
+        public string table { get; set; }
+        public string condition { get; set; }
+        public int count_rows { get; set; }
+        public Nullable<System.DateTime> time { get; set; }
     }
 }

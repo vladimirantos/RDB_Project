@@ -18,7 +18,7 @@ namespace RDB_Project.DataWriting
     {
         public void Write(BlockingCollection<DatabaseObjects> input)
         {
-            using (var ctx = new HovnoEntities())
+            using (var ctx = new PrdelEntities())
             {
                 IEnumerator<DatabaseObjects> enumerator = input.GetConsumingEnumerable().GetEnumerator();
                 while (enumerator.MoveNext())
