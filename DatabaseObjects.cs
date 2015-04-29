@@ -18,6 +18,5 @@ namespace RDB_Project
         //public List<data1> Data1 { get; set; }
         //public List<data2> Data2 { get; set; }
         //public List<data3> Data3 { get; set; }
-
     }
 }
