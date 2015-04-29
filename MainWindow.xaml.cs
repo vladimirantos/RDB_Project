@@ -37,14 +37,16 @@ namespace RDB_Project
 
         private void _Log(object sender, RoutedEventArgs e)
         {
-            
-            LogGrid grid = new LogGrid()
+
+            LogGrid grid = new LogGrid();
             Vypis.Children.Add(grid);
         }
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Blbý co!!!!");
+            Log.Insert("Devices", 10);
+            Log.Select("Devices", new Dictionary<string, string>() { { "accuracy", "0.5" }, { "description", "AHOJ" } }, 50);
+            MessageBox.Show("Uloženo");
         }
     }
 }

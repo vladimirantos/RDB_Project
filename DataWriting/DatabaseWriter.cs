@@ -14,6 +14,7 @@ namespace RDB_Project.DataWriting
         void Write(BlockingCollection<DatabaseObjects> input);
     }
 
+    //todo přidat logování, čítač počtu uložení
     class DatabaseWriter : IDatabaseWriter
     {
         public void Write(BlockingCollection<DatabaseObjects> input)
@@ -24,9 +25,9 @@ namespace RDB_Project.DataWriting
                 while (enumerator.MoveNext())
                 {
                     DatabaseObjects data = enumerator.Current;
-                    ctx.BulkInsert(data.Data1);
-                    ctx.BulkInsert(data.Data2);
-                    ctx.BulkInsert(data.Data3);
+                    //ctx.BulkInsert(data.Data1);
+                    //ctx.BulkInsert(data.Data2);
+                    //ctx.BulkInsert(data.Data3);
                 }
                 ctx.SaveChanges();*/
             }
