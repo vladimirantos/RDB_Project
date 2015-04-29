@@ -14,6 +14,7 @@ namespace RDB_Project.DataWriting
         void Write(BlockingCollection<DatabaseObjects> input);
     }
 
+    //todo přidat logování, čítač počtu uložení
     class DatabaseWriter : IDatabaseWriter
     {
         public void Write(BlockingCollection<DatabaseObjects> input)

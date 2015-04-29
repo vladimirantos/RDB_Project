@@ -17,18 +17,10 @@ namespace RDB_Project.Logging
         private Dictionary<string, string> _condition = new Dictionary<string, string>();
         private int _count;
 
-        public LogActions Action { get { return _action; } }
-
-        public string Table { get { return _table; } }
-
-        public Dictionary<string, string> Condition { get { return _condition; } }
-
-        public int Count { get { return _count; } }
-
         /// <summary>
         /// Vytvoří Log se zadanou podmínkou, vhodné pro Select
         /// </summary>
-        public Log(LogActions action, string table, Dictionary<string, string> condition, int count)
+        private Log(LogActions action, string table, Dictionary<string, string> condition, int count)
         {
             _action = action;
             _table = table;
@@ -39,7 +31,7 @@ namespace RDB_Project.Logging
         /// <summary>
         /// Vytvoří Log bez podmínky, použíje se pro akce Insert, Update a Delete
         /// </summary>
-        public Log(LogActions action, string table, int count)
+        private Log(LogActions action, string table, int count)
         {
             _action = action;
             _table = table;
@@ -49,7 +41,7 @@ namespace RDB_Project.Logging
         /// <summary>
         /// Provede uložení do databáze
         /// </summary>
-        public void Save()
+        private void Save()
         {
             Dblog dblog = new Dblog
             {
