@@ -58,6 +58,20 @@ namespace RDB_Project.Logging
         }
 
         /// <summary>
+        /// Vrací objekty Dblog
+        /// </summary>
+        /// <returns></returns>
+        public static List<Dblog> GetData()
+        {
+            List<Dblog> data = new List<Dblog>();
+            using (var entities = new DbEntities())
+            {                
+                data = entities.Dblogs.ToList();
+            }
+            return data;
+        }
+
+        /// <summary>
         /// Uloží akci Update do logu
         /// </summary>
         public static void Update(string table, Dictionary<string, string> condition, int count)

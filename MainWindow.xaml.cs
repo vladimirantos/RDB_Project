@@ -37,9 +37,9 @@ namespace RDB_Project
 
         private void _Log(object sender, RoutedEventArgs e)
         {
-
-            LogGrid grid = new LogGrid();
-            Vypis.Children.Add(grid);
+            LogGrid grid = new LogGrid(Log.GetData());
+            grid.AddValues();
+            Vypis.Children.Add(grid.Grid);
         }
 
         private void btn_search_Click(object sender, RoutedEventArgs e)

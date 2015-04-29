@@ -13,36 +13,55 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Data;
 using RDB_Project.DataWriting;
+using RDB_Project.Logging;
 using EntityFramework.BulkInsert.Extensions;
+using System.Reflection;
 
 namespace RDB_Project.Logging
 {
     class LogGrid:DataGrid
     {
-        private List<string> columnNames;
+        private List<Dblog> data;
         private DataGrid grid;
-        public LogGrid(List<string> columnNames)
+        public LogGrid(List<Dblog> data)
         {
-            this.columnNames = columnNames;
+            this.data = data;
             this.grid = new DataGrid();
             this.SetColumnNames();
         }
 
         private void SetColumnNames()
         {
-            foreach(string name in columnNames)
+           PropertyInfo[] names =  data[0].GetType().GetProperties();
+
+           foreach (PropertyInfo prp in names)
             {
-                DataGridTextColumn c = new DataGridTextColumn();
-                c.Header = name;
-                c.Binding = new Binding(name);
-                grid.Columns.Add(c);
+                string name = prp.Name;
+                if(name != "id_log")
+                { 
+                    DataGridTextColumn c = new DataGridTextColumn();
+                    c.Header = name;
+                    c.Binding = new Binding(name);
+                    grid.Columns.Add(c);
+                }
             }
         }
 
-        public void AddValues(List<Log> data)
-        { 
-            
+        public void AddValues()
+        {
+            grid.AutoGenerateColumns = true;
+            //grid.Items.Add(new Dblog { id_log = 1, action = "Test", table = "fae", condition = "afe", count_rows = 3, time = new DateTime().Date });
+            foreach (Dblog item in data)
+            {
+                grid.DataContext = item;
+            }
+        }
+
+        public DataGrid Grid
+        {
+            get { return grid; }
         }
     }
 }
