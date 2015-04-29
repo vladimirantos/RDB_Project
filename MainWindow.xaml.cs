@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using RDB_Project.DataWriting;
+using RDB_Project.Logging;
 using EntityFramework.BulkInsert.Extensions;
 
 namespace RDB_Project
@@ -36,12 +37,14 @@ namespace RDB_Project
 
         private void _Log(object sender, RoutedEventArgs e)
         {
-
+            
+            LogGrid grid = new LogGrid()
+            Vypis.Children.Add(grid);
         }
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-           
+            MessageBox.Show("Blbý co!!!!");
         }
     }
 }

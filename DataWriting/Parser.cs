@@ -20,7 +20,7 @@ namespace RDB_Project.DataWriting
 
         public void Parse(BlockingCollection<string> input, BlockingCollection<DatabaseObjects> output)
         {
-            try
+            /*try
             {
                 List<data1> ld1 = new List<data1>();
                 List<data2> ld2 = new List<data2>();
@@ -70,7 +70,7 @@ namespace RDB_Project.DataWriting
             finally
             {
                 output.CompleteAdding();
-            }
+            }*/
         }
     }
 }

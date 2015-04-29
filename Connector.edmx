@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db_measurementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dblog">
+          <Key>
+            <PropertyRef Name="id_log" />
+          </Key>
+          <Property Name="id_log" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="action" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="table" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="condition" Type="varchar" MaxLength="255" />
+          <Property Name="count_rows" Type="int" Nullable="false" />
+          <Property Name="time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Devices">
+          <Key>
+            <PropertyRef Name="serial_number" />
+          </Key>
+          <Property Name="serial_number" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="accuracy" Type="float" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Measurements">
+          <Key>
+            <PropertyRef Name="id_measurement" />
+          </Key>
+          <Property Name="id_measurement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="device" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="mtype" Type="smallint" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="date" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MTypes">
+          <Key>
+            <PropertyRef Name="id_mtype" />
+          </Key>
+          <Property Name="id_mtype" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Points">
+          <Key>
+            <PropertyRef Name="x" />
+            <PropertyRef Name="y" />
+            <PropertyRef Name="measurement" />
+          </Key>
+          <Property Name="x" Type="float" Nullable="false" />
+          <Property Name="y" Type="float" Nullable="false" />
+          <Property Name="measurement" Type="int" Nullable="false" />
+          <Property Name="value1" Type="float" Nullable="false" />
+          <Property Name="value2" Type="float" Nullable="false" />
+          <Property Name="variance" Type="float" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_device">
+          <End Role="Devices" Type="Self.Devices" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Measurements" Type="Self.Measurements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devices">
+              <PropertyRef Name="serial_number" />
+            </Principal>
+            <Dependent Role="Measurements">
+              <PropertyRef Name="device" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_measurement">
+          <End Role="Measurements" Type="Self.Measurements" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Points" Type="Self.Points" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurements">
+              <PropertyRef Name="id_measurement" />
+            </Principal>
+            <Dependent Role="Points">
+              <PropertyRef Name="measurement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_mtype">
+          <End Role="MTypes" Type="Self.MTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Measurements" Type="Self.Measurements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MTypes">
+              <PropertyRef Name="id_mtype" />
+            </Principal>
+            <Dependent Role="Measurements">
+              <PropertyRef Name="mtype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_measurementModelStoreContainer">
+          <EntitySet Name="Dblog" EntityType="Self.Dblog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Devices" EntityType="Self.Devices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Measurements" EntityType="Self.Measurements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MTypes" EntityType="Self.MTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Points" EntityType="Self.Points" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_device" Association="Self.fk_device">
+            <End Role="Devices" EntitySet="Devices" />
+            <End Role="Measurements" EntitySet="Measurements" />
+          </AssociationSet>
+          <AssociationSet Name="fk_measurement" Association="Self.fk_measurement">
+            <End Role="Measurements" EntitySet="Measurements" />
+            <End Role="Points" EntitySet="Points" />
+          </AssociationSet>
+          <AssociationSet Name="fk_mtype" Association="Self.fk_mtype">
+            <End Role="MTypes" EntitySet="MTypes" />
+            <End Role="Measurements" EntitySet="Measurements" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_measurementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dblog">
+          <Key>
+            <PropertyRef Name="id_log" />
+          </Key>
+          <Property Name="id_log" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="action" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="table" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="condition" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="count_rows" Type="Int32" Nullable="false" />
+          <Property Name="time" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="serial_number" />
+          </Key>
+          <Property Name="serial_number" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="accuracy" Type="Double" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Measurements" Relationship="Self.fk_device" FromRole="Devices" ToRole="Measurements" />
+        </EntityType>
+        <EntityType Name="Measurement">
+          <Key>
+            <PropertyRef Name="id_measurement" />
+          </Key>
+          <Property Name="id_measurement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="device" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mtype" Type="Int16" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Device1" Relationship="Self.fk_device" FromRole="Measurements" ToRole="Devices" />
+          <NavigationProperty Name="Points" Relationship="Self.fk_measurement" FromRole="Measurements" ToRole="Points" />
+          <NavigationProperty Name="MType1" Relationship="Self.fk_mtype" FromRole="Measurements" ToRole="MTypes" />
+        </EntityType>
+        <EntityType Name="MType">
+          <Key>
+            <PropertyRef Name="id_mtype" />
+          </Key>
+          <Property Name="id_mtype" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Measurements" Relationship="Self.fk_mtype" FromRole="MTypes" ToRole="Measurements" />
+        </EntityType>
+        <EntityType Name="Point">
+          <Key>
+            <PropertyRef Name="x" />
+            <PropertyRef Name="y" />
+            <PropertyRef Name="measurement" />
+          </Key>
+          <Property Name="x" Type="Double" Nullable="false" />
+          <Property Name="y" Type="Double" Nullable="false" />
+          <Property Name="measurement" Type="Int32" Nullable="false" />
+          <Property Name="value1" Type="Double" Nullable="false" />
+          <Property Name="value2" Type="Double" Nullable="false" />
+          <Property Name="variance" Type="Double" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Measurement1" Relationship="Self.fk_measurement" FromRole="Points" ToRole="Measurements" />
+        </EntityType>
+        <Association Name="fk_device">
+          <End Role="Devices" Type="Self.Device" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Measurements" Type="Self.Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devices">
+              <PropertyRef Name="serial_number" />
+            </Principal>
+            <Dependent Role="Measurements">
+              <PropertyRef Name="device" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_measurement">
+          <End Role="Measurements" Type="Self.Measurement" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Points" Type="Self.Point" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurements">
+              <PropertyRef Name="id_measurement" />
+            </Principal>
+            <Dependent Role="Points">
+              <PropertyRef Name="measurement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_mtype">
+          <End Role="MTypes" Type="Self.MType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Measurements" Type="Self.Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MTypes">
+              <PropertyRef Name="id_mtype" />
+            </Principal>
+            <Dependent Role="Measurements">
+              <PropertyRef Name="mtype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dblogs" EntityType="Self.Dblog" />
+          <EntitySet Name="Devices" EntityType="Self.Device" />
+          <EntitySet Name="Measurements" EntityType="Self.Measurement" />
+          <EntitySet Name="MTypes" EntityType="Self.MType" />
+          <EntitySet Name="Points" EntityType="Self.Point" />
+          <AssociationSet Name="fk_device" Association="Self.fk_device">
+            <End Role="Devices" EntitySet="Devices" />
+            <End Role="Measurements" EntitySet="Measurements" />
+          </AssociationSet>
+          <AssociationSet Name="fk_measurement" Association="Self.fk_measurement">
+            <End Role="Measurements" EntitySet="Measurements" />
+            <End Role="Points" EntitySet="Points" />
+          </AssociationSet>
+          <AssociationSet Name="fk_mtype" Association="Self.fk_mtype">
+            <End Role="MTypes" EntitySet="MTypes" />
+            <End Role="Measurements" EntitySet="Measurements" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_measurementModelStoreContainer" CdmEntityContainer="DbEntities">
+          <EntitySetMapping Name="Dblogs">
+            <EntityTypeMapping TypeName="db_measurementModel.Dblog">
+              <MappingFragment StoreEntitySet="Dblog">
+                <ScalarProperty Name="id_log" ColumnName="id_log" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="table" ColumnName="table" />
+                <ScalarProperty Name="condition" ColumnName="condition" />
+                <ScalarProperty Name="count_rows" ColumnName="count_rows" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Devices">
+            <EntityTypeMapping TypeName="db_measurementModel.Device">
+              <MappingFragment StoreEntitySet="Devices">
+                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
+                <ScalarProperty Name="accuracy" ColumnName="accuracy" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Measurements">
+            <EntityTypeMapping TypeName="db_measurementModel.Measurement">
+              <MappingFragment StoreEntitySet="Measurements">
+                <ScalarProperty Name="id_measurement" ColumnName="id_measurement" />
+                <ScalarProperty Name="device" ColumnName="device" />
+                <ScalarProperty Name="mtype" ColumnName="mtype" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MTypes">
+            <EntityTypeMapping TypeName="db_measurementModel.MType">
+              <MappingFragment StoreEntitySet="MTypes">
+                <ScalarProperty Name="id_mtype" ColumnName="id_mtype" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Points">
+            <EntityTypeMapping TypeName="db_measurementModel.Point">
+              <MappingFragment StoreEntitySet="Points">
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="measurement" ColumnName="measurement" />
+                <ScalarProperty Name="value1" ColumnName="value1" />
+                <ScalarProperty Name="value2" ColumnName="value2" />
+                <ScalarProperty Name="variance" ColumnName="variance" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -18,9 +18,9 @@ namespace RDB_Project.DataWriting
     {
         public void Write(BlockingCollection<DatabaseObjects> input)
         {
-            using (var ctx = new PrdelEntities())
+            using (var ctx = new DbEntities())
             {
-                IEnumerator<DatabaseObjects> enumerator = input.GetConsumingEnumerable().GetEnumerator();
+                /*IEnumerator<DatabaseObjects> enumerator = input.GetConsumingEnumerable().GetEnumerator();
                 while (enumerator.MoveNext())
                 {
                     DatabaseObjects data = enumerator.Current;
@@ -28,7 +28,7 @@ namespace RDB_Project.DataWriting
                     ctx.BulkInsert(data.Data2);
                     ctx.BulkInsert(data.Data3);
                 }
-                ctx.SaveChanges();
+                ctx.SaveChanges();*/
             }
         }
     }

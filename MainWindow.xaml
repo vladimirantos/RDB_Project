@@ -85,7 +85,7 @@
             
         </Grid>
         
-        <Grid Height="547" VerticalAlignment="Top">
+        <Grid Name="Vypis" Height="547" VerticalAlignment="Top">
             <ListView HorizontalAlignment="center" Height="500" Width="800" VerticalAlignment="Top">
                 <ListView.View>
                     <GridView>
