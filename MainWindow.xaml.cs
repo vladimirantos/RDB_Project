@@ -44,6 +44,7 @@ namespace RDB_Project
         {
             Log.Insert("Devices", 10);
             Log.Select("Devices", new Dictionary<string, string>(){{"accuracy", "0.5"}, {"description", "AHOJ"}}, 50);
+            MessageBox.Show("Uloženo");
         }
     }
 }
