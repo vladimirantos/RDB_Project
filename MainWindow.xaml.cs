@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using RDB_Project.DataWriting;
 using EntityFramework.BulkInsert.Extensions;
+using RDB_Project.Logging;
 
 namespace RDB_Project
 {
@@ -41,7 +42,8 @@ namespace RDB_Project
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-           
+            Log.Insert("Devices", 10);
+            Log.Select("Devices", new Dictionary<string, string>(){{"accuracy", "0.5"}, {"description", "AHOJ"}}, 50);
         }
     }
 }
