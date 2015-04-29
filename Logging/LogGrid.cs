@@ -52,10 +52,9 @@ namespace RDB_Project.Logging
         public void AddValues()
         {
             grid.AutoGenerateColumns = true;
-            //grid.Items.Add(new Dblog { id_log = 1, action = "Test", table = "fae", condition = "afe", count_rows = 3, time = new DateTime().Date });
             foreach (Dblog item in data)
             {
-                grid.DataContext = item;
+                grid.Items.Add(item);
             }
         }
 
