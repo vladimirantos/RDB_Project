@@ -16,17 +16,28 @@ namespace RDB_Project.Logging
         private LogActions _action;
         private string _table;
         private string _condition;
-        private int count;
+        private int _count;
 
+        public LogActions Action { get { return _action; } }
 
-        public LogActions Action
+        public string Table { get { return _table; } }
+
+        public string Condition { get { return _condition; } }
+
+        public int Count { get { return _count; } }
+
+        public Log(LogActions action, string table, string condition, int count)
         {
-            get { return _action; }
+            _action = action;
+            _table = table;
+            _condition = condition;
+            _count = count;
         }
 
-        public string Table
+        public void Save()
         {
-            get { return _table; }
+            Dblog dblog = new Dblog();
+            
         }
     }
 }
