@@ -41,25 +41,7 @@ namespace RDB_Project
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-            Stopwatch stop = new Stopwatch();
-            DatabaseWriter.DeleteDatabase();
-            stop.Start();
-
-            ///////////////////////////////////////////////////////
-            // --- Entity test
-            using (var ctx = new HovnoEntities())
-            {
-                data1 data = new data1();
-                data.value1 = 1;
-                List<data1> da = new List<data1>() { data };
-
-                ctx.BulkInsert(da);
-            }
-            ///////////////////////////////////////////////////////
-
-           /* DataWriteFactory.Create("data.csv", 1000000).Save();*/
-            stop.Stop();
-            MessageBox.Show(stop.Elapsed.ToString());
+           
         }
     }
 }

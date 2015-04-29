@@ -12,14 +12,16 @@ namespace RDB_Project
     using System;
     using System.Collections.Generic;
     
-    public partial class bigdata
+    public partial class Point
     {
-        public int id { get; set; }
-        public Nullable<int> value1 { get; set; }
-        public Nullable<int> value2 { get; set; }
-        public Nullable<int> value3 { get; set; }
-        public Nullable<int> value4 { get; set; }
-        public Nullable<int> value5 { get; set; }
-        public Nullable<int> value6 { get; set; }
+        public double x { get; set; }
+        public double y { get; set; }
+        public int measurement { get; set; }
+        public double value1 { get; set; }
+        public double value2 { get; set; }
+        public double variance { get; set; }
+        public string description { get; set; }
+    
+        public virtual Measurement Measurement1 { get; set; }
     }
 }

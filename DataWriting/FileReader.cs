@@ -10,7 +10,7 @@ namespace RDB_Project.DataWriting
 {
     interface IFileReader
     {
-        void Read(BlockingCollection<List<string>> output);
+        void Read(BlockingCollection<string> output);
     }
 
     class FileReader : IFileReader
@@ -22,7 +22,7 @@ namespace RDB_Project.DataWriting
             _path = path;
         }
 
-        public void Read(BlockingCollection<List<string>> output)
+        public void Read(BlockingCollection<string> output)
         {
             try
             {
@@ -31,16 +31,9 @@ namespace RDB_Project.DataWriting
                 using (StreamReader sr = new StreamReader(bs))
                 {
                     string line;
-                    List<string> data = new List<string>();
                     while ((line = sr.ReadLine()) != null)
                     {
-                        data.Add(line);
-                        if ((data.Count % 100) == 0)
-                        {
-                            output.Add(data);
-                            data = new List<string>();
-                        }
-                        //System.Windows.MessageBox.Show("Data reader: "+line);
+                            output.Add(line);
                     }
                 }
             }

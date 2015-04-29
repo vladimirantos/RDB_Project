@@ -12,10 +12,16 @@ namespace RDB_Project
     using System;
     using System.Collections.Generic;
     
-    public partial class data2
+    public partial class MType
     {
-        public int id { get; set; }
-        public Nullable<int> value3 { get; set; }
-        public Nullable<int> value4 { get; set; }
+        public MType()
+        {
+            this.Measurements = new HashSet<Measurement>();
+        }
+    
+        public short id_mtype { get; set; }
+        public string name { get; set; }
+    
+        public virtual ICollection<Measurement> Measurements { get; set; }
     }
 }
