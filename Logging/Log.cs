@@ -63,7 +63,7 @@ namespace RDB_Project.Logging
         /// <returns></returns>
         public static List<Dblog> GetData()
         {
-            List<Dblog> data = new List<Dblog>();
+            List<Dblog> data;
             using (var entities = new DbEntities())
             {                
                 data = entities.Dblogs.ToList();

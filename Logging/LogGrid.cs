@@ -1,66 +1,73 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Diagnostics;
-using System.Data;
-using RDB_Project.DataWriting;
-using RDB_Project.Logging;
-using EntityFramework.BulkInsert.Extensions;
 using System.Reflection;
 
 namespace RDB_Project.Logging
 {
     class LogGrid:DataGrid
     {
-        private List<Dblog> data;
-        private DataGrid grid;
-        public LogGrid(List<Dblog> data)
+        private readonly List<Dblog> _data;
+        private readonly DataGrid _grid;
+        private readonly List<string> _colNamesList = new List<string>{"Akce","Tabulka","Podmínka","Ovlivněné řádky", "Čas"};
+        private LogGrid(List<Dblog> data)
         {
-            this.data = data;
-            this.grid = new DataGrid();
-            this.SetColumnNames();
+            _data = data;
+            _grid = new DataGrid();
+            SetColumnNames();
+            AddValues();
         }
 
+        /// <summary>
+        /// Nastavení sloupců DataGridu
+        /// </summary>
         private void SetColumnNames()
         {
-           PropertyInfo[] names =  data[0].GetType().GetProperties();
+            PropertyInfo[] names = _data[0].GetType().GetProperties();
+            int count = 0;
 
-           foreach (PropertyInfo prp in names)
+            foreach (PropertyInfo name in names)
             {
-                string name = prp.Name;
-                if(name != "id_log")
-                { 
-                    DataGridTextColumn c = new DataGridTextColumn();
-                    c.Header = name;
-                    c.Binding = new Binding(name);
-                    grid.Columns.Add(c);
-                }
+                if (name.Name == "id_log") continue;
+                DataGridTextColumn c = new DataGridTextColumn
+                {
+                    Header = _colNamesList[count],
+                    Binding = new Binding(name.Name)
+                };
+                _grid.Columns.Add(c);
+                count++;
             }
         }
 
-        public void AddValues()
+        /// <summary>
+        /// Přidávání hodnot do DataGridu
+        /// </summary>
+        private void AddValues()
         {
-            grid.AutoGenerateColumns = true;
-            foreach (Dblog item in data)
+            _grid.AutoGenerateColumns = true;
+            foreach (Dblog item in _data)
             {
-                grid.Items.Add(item);
+                _grid.Items.Add(item);
             }
         }
 
-        public DataGrid Grid
+        /// <summary>
+        /// Vrací DataGrid
+        /// </summary>
+        private DataGrid Grid
         {
-            get { return grid; }
+            get { return _grid; }
+        }
+
+        /// <summary>
+        /// Vytvoří DataGrid ze vstupní kolekce Dblog
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static DataGrid CreateGrid(List<Dblog> data)
+        {
+            return new LogGrid(data).Grid;
         }
     }
 }

@@ -19,6 +19,10 @@ using EntityFramework.BulkInsert.Extensions;
 
 namespace RDB_Project
 {
+    //todo - vyřešit vlákna, aby nedocházelo k zatuhnutí okna při výpisu logu atd.
+    //todo - centrování textu tlačítek - windows > 7 jsou vlevo
+    //todo - vyřešit ukládání času do databáze
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -35,17 +39,20 @@ namespace RDB_Project
             dialog.Show();
         }
 
+        /// <summary>
+        /// Výpis logu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void _Log(object sender, RoutedEventArgs e)
         {
-            LogGrid grid = new LogGrid(Log.GetData());
-            grid.AddValues();
-            Vypis.Children.Add(grid.Grid);
+            LogGrid.Children.Add(element: Logging.LogGrid.CreateGrid(Log.GetData()));
         }
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
             Log.Insert("Devices", 10);
-            Log.Select("Devices", new Dictionary<string, string>() { { "accuracy", "0.5" }, { "description", "AHOJ" } }, 50);
+            Log.Select("Devices", new Dictionary<string, string> { { "accuracy", "0.5" }, { "description", "AHOJ" } }, 50);
             MessageBox.Show("Uloženo");
         }
     }

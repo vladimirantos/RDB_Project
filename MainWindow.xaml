@@ -19,7 +19,7 @@
             </MenuItem>
         </Menu>
 
-        <Grid Name="grid" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Grid Name="SearchGrid" HorizontalAlignment="Left" VerticalAlignment="Top">
 
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -85,15 +85,7 @@
 
         </Grid>
 
-        <Grid Name="Vypis" Height="547" VerticalAlignment="Top">
-            <ListView HorizontalAlignment="center" Height="500" Width="800" VerticalAlignment="Top">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-
+        <Grid Name="LogGrid" Height="547" VerticalAlignment="Top">
         </Grid>
     </DockPanel>
 
