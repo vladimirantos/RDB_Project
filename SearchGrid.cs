@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace RDB_Project.Logging
+namespace RDB_Project
 {
-    class SearchGrid:AbstractGrid<SearchGrid>
+    class SearchGrid:AbstractGrid<SearchResult>
     {
-        private SearchGrid(List<SearchGrid> data)
+
+        private SearchGrid(List<SearchResult> data)
             : base(data)
         {
             _data = data;
@@ -25,7 +26,7 @@ namespace RDB_Project.Logging
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static DataGrid CreateGrid(List<SearchGrid> data)
+        public static DataGrid CreateGrid(List<SearchResult> data)
         {
             return new SearchGrid(data).SetColumnNames().Grid;
         }
