@@ -30,5 +30,6 @@ namespace RDB_Project
         public virtual DbSet<Measurement> Measurements { get; set; }
         public virtual DbSet<MType> MTypes { get; set; }
         public virtual DbSet<Point> Points { get; set; }
+        public virtual DbSet<Result> Results { get; set; }
     }
 }

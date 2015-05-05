@@ -13,6 +13,7 @@
         <AssociationConnector Association="db_measurementModel.fk_device" ManuallyRouted="false" />
         <AssociationConnector Association="db_measurementModel.fk_measurement" ManuallyRouted="false" />
         <AssociationConnector Association="db_measurementModel.fk_mtype" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="db_measurementModel.Result" Width="1.5" PointX="5.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

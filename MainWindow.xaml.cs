@@ -59,8 +59,9 @@ namespace RDB_Project
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-            Log.Insert("Devices");
-            MessageBox.Show("Uloženo");
+
+            /*Log.Insert("Devices");
+            MessageBox.Show("Uloženo");*/
         }
     }
 }
