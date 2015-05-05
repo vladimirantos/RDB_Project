@@ -11,12 +11,12 @@ using System.Windows.Media;
 
 namespace RDB_Project.Logging
 {
-    abstract class AbstarctGrid<T>:DataGrid
+    abstract class AbstractGrid<T>:DataGrid
     {
-        private readonly List<T> _data;
-        private readonly DataGrid _grid;
+        protected List<T> _data;
+        protected DataGrid _grid;
         protected List<string> ColNamesList { get; set; }
-        protected AbstarctGrid(List<T> data)
+        protected AbstractGrid(List<T> data)
         {
             _data = data;
             _grid = new DataGrid();
@@ -27,7 +27,7 @@ namespace RDB_Project.Logging
         /// <summary>
         /// Nastavení sloupců DataGridu
         /// </summary>
-        public virtual AbstarctGrid<T> SetColumnNames()
+        public virtual AbstractGrid<T> SetColumnNames()
         {
             try
             {

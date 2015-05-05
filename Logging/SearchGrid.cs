@@ -8,12 +8,10 @@ using System.Windows.Media;
 
 namespace RDB_Project.Logging
 {
-    class SearchGrid:AbstarctGrid<>
+    class SearchGrid:AbstractGrid<SearchGrid>
     {
-        private readonly List<Dblog> _data;
-        private readonly DataGrid _grid;
-         
-        private SearchGrid(List<> data):base(data)
+        private SearchGrid(List<SearchGrid> data)
+            : base(data)
         {
             _data = data;
             _grid = new DataGrid();
@@ -27,7 +25,7 @@ namespace RDB_Project.Logging
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static DataGrid CreateGrid(List<Dblog> data)
+        public static DataGrid CreateGrid(List<SearchGrid> data)
         {
             return new SearchGrid(data).SetColumnNames().Grid;
         }

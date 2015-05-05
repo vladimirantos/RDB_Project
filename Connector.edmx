@@ -53,6 +53,28 @@
           <Property Name="variance" Type="float" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SearchResult">
+          <Key>
+            <PropertyRef Name="date" />
+            <PropertyRef Name="x" />
+            <PropertyRef Name="y" />
+            <PropertyRef Name="value1" />
+            <PropertyRef Name="value2" />
+            <PropertyRef Name="difference" />
+            <PropertyRef Name="serialNumber" />
+            <PropertyRef Name="accuracy" />
+          </Key>
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="x" Type="float" Nullable="false" />
+          <Property Name="y" Type="float" Nullable="false" />
+          <Property Name="value1" Type="float" Nullable="false" />
+          <Property Name="value2" Type="float" Nullable="false" />
+          <Property Name="difference" Type="float" Nullable="false" />
+          <Property Name="serialNumber" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="accuracy" Type="float" Nullable="false" />
+        </EntityType>
         <Association Name="fk_device">
           <End Role="Devices" Type="Self.Devices" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -99,6 +121,18 @@
           <EntitySet Name="Measurements" EntityType="Self.Measurements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MTypes" EntityType="Self.MTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Points" EntityType="Self.Points" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SearchResult" EntityType="Self.SearchResult" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SearchResult].[date] AS [date], 
+    [SearchResult].[x] AS [x], 
+    [SearchResult].[y] AS [y], 
+    [SearchResult].[value1] AS [value1], 
+    [SearchResult].[value2] AS [value2], 
+    [SearchResult].[difference] AS [difference], 
+    [SearchResult].[serialNumber] AS [serialNumber], 
+    [SearchResult].[accuracy] AS [accuracy]
+    FROM [dbo].[SearchResult] AS [SearchResult]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="fk_device" Association="Self.fk_device">
             <End Role="Devices" EntitySet="Devices" />
             <End Role="Measurements" EntitySet="Measurements" />
@@ -171,6 +205,26 @@
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Measurement1" Relationship="Self.fk_measurement" FromRole="Points" ToRole="Measurements" />
         </EntityType>
+        <EntityType Name="SearchResult">
+          <Key>
+            <PropertyRef Name="date" />
+            <PropertyRef Name="x" />
+            <PropertyRef Name="y" />
+            <PropertyRef Name="value1" />
+            <PropertyRef Name="value2" />
+            <PropertyRef Name="difference" />
+            <PropertyRef Name="serialNumber" />
+            <PropertyRef Name="accuracy" />
+          </Key>
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="x" Type="Double" Nullable="false" />
+          <Property Name="y" Type="Double" Nullable="false" />
+          <Property Name="value1" Type="Double" Nullable="false" />
+          <Property Name="value2" Type="Double" Nullable="false" />
+          <Property Name="difference" Type="Double" Nullable="false" />
+          <Property Name="serialNumber" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="accuracy" Type="Double" Nullable="false" />
+        </EntityType>
         <Association Name="fk_device">
           <End Role="Devices" Type="Self.Device" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -217,6 +271,7 @@
           <EntitySet Name="Measurements" EntityType="Self.Measurement" />
           <EntitySet Name="MTypes" EntityType="Self.MType" />
           <EntitySet Name="Points" EntityType="Self.Point" />
+          <EntitySet Name="SearchResults" EntityType="Self.SearchResult" />
           <AssociationSet Name="fk_device" Association="Self.fk_device">
             <End Role="Devices" EntitySet="Devices" />
             <End Role="Measurements" EntitySet="Measurements" />
@@ -284,6 +339,20 @@
                 <ScalarProperty Name="value2" ColumnName="value2" />
                 <ScalarProperty Name="variance" ColumnName="variance" />
                 <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SearchResults">
+            <EntityTypeMapping TypeName="db_measurementModel.SearchResult">
+              <MappingFragment StoreEntitySet="SearchResult">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="value1" ColumnName="value1" />
+                <ScalarProperty Name="value2" ColumnName="value2" />
+                <ScalarProperty Name="difference" ColumnName="difference" />
+                <ScalarProperty Name="serialNumber" ColumnName="serialNumber" />
+                <ScalarProperty Name="accuracy" ColumnName="accuracy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -59,6 +59,14 @@ namespace RDB_Project
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
+           /* try
+            {
+                LogGrid.Children.Add(element: Logging.SearchGrid.CreateGrid());
+            }
+            catch (RdbException mes)
+            {
+                MessageBox.Show(mes.Message, "Chyba!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }*/
 
             /*Log.Insert("Devices");
             MessageBox.Show("Uloženo");*/
