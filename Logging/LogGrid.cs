@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Reflection;
+using System.Windows.Media;
 
 namespace RDB_Project.Logging
 {
@@ -17,6 +20,7 @@ namespace RDB_Project.Logging
             _grid = new DataGrid();
             SetColumnNames();
             AddValues();
+            _grid.AlternatingRowBackground = Brushes.DarkSeaGreen;
         }
 
 
