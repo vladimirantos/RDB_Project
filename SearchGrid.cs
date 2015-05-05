@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace RDB_Project.Logging
+namespace RDB_Project
 {
-    class SearchGrid:AbstarctGrid<>
+    class SearchGrid:AbstractGrid<>
     {
         private readonly List<Dblog> _data;
         private readonly DataGrid _grid;

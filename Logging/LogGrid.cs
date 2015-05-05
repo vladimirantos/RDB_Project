@@ -17,7 +17,7 @@ namespace RDB_Project.Logging
         }
     }
 
-    class LogGrid:AbstarctGrid<Dblog>
+    class LogGrid:AbstractGrid<Dblog>
     {
         private readonly List<Dblog> _data;
         private readonly DataGrid _grid;
@@ -35,7 +35,7 @@ namespace RDB_Project.Logging
         /// <summary>
         /// Nastavení sloupců DataGridu
         /// </summary>
-        public override AbstarctGrid<Dblog> SetColumnNames()
+        public override AbstractGrid<Dblog> SetColumnNames()
         {
             try
             {
