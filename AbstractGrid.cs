@@ -11,10 +11,18 @@ using System.Windows.Media;
 
 namespace RDB_Project
 {
+    internal class RdbException : ApplicationException
+    {
+        public RdbException(string message)
+            : base(message)
+        {
+        }
+    }
+
     abstract class AbstractGrid<T>:DataGrid
     {
-        private readonly List<T> _data;
-        private readonly DataGrid _grid;
+        protected List<T> _data;
+        protected DataGrid _grid;
         protected List<string> ColNamesList { get; set; }
         protected AbstractGrid(List<T> data)
         {

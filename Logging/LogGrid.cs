@@ -10,17 +10,8 @@ using System.Windows.Media;
 
 namespace RDB_Project.Logging
 {
-    internal class RdbException : ApplicationException
-    {
-        public RdbException(string message) : base(message)
-        {
-        }
-    }
-
     class LogGrid:AbstractGrid<Dblog>
     {
-        private readonly List<Dblog> _data;
-        private readonly DataGrid _grid;
          
         private LogGrid(List<Dblog> data):base(data)
         {
