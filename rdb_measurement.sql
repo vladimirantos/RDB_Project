@@ -59,4 +59,4 @@ VALUES(1, '001', 1, 'mìøení a', GETDATE()),
 (3, '002', 3, 'mìøení c', GETDATE());
 insert into Points(x, y, measurement, value1, value2, variance, description)
 values(0,0, 1, 150, 168.5, 0.5, 'nìco jsem zmìøil'),
-(10, 15, 2, 38, 68, 0.01, 'zase jsem nìco namìøil');
+(10, 15, 2, 38, 68, 0.01, 'zase jsem nìco namìøil');;
