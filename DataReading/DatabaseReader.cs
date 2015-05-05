@@ -24,7 +24,7 @@ namespace RDB_Project.DataReading
             List<SearchResult> measurements = new List<SearchResult>();
             using (DbEntities entities = new DbEntities())
             {
-                var query = from result in entities.SearchResults select result;
+                var query = from result in entities. select result;
                 return query.ToList();
             }
         }
