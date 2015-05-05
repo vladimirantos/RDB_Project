@@ -1,41 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Windows;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Reflection;
 using System.Windows.Media;
 
 namespace RDB_Project.Logging
 {
-    internal class RdbException : ApplicationException
+    abstract class AbstarctGrid<T>:DataGrid
     {
-        public RdbException(string message) : base(message)
-        {
-        }
-    }
-
-    class LogGrid:AbstarctGrid<Dblog>
-    {
-        private readonly List<Dblog> _data;
+        private readonly List<T> _data;
         private readonly DataGrid _grid;
-         
-        private LogGrid(List<Dblog> data):base(data)
+        protected List<string> ColNamesList { get; set; }
+        protected AbstarctGrid(List<T> data)
         {
             _data = data;
             _grid = new DataGrid();
             AddValues();
-            ColNamesList = new List<string> {"Akce", "Tabulka", "Čas"};
             _grid.AlternatingRowBackground = Brushes.DarkSeaGreen;
         }
-
-
+        
         /// <summary>
         /// Nastavení sloupců DataGridu
         /// </summary>
-        public override AbstarctGrid<Dblog> SetColumnNames()
+        public virtual AbstarctGrid<T> SetColumnNames()
         {
             try
             {
@@ -44,7 +36,6 @@ namespace RDB_Project.Logging
 
                 foreach (PropertyInfo name in names)
                 {
-                    if (name.Name == "id_log") continue;
                     DataGridTextColumn c = new DataGridTextColumn
                     {
                         Header = ColNamesList[count],
@@ -53,6 +44,7 @@ namespace RDB_Project.Logging
                     _grid.Columns.Add(c);
                     count++;
                 }
+
                 return this;
             }
             catch(ArgumentOutOfRangeException)
@@ -62,13 +54,23 @@ namespace RDB_Project.Logging
         }
 
         /// <summary>
-        /// Vytvoří DataGrid ze vstupní kolekce Dblog
+        /// Přidávání hodnot do DataGridu
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static DataGrid CreateGrid(List<Dblog> data)
+        protected void AddValues()
         {
-            return new LogGrid(data).SetColumnNames().Grid;
+            _grid.AutoGenerateColumns = true;
+            foreach (T item in _data)
+            {
+                _grid.Items.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Vrací DataGrid
+        /// </summary>
+        public DataGrid Grid
+        {
+            get { return _grid; }
         }
     }
 }

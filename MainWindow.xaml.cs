@@ -46,13 +46,22 @@ namespace RDB_Project
         /// <param name="e"></param>
         private void _Log(object sender, RoutedEventArgs e)
         {
-            LogGrid.Children.Add(element: Logging.LogGrid.CreateGrid(Log.GetData()));
+            try
+            {
+                LogGrid.Children.Add(element: Logging.LogGrid.CreateGrid(Log.GetData()));
+            }
+            catch (RdbException mes)
+            {
+                MessageBox.Show(mes.Message,"Chyba!",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+            
         }
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-            Log.Insert("Devices");
-            MessageBox.Show("Uloženo");
+
+            /*Log.Insert("Devices");
+            MessageBox.Show("Uloženo");*/
         }
     }
 }
