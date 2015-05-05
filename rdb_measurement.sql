@@ -45,3 +45,8 @@ create table Points(
 	constraint fk_measurement foreign key(measurement) references Measurements(idMeasurement),
 	constraint chk_variance check(variance >= 0 and variance <= 1)
 );
+
+create view Results as 
+select date, x, y, value1, value2, (value1 - value2) as difference, serialNumber, accuracy from Measurements as m
+join Devices as d on d.serialNumber = m.device
+join Points as p on p.measurement = m.idMeasurement
