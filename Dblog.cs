@@ -14,11 +14,9 @@ namespace RDB_Project
     
     public partial class Dblog
     {
-        public int id_log { get; set; }
+        public int idLog { get; set; }
         public string action { get; set; }
         public string table { get; set; }
-        public string condition { get; set; }
-        public int count_rows { get; set; }
         public Nullable<System.DateTime> time { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace RDB_Project.Logging
             AddValues();
         }
 
+
         /// <summary>
         /// Nastavení sloupců DataGridu
         /// </summary>

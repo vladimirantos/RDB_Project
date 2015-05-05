@@ -19,9 +19,9 @@ namespace RDB_Project
             this.Points = new HashSet<Point>();
         }
     
-        public int id_measurement { get; set; }
+        public int idMeasurement { get; set; }
         public string device { get; set; }
-        public short mtype { get; set; }
+        public int mtype { get; set; }
         public string description { get; set; }
         public System.DateTime date { get; set; }
     

@@ -19,7 +19,7 @@ namespace RDB_Project
             this.Measurements = new HashSet<Measurement>();
         }
     
-        public string serial_number { get; set; }
+        public string serialNumber { get; set; }
         public double accuracy { get; set; }
         public string description { get; set; }
     

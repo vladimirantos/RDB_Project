@@ -19,7 +19,7 @@ namespace RDB_Project
             this.Measurements = new HashSet<Measurement>();
         }
     
-        public short id_mtype { get; set; }
+        public int idType { get; set; }
         public string name { get; set; }
     
         public virtual ICollection<Measurement> Measurements { get; set; }
