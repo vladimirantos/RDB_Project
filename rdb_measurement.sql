@@ -46,7 +46,17 @@ create table Points(
 	constraint chk_variance check(variance >= 0 and variance <= 1)
 );
 
-create view Results as 
+create view SearchResult as 
 select date, x, y, value1, value2, (value1 - value2) as difference, serialNumber, accuracy from Measurements as m
 join Devices as d on d.serialNumber = m.device
 join Points as p on p.measurement = m.idMeasurement
+
+insert into Devices(serialNumber, accuracy, description)VALUES('001', 0.1, 'Jirka'), ('002', 0.5, 'Pristroj1'), ('003', 0.4, 'Pristroj2');
+insert into MTypes(idType, name)VALUES(1, 'mìøení 1'), (2, 'Mìøení2'), (3, 'mìøení 3');
+insert into Measurements(idMeasurement, device, mtype, description, date)
+VALUES(1, '001', 1, 'mìøení a', GETDATE()),
+(2, '001', 2, 'mìøení b', GETDATE()),
+(3, '002', 3, 'mìøení c', GETDATE());
+insert into Points(x, y, measurement, value1, value2, variance, description)
+values(0,0, 1, 150, 168.5, 0.5, 'nìco jsem zmìøil'),
+(10, 15, 2, 38, 68, 0.01, 'zase jsem nìco namìøil');
