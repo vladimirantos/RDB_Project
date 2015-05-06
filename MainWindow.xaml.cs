@@ -16,12 +16,21 @@ using System.Diagnostics;
 using RDB_Project.DataWriting;
 using RDB_Project.Logging;
 using EntityFramework.BulkInsert.Extensions;
+using RDB_Project.View;
 
 namespace RDB_Project
 {
     //todo - vyřešit vlákna, aby nedocházelo k zatuhnutí okna při výpisu logu atd.
     //todo - centrování textu tlačítek - windows > 7 jsou vlevo
     //todo - vyřešit ukládání času do databáze
+
+    internal class RdbException : ApplicationException
+    {
+        public RdbException(string message)
+            : base(message)
+        {
+        }
+    }
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml

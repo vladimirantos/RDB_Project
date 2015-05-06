@@ -9,16 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace RDB_Project
+namespace RDB_Project.View
 {
-    internal class RdbException : ApplicationException
-    {
-        public RdbException(string message)
-            : base(message)
-        {
-        }
-    }
-
     abstract class AbstractGrid<T>:DataGrid
     {
         protected List<T> _data;
