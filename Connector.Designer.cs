@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Jirka\Documents\Visual Studio 2013\Projects\RDB_Project\Connector.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Vladimír\Documents\Visual Studio 2013\Projects\RDB_Project\RDB_Project\Connector.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
