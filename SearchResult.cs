@@ -12,17 +12,15 @@ namespace RDB_Project
     using System;
     using System.Collections.Generic;
     
-    public partial class Device
+    public partial class SearchResult
     {
-        public Device()
-        {
-            this.Measurements = new HashSet<Measurement>();
-        }
-    
+        public System.DateTime date { get; set; }
+        public double x { get; set; }
+        public double y { get; set; }
+        public double value1 { get; set; }
+        public double value2 { get; set; }
+        public double difference { get; set; }
         public string serialNumber { get; set; }
         public double accuracy { get; set; }
-        public string description { get; set; }
-    
-        public virtual ICollection<Measurement> Measurements { get; set; }
     }
 }
