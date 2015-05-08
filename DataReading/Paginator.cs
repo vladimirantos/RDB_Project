@@ -10,37 +10,54 @@ namespace RDB_Project.DataReading
     {
         private int _itemsPerPage;
 
-        private int _currentPage;
-
         private int _totalRecords;
 
+        /// <summary>
+        /// Aktuální stránka
+        /// </summary>
         public int CurrentPage
         {
-            get { return _currentPage; }
-            set { _currentPage = value; }
+            get; set;
         }
 
+        /// <summary>
+        /// Celkový počet stran
+        /// </summary>
         public double TotalPages
         {
-            get{ return Math.Floor((double)_totalRecords/_itemsPerPage); }
+            get{ return Math.Floor((double)_totalRecords / _itemsPerPage); }
         }
 
-        //public double Offset
-        //{
-        //    get
-        //    {
-                
-        //    }
-        //}
+        /// <summary>
+        /// Číslo prvního záznamu na stránce
+        /// </summary>
+        public int Offset
+        {
+            get
+            {
+                double offset = Length - (_itemsPerPage - 1);
+                if(offset > _totalRecords)
+                    throw new IndexOutOfRangeException("Offset je za poslední stránkou.");
+                return (int)offset;
+            }
+        }
 
-        //public double Length
-        //{
-        //    get
-        //    {
-                
-        //    }
-        //}
+        /// <summary>
+        /// Číslo posledního záznamu na stránce
+        /// </summary>
+        public int Length
+        {
+            get
+            {
+                double length = _itemsPerPage * CurrentPage;
+                if(length > _totalRecords)
+                    throw new IndexOutOfRangeException("Délka je za poslední stránkou");
+                return (int)length;
+            }
+        }
 
+        /// <param name="itemsPerPage">Počet záznamů na stránku</param>
+        /// <param name="totalRecords">Celkový počet záznamů</param>
         public Paginator(int itemsPerPage, int totalRecords)
         {
             _itemsPerPage = itemsPerPage;
@@ -48,6 +65,12 @@ namespace RDB_Project.DataReading
             
         }
 
-
+        /// <summary>
+        /// Kontroluje jestli není aktuální stránka za poslední stránkou.
+        /// </summary>
+        public bool IsValid()
+        {
+            return CurrentPage <= TotalPages;
+        }
     }
 }

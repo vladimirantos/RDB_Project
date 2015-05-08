@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using RDB_Project.DataReading;
 using RDB_Project.DataWriting;
 using RDB_Project.Logging;
 using EntityFramework.BulkInsert.Extensions;
@@ -68,7 +69,10 @@ namespace RDB_Project
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-
+            Paginator p = new Paginator(10, 108);
+            p.CurrentPage = 11;
+                MessageBox.Show(string.Format("Záznamy od {0} do {1}\nCelkem stran: {2}", p.Offset, p.Length,
+                    p.TotalPages));
             /*Log.Insert("Devices");
             MessageBox.Show("Uloženo");*/
         }
