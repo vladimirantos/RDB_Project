@@ -14,13 +14,12 @@ namespace RDB_Project
     
     public partial class SearchResult
     {
-        public System.DateTime date { get; set; }
+        public int date { get; set; }
         public double x { get; set; }
         public double y { get; set; }
         public double value1 { get; set; }
         public double value2 { get; set; }
         public double difference { get; set; }
         public string serialNumber { get; set; }
-        public double accuracy { get; set; }
     }
 }
