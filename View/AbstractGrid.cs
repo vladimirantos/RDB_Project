@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace RDB_Project.Logging
+namespace RDB_Project.View
 {
     abstract class AbstractGrid<T>:DataGrid
     {

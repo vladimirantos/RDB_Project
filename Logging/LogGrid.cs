@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Reflection;
 using System.Windows.Media;
+using RDB_Project.View;
 
 namespace RDB_Project.Logging
 {

@@ -9,3 +9,6 @@ RDB_Project.csproj.user
 /Connector.edmx
 /Connector.edmx.diagram
 /Prdel_test.sql
+*.user
+*.suo
+*.Context.*

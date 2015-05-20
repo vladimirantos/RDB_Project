@@ -12,7 +12,7 @@ namespace RDB_Project
     using System;
     using System.Collections.Generic;
     
-    public partial class SearchResult
+    public partial class Result
     {
         public System.DateTime date { get; set; }
         public double x { get; set; }
