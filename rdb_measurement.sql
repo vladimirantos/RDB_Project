@@ -22,27 +22,27 @@ create table MTypes(
 
 create table Measurements(
 	idMeasurement int not null,
-	device varchar(40) not null,
-	mtype int not null,
+	serialNumberDevice varchar(40) not null,
+	idMtype int not null,
 	[description] varchar(30) not null,
 	unit varchar(10) not null,
 	[date] int not null,
 	constraint pk_idMeasurement primary key(idMeasurement),
-	constraint fk_device foreign key (device) references devices(serialNumber) on delete cascade,
-	constraint fk_mtype foreign key (mtype) references MTypes(idType) on delete cascade
+	constraint fk_device foreign key (serialNumberDevice) references devices(serialNumber) on delete cascade,
+	constraint fk_mtype foreign key (idMtype) references MTypes(idType) on delete cascade
 );
 
 create table Points(
 	id_point int not null,
-	measurement int not null,
+	idMeasurement int not null,
 	x float not null,
 	y float not null,
 	value1 float not null,
 	value2 float not null,
 	variance float not null,
 	description varchar(50) not null,
-	constraint pk_points primary key (id_point, measurement),
-	constraint fk_measurement foreign key(measurement) references Measurements(idMeasurement),
+	constraint pk_points primary key (id_point, idMeasurement),
+	constraint fk_measurement foreign key(idMeasurement) references Measurements(idMeasurement),
 	constraint chk_variance check(variance >= 0 and variance <= 1)
 );
 

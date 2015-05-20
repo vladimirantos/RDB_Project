@@ -25,7 +25,6 @@ namespace RDB_Project.DataWriting
                 while (enumerator.MoveNext())
                 {
                     DatabaseObjects data = enumerator.Current;
-                    ctx.BulkInsert(data.Devices);
                     ctx.BulkInsert(data.MTypes);
                     ctx.BulkInsert(data.Measurements);
                     ctx.BulkInsert(data.Points);
