@@ -6,6 +6,7 @@ create table Dblog(
 	constraint pk_id_log primary key(idLog),
 	constraint ck_action check (action='insert' OR action='update' OR action='delete' OR action='select')
 );
+
 create table Devices(
 	serialNumber varchar(40) not null,
 	accuracy float not null,
@@ -27,7 +28,7 @@ create table Measurements(
 	mtype int not null,
 	[description] varchar(30) not null,
 	unit varchar(10) not null,
-	[date] datetime not null,
+	[date] int not null,
 	constraint pk_idMeasurement primary key(idMeasurement),
 	constraint fk_device foreign key (device) references devices(serialNumber) on delete cascade,
 	constraint fk_mtype foreign key (mtype) references MTypes(idType) on delete cascade
@@ -55,7 +56,7 @@ join Points as p on p.measurement = m.idMeasurement
 insert into Devices(serialNumber, accuracy, description)VALUES('001', 0.1, 'Jirka'), ('002', 0.5, 'Pristroj1'), ('003', 0.4, 'Pristroj2');
 insert into MTypes(idType, name)VALUES(1, 'mìøení 1'), (2, 'Mìøení2'), (3, 'mìøení 3');
 insert into Measurements(idMeasurement, device, mtype, description, date)
-VALUES(1, '001', 1, 'mìøení a', GETDATE()),
+VALUES(1, '001', 1, 'mìøení a', 1432126019),
 (2, '001', 2, 'mìøení b', GETDATE()),
 (3, '002', 3, 'mìøení c', GETDATE());
 insert into Points(x, y, measurement, value1, value2, variance, description)
