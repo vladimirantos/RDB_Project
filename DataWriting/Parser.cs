@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Globalization;
+using RDB_Project.DataReading;
 
 namespace RDB_Project.DataWriting
 {
@@ -47,14 +48,14 @@ namespace RDB_Project.DataWriting
                     mType.name = items[12];
 
                     measurement.idMeasurement = _idMeasurement;
-                    measurement.device = device.serialNumber;
-                    measurement.mtype = mType.idType;
+                    measurement.serialNumberDevice = device.serialNumber;
+                    measurement.idMtype = mType.idType;
                     measurement.description = "";
                     measurement.unit = items[1];
                     measurement.date = int.Parse(items[0]);
 
                     point.id_point = int.Parse(items[2]);
-                    point.measurement = measurement.idMeasurement;
+                    point.idMeasurement = measurement.idMeasurement;
                     point.x = float.Parse(items[3], CultureInfo.InvariantCulture);
                     point.y = float.Parse(items[4], CultureInfo.InvariantCulture);
                     point.value1 = float.Parse(items[6], CultureInfo.InvariantCulture);

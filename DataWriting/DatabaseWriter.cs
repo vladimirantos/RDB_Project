@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.IO;
 using EntityFramework.BulkInsert.Extensions;
+using RDB_Project.DataReading;
 
 namespace RDB_Project.DataWriting
 {
@@ -24,11 +26,19 @@ namespace RDB_Project.DataWriting
                 IEnumerator<DatabaseObjects> enumerator = input.GetConsumingEnumerable().GetEnumerator();
                 while (enumerator.MoveNext())
                 {
-                    DatabaseObjects data = enumerator.Current;
-                    ctx.BulkInsert(data.Devices);
-                    ctx.BulkInsert(data.MTypes);
-                    ctx.BulkInsert(data.Measurements);
-                    ctx.BulkInsert(data.Points);
+                    try
+                    {
+                        DatabaseObjects data = enumerator.Current;
+                        ctx.BulkInsert(data.Devices);
+                        ctx.BulkInsert(data.MTypes);
+                        ctx.BulkInsert(data.Measurements);
+                        ctx.BulkInsert(data.Points);
+                    }
+                    catch (SqlException e)
+                    {
+                        
+                    }
+                    
                 }
                 ctx.SaveChanges();
             }

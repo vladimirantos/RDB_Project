@@ -19,7 +19,6 @@
             <PropertyRef Name="serialNumber" />
           </Key>
           <Property Name="serialNumber" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="accuracy" Type="float" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Measurements">
@@ -27,10 +26,11 @@
             <PropertyRef Name="idMeasurement" />
           </Key>
           <Property Name="idMeasurement" Type="int" Nullable="false" />
-          <Property Name="device" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="mtype" Type="int" Nullable="false" />
+          <Property Name="serialNumberDevice" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="idMtype" Type="int" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="unit" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="date" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MTypes">
           <Key>
@@ -41,13 +41,13 @@
         </EntityType>
         <EntityType Name="Points">
           <Key>
-            <PropertyRef Name="x" />
-            <PropertyRef Name="y" />
-            <PropertyRef Name="measurement" />
+            <PropertyRef Name="id_point" />
+            <PropertyRef Name="idMeasurement" />
           </Key>
+          <Property Name="id_point" Type="int" Nullable="false" />
+          <Property Name="idMeasurement" Type="int" Nullable="false" />
           <Property Name="x" Type="float" Nullable="false" />
           <Property Name="y" Type="float" Nullable="false" />
-          <Property Name="measurement" Type="int" Nullable="false" />
           <Property Name="value1" Type="float" Nullable="false" />
           <Property Name="value2" Type="float" Nullable="false" />
           <Property Name="variance" Type="float" Nullable="false" />
@@ -64,16 +64,14 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
             <PropertyRef Name="value2" />
             <PropertyRef Name="difference" />
             <PropertyRef Name="serialNumber" />
-            <PropertyRef Name="accuracy" />
           </Key>
-          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="date" Type="int" Nullable="false" />
           <Property Name="x" Type="float" Nullable="false" />
           <Property Name="y" Type="float" Nullable="false" />
           <Property Name="value1" Type="float" Nullable="false" />
           <Property Name="value2" Type="float" Nullable="false" />
           <Property Name="difference" Type="float" Nullable="false" />
           <Property Name="serialNumber" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="accuracy" Type="float" Nullable="false" />
         </EntityType>
         <Association Name="fk_device">
           <End Role="Devices" Type="Self.Devices" Multiplicity="1">
@@ -85,7 +83,7 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
               <PropertyRef Name="serialNumber" />
             </Principal>
             <Dependent Role="Measurements">
-              <PropertyRef Name="device" />
+              <PropertyRef Name="serialNumberDevice" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -97,7 +95,7 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
               <PropertyRef Name="idMeasurement" />
             </Principal>
             <Dependent Role="Points">
-              <PropertyRef Name="measurement" />
+              <PropertyRef Name="idMeasurement" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -111,7 +109,7 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
               <PropertyRef Name="idType" />
             </Principal>
             <Dependent Role="Measurements">
-              <PropertyRef Name="mtype" />
+              <PropertyRef Name="idMtype" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -129,8 +127,7 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
     [SearchResult].[value1] AS [value1], 
     [SearchResult].[value2] AS [value2], 
     [SearchResult].[difference] AS [difference], 
-    [SearchResult].[serialNumber] AS [serialNumber], 
-    [SearchResult].[accuracy] AS [accuracy]
+    [SearchResult].[serialNumber] AS [serialNumber]
     FROM [dbo].[SearchResult] AS [SearchResult]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="fk_device" Association="Self.fk_device">
@@ -165,7 +162,6 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
             <PropertyRef Name="serialNumber" />
           </Key>
           <Property Name="serialNumber" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="accuracy" Type="Double" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Measurements" Relationship="Self.fk_device" FromRole="Devices" ToRole="Measurements" />
         </EntityType>
@@ -174,13 +170,14 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
             <PropertyRef Name="idMeasurement" />
           </Key>
           <Property Name="idMeasurement" Type="Int32" Nullable="false" />
-          <Property Name="device" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="mtype" Type="Int32" Nullable="false" />
+          <Property Name="serialNumberDevice" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idMtype" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Device1" Relationship="Self.fk_device" FromRole="Measurements" ToRole="Devices" />
+          <Property Name="unit" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Device" Relationship="Self.fk_device" FromRole="Measurements" ToRole="Devices" />
           <NavigationProperty Name="Points" Relationship="Self.fk_measurement" FromRole="Measurements" ToRole="Points" />
-          <NavigationProperty Name="MType1" Relationship="Self.fk_mtype" FromRole="Measurements" ToRole="MTypes" />
+          <NavigationProperty Name="MType" Relationship="Self.fk_mtype" FromRole="Measurements" ToRole="MTypes" />
         </EntityType>
         <EntityType Name="MType">
           <Key>
@@ -192,18 +189,18 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
         </EntityType>
         <EntityType Name="Point">
           <Key>
-            <PropertyRef Name="x" />
-            <PropertyRef Name="y" />
-            <PropertyRef Name="measurement" />
+            <PropertyRef Name="id_point" />
+            <PropertyRef Name="idMeasurement" />
           </Key>
+          <Property Name="id_point" Type="Int32" Nullable="false" />
+          <Property Name="idMeasurement" Type="Int32" Nullable="false" />
           <Property Name="x" Type="Double" Nullable="false" />
           <Property Name="y" Type="Double" Nullable="false" />
-          <Property Name="measurement" Type="Int32" Nullable="false" />
           <Property Name="value1" Type="Double" Nullable="false" />
           <Property Name="value2" Type="Double" Nullable="false" />
           <Property Name="variance" Type="Double" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Measurement1" Relationship="Self.fk_measurement" FromRole="Points" ToRole="Measurements" />
+          <NavigationProperty Name="Measurement" Relationship="Self.fk_measurement" FromRole="Points" ToRole="Measurements" />
         </EntityType>
         <EntityType Name="SearchResult">
           <Key>
@@ -214,16 +211,14 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
             <PropertyRef Name="value2" />
             <PropertyRef Name="difference" />
             <PropertyRef Name="serialNumber" />
-            <PropertyRef Name="accuracy" />
           </Key>
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date" Type="Int32" Nullable="false" />
           <Property Name="x" Type="Double" Nullable="false" />
           <Property Name="y" Type="Double" Nullable="false" />
           <Property Name="value1" Type="Double" Nullable="false" />
           <Property Name="value2" Type="Double" Nullable="false" />
           <Property Name="difference" Type="Double" Nullable="false" />
           <Property Name="serialNumber" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="accuracy" Type="Double" Nullable="false" />
         </EntityType>
         <Association Name="fk_device">
           <End Role="Devices" Type="Self.Device" Multiplicity="1">
@@ -235,7 +230,7 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
               <PropertyRef Name="serialNumber" />
             </Principal>
             <Dependent Role="Measurements">
-              <PropertyRef Name="device" />
+              <PropertyRef Name="serialNumberDevice" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -247,7 +242,7 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
               <PropertyRef Name="idMeasurement" />
             </Principal>
             <Dependent Role="Points">
-              <PropertyRef Name="measurement" />
+              <PropertyRef Name="idMeasurement" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -261,7 +256,7 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
               <PropertyRef Name="idType" />
             </Principal>
             <Dependent Role="Measurements">
-              <PropertyRef Name="mtype" />
+              <PropertyRef Name="idMtype" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -305,7 +300,6 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
             <EntityTypeMapping TypeName="db_measurementModel.Device">
               <MappingFragment StoreEntitySet="Devices">
                 <ScalarProperty Name="serialNumber" ColumnName="serialNumber" />
-                <ScalarProperty Name="accuracy" ColumnName="accuracy" />
                 <ScalarProperty Name="description" ColumnName="description" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -314,9 +308,10 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
             <EntityTypeMapping TypeName="db_measurementModel.Measurement">
               <MappingFragment StoreEntitySet="Measurements">
                 <ScalarProperty Name="idMeasurement" ColumnName="idMeasurement" />
-                <ScalarProperty Name="device" ColumnName="device" />
-                <ScalarProperty Name="mtype" ColumnName="mtype" />
+                <ScalarProperty Name="serialNumberDevice" ColumnName="serialNumberDevice" />
+                <ScalarProperty Name="idMtype" ColumnName="idMtype" />
                 <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
                 <ScalarProperty Name="date" ColumnName="date" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -332,9 +327,10 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
           <EntitySetMapping Name="Points">
             <EntityTypeMapping TypeName="db_measurementModel.Point">
               <MappingFragment StoreEntitySet="Points">
+                <ScalarProperty Name="id_point" ColumnName="id_point" />
+                <ScalarProperty Name="idMeasurement" ColumnName="idMeasurement" />
                 <ScalarProperty Name="x" ColumnName="x" />
                 <ScalarProperty Name="y" ColumnName="y" />
-                <ScalarProperty Name="measurement" ColumnName="measurement" />
                 <ScalarProperty Name="value1" ColumnName="value1" />
                 <ScalarProperty Name="value2" ColumnName="value2" />
                 <ScalarProperty Name="variance" ColumnName="variance" />
@@ -352,7 +348,6 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
                 <ScalarProperty Name="value2" ColumnName="value2" />
                 <ScalarProperty Name="difference" ColumnName="difference" />
                 <ScalarProperty Name="serialNumber" ColumnName="serialNumber" />
-                <ScalarProperty Name="accuracy" ColumnName="accuracy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
