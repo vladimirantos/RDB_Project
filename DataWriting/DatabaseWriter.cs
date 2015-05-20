@@ -21,15 +21,16 @@ namespace RDB_Project.DataWriting
         {
             using (var ctx = new DbEntities())
             {
-                /*IEnumerator<DatabaseObjects> enumerator = input.GetConsumingEnumerable().GetEnumerator();
+                IEnumerator<DatabaseObjects> enumerator = input.GetConsumingEnumerable().GetEnumerator();
                 while (enumerator.MoveNext())
                 {
                     DatabaseObjects data = enumerator.Current;
-                    //ctx.BulkInsert(data.Data1);
-                    //ctx.BulkInsert(data.Data2);
-                    //ctx.BulkInsert(data.Data3);
+                    ctx.BulkInsert(data.Devices);
+                    ctx.BulkInsert(data.MTypes);
+                    ctx.BulkInsert(data.Measurements);
+                    ctx.BulkInsert(data.Points);
                 }
-                ctx.SaveChanges();*/
+                ctx.SaveChanges();
             }
         }
     }

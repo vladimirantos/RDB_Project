@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +42,7 @@ namespace RDB_Project
         public MainWindow()
         {
             InitializeComponent();
+            //new NumberFormatInfo() { NumberDecimalSeparator = ".", NumberDecimalDigits = 3 },
         }
 
         private void _Add(object sender, RoutedEventArgs e)

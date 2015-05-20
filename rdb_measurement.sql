@@ -9,10 +9,8 @@ create table Dblog(
 
 create table Devices(
 	serialNumber varchar(40) not null,
-	accuracy float not null,
 	description varchar(50) not null,
-	constraint pk_serialNumber primary key (serialNumber),
-	constraint chk_accuracy check (accuracy >= 0 AND accuracy <= 1)
+	constraint pk_serialNumber primary key (serialNumber)
 );
 
 create table MTypes(
@@ -27,21 +25,23 @@ create table Measurements(
 	device varchar(40) not null,
 	mtype int not null,
 	[description] varchar(30) not null,
-	[date] datetime not null,
+	unit varchar(10) not null,
+	[date] int not null,
 	constraint pk_idMeasurement primary key(idMeasurement),
 	constraint fk_device foreign key (device) references devices(serialNumber) on delete cascade,
 	constraint fk_mtype foreign key (mtype) references MTypes(idType) on delete cascade
 );
 
 create table Points(
+	id_point int not null,
+	measurement int not null,
 	x float not null,
 	y float not null,
-	measurement int not null,
 	value1 float not null,
 	value2 float not null,
 	variance float not null,
 	description varchar(50) not null,
-	constraint pk_points primary key (x, y, measurement),
+	constraint pk_points primary key (id_point, measurement),
 	constraint fk_measurement foreign key(measurement) references Measurements(idMeasurement),
 	constraint chk_variance check(variance >= 0 and variance <= 1)
 );
@@ -54,7 +54,7 @@ join Points as p on p.measurement = m.idMeasurement
 insert into Devices(serialNumber, accuracy, description)VALUES('001', 0.1, 'Jirka'), ('002', 0.5, 'Pristroj1'), ('003', 0.4, 'Pristroj2');
 insert into MTypes(idType, name)VALUES(1, 'mìøení 1'), (2, 'Mìøení2'), (3, 'mìøení 3');
 insert into Measurements(idMeasurement, device, mtype, description, date)
-VALUES(1, '001', 1, 'mìøení a', GETDATE()),
+VALUES(1, '001', 1, 'mìøení a', 1432126019),
 (2, '001', 2, 'mìøení b', GETDATE()),
 (3, '002', 3, 'mìøení c', GETDATE());
 insert into Points(x, y, measurement, value1, value2, variance, description)
