@@ -34,7 +34,7 @@ namespace RDB_Project.DataWriting
         {
             return new DataWriteFactory(
                 new FileReader(path), 
-                new Parser(bufferSize), 
+                new StringParser(bufferSize), 
                 new DatabaseWriter()) { BufferSize = bufferSize};
         }
 

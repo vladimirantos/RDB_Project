@@ -9,10 +9,8 @@ create table Dblog(
 
 create table Devices(
 	serialNumber varchar(40) not null,
-	accuracy float not null,
 	description varchar(50) not null,
-	constraint pk_serialNumber primary key (serialNumber),
-	constraint chk_accuracy check (accuracy >= 0 AND accuracy <= 1)
+	constraint pk_serialNumber primary key (serialNumber)
 );
 
 create table MTypes(

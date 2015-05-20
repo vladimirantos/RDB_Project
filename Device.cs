@@ -20,7 +20,6 @@ namespace RDB_Project
         }
     
         public string serialNumber { get; set; }
-        public double accuracy { get; set; }
         public string description { get; set; }
     
         public virtual ICollection<Measurement> Measurements { get; set; }
