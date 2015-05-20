@@ -14,14 +14,15 @@ namespace RDB_Project
     
     public partial class Point
     {
+        public int id_point { get; set; }
+        public int idMeasurement { get; set; }
         public double x { get; set; }
         public double y { get; set; }
-        public int measurement { get; set; }
         public double value1 { get; set; }
         public double value2 { get; set; }
         public double variance { get; set; }
         public string description { get; set; }
     
-        public virtual Measurement Measurement1 { get; set; }
+        public virtual Measurement Measurement { get; set; }
     }
 }
