@@ -27,6 +27,7 @@ create table Measurements(
 	device varchar(40) not null,
 	mtype int not null,
 	[description] varchar(30) not null,
+	unit varchar(10) not null,
 	[date] datetime not null,
 	constraint pk_idMeasurement primary key(idMeasurement),
 	constraint fk_device foreign key (device) references devices(serialNumber) on delete cascade,
@@ -34,14 +35,15 @@ create table Measurements(
 );
 
 create table Points(
+	id_point int not null,
+	measurement int not null,
 	x float not null,
 	y float not null,
-	measurement int not null,
 	value1 float not null,
 	value2 float not null,
 	variance float not null,
 	description varchar(50) not null,
-	constraint pk_points primary key (x, y, measurement),
+	constraint pk_points primary key (id_point, measurement),
 	constraint fk_measurement foreign key(measurement) references Measurements(idMeasurement),
 	constraint chk_variance check(variance >= 0 and variance <= 1)
 );
