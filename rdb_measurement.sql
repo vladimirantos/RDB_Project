@@ -6,7 +6,6 @@ create table Dblog(
 	constraint pk_id_log primary key(idLog),
 	constraint ck_action check (action='insert' OR action='update' OR action='delete' OR action='select')
 );
-
 create table Devices(
 	serialNumber varchar(40) not null,
 	accuracy float not null,
