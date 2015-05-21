@@ -4,15 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1d456d2349d843cd84bf42841b841d0c" Name="Diagram1">
+      <Diagram DiagramId="5f3996cbaee24c1da3e982d3124e2003" Name="Diagram1">
         <EntityTypeShape EntityType="rdb_measurementModel.Dblog" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="rdb_measurementModel.Device" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="rdb_measurementModel.Device" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="rdb_measurementModel.Measurement" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="rdb_measurementModel.MType" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="rdb_measurementModel.Point" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="rdb_measurementModel.SearchResult" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="rdb_measurementModel.MType" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="rdb_measurementModel.Point" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="rdb_measurementModel.SearchResult" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="rdb_measurementModel.fk_device" ManuallyRouted="false" />
-        <AssociationConnector Association="rdb_measurementModel.fk_measurement" ManuallyRouted="false" />
         <AssociationConnector Association="rdb_measurementModel.fk_mtype" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

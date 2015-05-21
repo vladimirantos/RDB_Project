@@ -14,20 +14,14 @@ namespace RDB_Project
     
     public partial class Measurement
     {
-        public Measurement()
-        {
-            this.Points = new HashSet<Point>();
-        }
-    
         public int idMeasurement { get; set; }
         public string serialNumberDevice { get; set; }
         public int idMtype { get; set; }
         public string description { get; set; }
         public string unit { get; set; }
-        public int date { get; set; }
+        public System.DateTime date { get; set; }
     
         public virtual Device Device { get; set; }
-        public virtual ICollection<Point> Points { get; set; }
         public virtual MType MType { get; set; }
     }
 }
