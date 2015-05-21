@@ -78,5 +78,10 @@ namespace RDB_Project
             /*Log.Insert("Devices");
             MessageBox.Show("Uloženo");*/
         }
+
+        private void btn_test_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
