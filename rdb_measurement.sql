@@ -26,7 +26,7 @@ create table Measurements(
 	idMtype int not null,
 	[description] varchar(30) not null,
 	unit varchar(10) not null,
-	[date] int not null,
+	[date] datetime2 not null,
 	constraint pk_idMeasurement primary key(idMeasurement),
 	constraint fk_device foreign key (serialNumberDevice) references devices(serialNumber) on delete cascade,
 	constraint fk_mtype foreign key (idMtype) references MTypes(idType) on delete cascade

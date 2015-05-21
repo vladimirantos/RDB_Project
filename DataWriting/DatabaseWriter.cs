@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +26,37 @@ namespace RDB_Project.DataWriting
                 while (enumerator.MoveNext())
                 {
                     DatabaseObjects data = enumerator.Current;
-                    ctx.BulkInsert(data.MTypes);
-                    ctx.BulkInsert(data.Measurements);
-                    ctx.BulkInsert(data.Points);
+                    try
+                    {
+                        ctx.BulkInsert(data.Devices);
+                    }
+                    catch (SqlException ex)
+                    {
+                    }
+                    try
+                    {
+                        ctx.BulkInsert(data.MTypes);
+                    }
+                    catch (SqlException ex)
+                    {
+                    }
+
+                    try
+                    {
+                        ctx.BulkInsert(data.Measurements);
+                    }
+                    catch (SqlException ex)
+                    {
+                    }
+                    try
+                    {
+                        ctx.BulkInsert(data.Points);
+                    }
+                    catch (SqlException ex)
+                    {
+                        
+                    }
+                    
                 }
                 ctx.SaveChanges();
             }
