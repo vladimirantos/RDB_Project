@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.IO;
 using EntityFramework.BulkInsert.Extensions;
-using RDB_Project.DataReading;
 
 namespace RDB_Project.DataWriting
 {
@@ -26,15 +25,34 @@ namespace RDB_Project.DataWriting
                 IEnumerator<DatabaseObjects> enumerator = input.GetConsumingEnumerable().GetEnumerator();
                 while (enumerator.MoveNext())
                 {
+                    DatabaseObjects data = enumerator.Current;
                     try
                     {
-                        DatabaseObjects data = enumerator.Current;
                         ctx.BulkInsert(data.Devices);
+                    }
+                    catch (SqlException ex)
+                    {
+                    }
+                    try
+                    {
                         ctx.BulkInsert(data.MTypes);
+                    }
+                    catch (SqlException ex)
+                    {
+                    }
+
+                    try
+                    {
                         ctx.BulkInsert(data.Measurements);
+                    }
+                    catch (SqlException ex)
+                    {
+                    }
+                    try
+                    {
                         ctx.BulkInsert(data.Points);
                     }
-                    catch (SqlException e)
+                    catch (SqlException ex)
                     {
                         
                     }

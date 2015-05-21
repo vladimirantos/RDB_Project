@@ -55,7 +55,11 @@ namespace RDB_Project.DataWriting
                     measurement.date = int.Parse(items[0]);
 
                     point.id_point = int.Parse(items[2]);
+<<<<<<< HEAD
                     point.idMeasurement = measurement.idMeasurement;
+=======
+                    point.id_point = measurement.idMeasurement;
+>>>>>>> b1419d96909f898cc2d2f557dda09b2de6ed0afe
                     point.x = float.Parse(items[3], CultureInfo.InvariantCulture);
                     point.y = float.Parse(items[4], CultureInfo.InvariantCulture);
                     point.value1 = float.Parse(items[6], CultureInfo.InvariantCulture);
