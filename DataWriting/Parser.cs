@@ -19,6 +19,9 @@ namespace RDB_Project.DataWriting
         private static int _idMeasurement = 1;
         private int _bufferSize;
 
+        private List<Device> _existingDevices = new List<Device>(); //zařízení která už jsou v databázi
+        private List<MType> _existingMTypes = new List<MType>(); 
+
         public StringParser(int bufferSize)
         {
             _bufferSize = bufferSize;
@@ -51,7 +54,7 @@ namespace RDB_Project.DataWriting
                     measurement.idMtype = mType.idType;
                     measurement.description = "";
                     measurement.unit = items[1];
-                    measurement.date = int.Parse(items[0]);
+                   // measurement.date = int.Parse(items[0]);
 
                     point.id_point = int.Parse(items[2]);
                     point.id_point = measurement.idMeasurement;
