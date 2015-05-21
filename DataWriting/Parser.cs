@@ -54,7 +54,7 @@ namespace RDB_Project.DataWriting
                     measurement.idMtype = mType.idType;
                     measurement.description = "";
                     measurement.unit = items[1];
-                   // measurement.date = int.Parse(items[0]);
+                    //measurement.date = DateTimeOffset.UtcNow
 
                     point.id_point = int.Parse(items[2]);
                     point.id_point = measurement.idMeasurement;
