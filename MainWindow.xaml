@@ -108,8 +108,8 @@
         <Grid Name="MainGrid" Height="518" VerticalAlignment="Top" Width="806">
         </Grid>
             <StackPanel Orientation="Horizontal">
-                <Button Content="Předchozí" Height="20" Width="76" Name="buttonBack" VerticalAlignment="Bottom" Margin="310,0,0,0"/>
-                <Button Content="Další" Height="20" Width="76" Name="buttonNext" VerticalAlignment="Bottom" Margin="10,0,0,0"/>
+                <Button Content="Předchozí" Height="20" Width="76" Name="buttonBack" VerticalAlignment="Bottom" Margin="310,0,0,0" Click="buttonBack_Click"/>
+                <Button Content="Další" Height="20" Width="76" Name="buttonNext" VerticalAlignment="Bottom" Margin="10,0,0,0" Click="buttonNext_Click"/>
             </StackPanel>
         </StackPanel>
     </DockPanel>

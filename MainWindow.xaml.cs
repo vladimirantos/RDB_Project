@@ -41,7 +41,8 @@ namespace RDB_Project
         public MainWindow()
         {
             InitializeComponent();
-            //new NumberFormatInfo() { NumberDecimalSeparator = ".", NumberDecimalDigits = 3 },
+            buttonNext.Visibility = Visibility.Hidden;
+            buttonBack.Visibility = Visibility.Hidden;
         }
 
         private void _Add(object sender, RoutedEventArgs e)
@@ -115,7 +116,8 @@ namespace RDB_Project
                 MainGrid.Children.Clear();
                 MessageBox.Show(v.Message);
             }
-            
+            buttonNext.Visibility = Visibility.Visible;
+            buttonBack.Visibility = Visibility.Visible;
         }
         private void btn_test_Click(object sender, RoutedEventArgs e)
         {
@@ -130,6 +132,16 @@ namespace RDB_Project
             mType2.name = "A";
 
             MessageBox.Show(mTypes.Contains(mType2).ToString());
+        }
+
+        private void buttonNext_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void buttonBack_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
