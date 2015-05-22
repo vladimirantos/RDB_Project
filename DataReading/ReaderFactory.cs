@@ -12,6 +12,8 @@ namespace RDB_Project.DataReading
 
         private Paginator _paginator;
 
+        public IEnumerable<SearchResult> Results { get; private set; }  
+
         public ReaderFactory(ISearching searcher, Paginator paginator)
         {
             _searcher = searcher;
@@ -20,7 +22,8 @@ namespace RDB_Project.DataReading
 
         public IEnumerable<SearchResult> GetResults()
         {
-            return _searcher.Search().Skip(_paginator.Offset).Take(_paginator.Length);
+            Results = _searcher.Search();
+            return Results.Skip(_paginator.Offset).Take(_paginator.Length);
         }
 
         public static ReaderFactory CreateFactory(SearchInput searchArgument, int itemsPerPage)
