@@ -79,16 +79,27 @@ namespace RDB_Project
             MessageBox.Show("Uloženo");*/
             /////////////////////////////////////////////////////////////
             SearchResult argumentsResult = new SearchResult();
-            /*argumentsResult.dateFrom = dateFrom.SelectedDate.Value;
+            argumentsResult.dateFrom = dateFrom.SelectedDate.Value;
             argumentsResult.dateTo = dateTo.SelectedDate.Value;
-            argumentsResult.x = double.Parse(placeX.Text);
-            argumentsResult.y = double.Parse(placeY.Text);
+
+            double x;
+            double.TryParse(placeX.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out x);
+            if (x != 0)
+            {
+                argumentsResult.x = x;
+            }
+
+            double y;
+            double.TryParse(placeX.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out y);
+            if (y != 0)
+            {
+                argumentsResult.y = y;
+            }
             argumentsResult.difference = double.Parse(variance.Text);
-            argumentsResult.serialNumber = device.Text;*/
+            argumentsResult.serialNumber = device.Text;
 
             DatabaseReader reader = new DatabaseReader(argumentsResult);
-            reader.Search();
-            //MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(reader.Search()));
+            MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(reader.Search().ToList()));
         }
         private void btn_test_Click(object sender, RoutedEventArgs e)
         {
