@@ -21,24 +21,37 @@ namespace RDB_Project.DataWriting
     {
         public void Write(BlockingCollection<DatabaseObjects> input)
         {
+           // MessageBox.Show(input.GetConsumingEnumerable().Count().ToString());
             using (var ctx = new DbEntities())
             {
-                IEnumerator<DatabaseObjects> enumerator = input.GetConsumingEnumerable().GetEnumerator();
-                while (enumerator.MoveNext())
+                foreach (DatabaseObjects data in input.GetConsumingEnumerable())
                 {
-                    DatabaseObjects data = enumerator.Current;
                     foreach (Device device in data.Devices)
                     {
-                        MessageBox.Show(device.serialNumber);
+                        MessageBox.Show("Writer: " + device);
                     }
-                    //    ctx.BulkInsert(data.Devices);
-                    //    ctx.BulkInsert(data.MTypes);
-                    //    ctx.BulkInsert(data.Measurements);
-                    //    ctx.BulkInsert(data.Points);
-
-
-
+                    ctx.BulkInsert(data.Devices);
+                    ctx.BulkInsert(data.MTypes);
+                    ctx.BulkInsert(data.Measurements);
+                    ctx.BulkInsert(data.Points);
+                    
                 }
+                //IEnumerator<DatabaseObjects> enumerator = input.GetConsumingEnumerable().GetEnumerator();
+                //while (enumerator.MoveNext())
+                //{
+                //    DatabaseObjects data = enumerator.Current;
+                //    foreach (Device device in data.Devices)
+                //    {
+                //        MessageBox.Show(device.serialNumber);
+                //    }
+                //    //    ctx.BulkInsert(data.Devices);
+                //    //    ctx.BulkInsert(data.MTypes);
+                //    //    ctx.BulkInsert(data.Measurements);
+                //    //    ctx.BulkInsert(data.Points);
+
+
+
+                //}
                 ctx.SaveChanges();
             }
         }

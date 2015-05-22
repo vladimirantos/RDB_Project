@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Globalization;
+using System.Windows;
+using System.Windows.Shapes;
 
 namespace RDB_Project.DataWriting
 {
@@ -12,16 +14,12 @@ namespace RDB_Project.DataWriting
 
     class StringParser : IParser
     {
-        private List<Device> _devices = new List<Device>();
-        private List<Measurement> _measurements = new List<Measurement>();
-        List<MType> _mTypes = new List<MType>();
-        private List<Point> _points = new List<Point>();
+
         private static int _idMeasurement = 1;
         private int _bufferSize;
 
-        private List<Device> _existingDevices = new List<Device>(); //zařízení která už jsou v databázi
-        private List<MType> _existingMTypes = new List<MType>(); 
-
+        private Dictionary<int, string> _existingMTypes = new Dictionary<int, string>(); 
+        private Dictionary<string, string> _existingDevices = new Dictionary<string, string>(); 
         public StringParser(int bufferSize)
         {
             _bufferSize = bufferSize;
@@ -31,31 +29,48 @@ namespace RDB_Project.DataWriting
         {
             try
             {
-                IEnumerator<string> enumerator = input.GetConsumingEnumerable().GetEnumerator();
-                DatabaseObjects databaseObjects = new DatabaseObjects();
-                while (enumerator.MoveNext())
-                {
-                    string line = enumerator.Current;
-                    string[] items = line.Split(';');
+                List<Device> devices = new List<Device>();
+                List<Measurement> measurements = new List<Measurement>();
+                List<MType> mTypes = new List<MType>();
+                List<Point> points = new List<Point>();
 
+              //  IEnumerator<string> enumerator = input.GetConsumingEnumerable().GetEnumerator();
+                DatabaseObjects databaseObjects = new DatabaseObjects();
+                foreach (string s in input.GetConsumingEnumerable())
+                {
+                    string line = s;
+                    string[] items = line.Split(';');
+                    
                     Device device = new Device();
-                    Measurement measurement = new Measurement();
                     MType mType = new MType();
+                    Measurement measurement = new Measurement();
                     Point point = new Point();
 
                     device.serialNumber = items[9];
                     device.description = items[10];
-
+                    if (!_existingDevices.ContainsKey(device.serialNumber))
+                    {
+                        _existingDevices.Add(device.serialNumber, device.description);
+                        devices.Add(device); 
+                    }
+                    
+                    
                     mType.idType = int.Parse(items[11]);
                     mType.name = items[12];
-
+                    if (!_existingMTypes.ContainsKey(mType.idType))
+                    {
+                        mTypes.Add(mType);
+                        _existingMTypes.Add(mType.idType, mType.name);
+                    }
+                    
                     measurement.idMeasurement = _idMeasurement;
                     measurement.serialNumberDevice = device.serialNumber;
                     measurement.idMtype = mType.idType;
                     measurement.description = "";
                     measurement.unit = items[1];
                     measurement.date = timestampToDateTime(items[0]);
-
+                    measurements.Add(measurement);
+                    
                     point.id_point = int.Parse(items[2]);
                     point.idMeasurement = measurement.idMeasurement;
                     point.x = float.Parse(items[3], CultureInfo.InvariantCulture);
@@ -64,51 +79,44 @@ namespace RDB_Project.DataWriting
                     point.value2 = float.Parse(items[7], CultureInfo.InvariantCulture);
                     point.variance = float.Parse(items[8], CultureInfo.InvariantCulture);
                     point.description = items[5];
+                    points.Add(point);
 
-                    if (!_existingDevices.Contains(device))
+                    if (_idMeasurement % _bufferSize == 0)
                     {
-                        _existingDevices.Add(device);
-                        _devices.Add(device);
-                    }
+                        databaseObjects.Devices = new List<Device>(devices);
+                        databaseObjects.MTypes = new List<MType>(mTypes);
+                        databaseObjects.Measurements = new List<Measurement>(measurements);
+                        databaseObjects.Points = new List<Point>(points);
 
-                    _measurements.Add(measurement);
-
-                    if (!_existingMTypes.Contains(mType))
-                    {
-                        _existingMTypes.Add(mType);
-                        _mTypes.Add(mType);
-                    }
-                    
-                    _points.Add(point);
-                    
-                    if ((_measurements.Count % _bufferSize) == 0) //vyprázdnění
-                    {
-                        databaseObjects.Devices = new List<Device>(_devices);
-                        databaseObjects.Measurements = new List<Measurement>(_measurements);
-                        databaseObjects.MTypes = new List<MType>(_mTypes);
-                        databaseObjects.Points = new List<Point>(_points);
+                        foreach (Device device1 in databaseObjects.Devices)
+                        {
+                            MessageBox.Show("Parser dev: " + device1.ToString());
+                        }
+                        devices = new List<Device>();
+                        mTypes = new List<MType>();
+                        measurements = new List<Measurement>();
+                        points = new List<Point>();
                         output.Add(databaseObjects);
-
-                        _devices = new List<Device>();
-                        _measurements = new List<Measurement>();
-                        _mTypes = new List<MType>();
-                        _points = new List<Point>();
-                    }
-
-                    if (_measurements.Count > 0)
-                    {
-                        databaseObjects.Devices = new List<Device>(_devices);
-                        databaseObjects.Measurements = new List<Measurement>(_measurements);
-                        databaseObjects.MTypes = new List<MType>(_mTypes);
-                        databaseObjects.Points = new List<Point>(_points);
-                        output.Add(databaseObjects);
-
-                        _devices = new List<Device>();
-                        _measurements = new List<Measurement>();
-                        _mTypes = new List<MType>();
-                        _points = new List<Point>();
                     }
                     _idMeasurement++;
+                }
+                if (devices.Count > 0)
+                {
+                    databaseObjects.Devices = new List<Device>(devices);
+                    databaseObjects.MTypes = new List<MType>(mTypes);
+                    databaseObjects.Measurements = new List<Measurement>(measurements);
+                    databaseObjects.Points = new List<Point>(points);
+                    foreach (Device device1 in databaseObjects.Devices)
+                    {
+                        MessageBox.Show("END dev: " + device1.ToString());
+                    }
+                    
+
+                    devices = new List<Device>();
+                    mTypes = new List<MType>();
+                    measurements = new List<Measurement>();
+                    points = new List<Point>();
+                    output.Add(databaseObjects);
                 }
             }
             finally

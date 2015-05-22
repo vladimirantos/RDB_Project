@@ -23,5 +23,10 @@ namespace RDB_Project
         public string description { get; set; }
     
         public virtual ICollection<Measurement> Measurements { get; set; }
+
+        public override string ToString()
+        {
+            return serialNumber + ": " + description;
+        }
     }
 }

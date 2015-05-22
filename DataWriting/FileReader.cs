@@ -33,6 +33,7 @@ namespace RDB_Project.DataWriting
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
+                        if(line != "")
                             output.Add(line);
                     }
                 }

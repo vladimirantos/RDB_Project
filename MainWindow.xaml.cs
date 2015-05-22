@@ -81,9 +81,17 @@ namespace RDB_Project
 
         private void test_Click(object sender, RoutedEventArgs e)
         {
-            System.DateTime dateTime = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
-            dateTime = dateTime.AddSeconds(1432126015);
-            MessageBox.Show(dateTime.ToString());
+            List<MType> mTypes = new List<MType>();
+            MType mType = new MType();
+            mType.idType = 1;
+            mType.name = "A";
+            mTypes.Add(mType);
+
+            MType mType2 = new MType();
+            mType2.idType = 1;
+            mType2.name = "A";
+
+            MessageBox.Show(mTypes.Contains(mType2).ToString());
         }
     }
 }
