@@ -40,7 +40,7 @@ namespace RDB_Project.DataReading
         /// <returns></returns>
         public List<SearchResult> Search() {  return _results.ToList(); }
 
-        private IQueryable<SearchResult> Query()
+        private IQueryable<SearchResult> Query() // --- vypis zadanych boxu z databaze, zjistit limit pro zaznamy, data strkat do searchResult, vysledek davat do vlastnosti
         {
             using (DbEntities entities = new DbEntities())
             {
