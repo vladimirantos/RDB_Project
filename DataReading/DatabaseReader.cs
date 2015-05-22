@@ -45,6 +45,7 @@ namespace RDB_Project.DataReading
         {
             using (DbEntities entities = new DbEntities())
             {
+                // ------------------
                /* var r =
                     entities.SearchResults.Where(
                         x => x.dateFrom == _arguments.dateFrom && x.difference == _arguments.difference &&
