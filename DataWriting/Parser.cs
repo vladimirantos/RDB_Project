@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Globalization;
+using RDB_Project.DataReading;
 using System.Windows;
 using System.Windows.Shapes;
 
@@ -72,6 +73,7 @@ namespace RDB_Project.DataWriting
                     
                     point.id_point = int.Parse(items[2]);
                     point.idMeasurement = measurement.idMeasurement;
+                    point.id_point = measurement.idMeasurement;
                     point.x = float.Parse(items[3], CultureInfo.InvariantCulture);
                     point.y = float.Parse(items[4], CultureInfo.InvariantCulture);
                     point.value1 = float.Parse(items[6], CultureInfo.InvariantCulture);

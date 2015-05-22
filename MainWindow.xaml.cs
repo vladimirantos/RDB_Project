@@ -60,7 +60,7 @@ namespace RDB_Project
         {
             try
             {
-                LogGrid.Children.Add(element: Logging.LogGrid.CreateGrid(Log.GetData()));
+                MainGrid.Children.Add(element: Logging.LogGrid.CreateGrid(Log.GetData()));
             }
             catch (RdbException mes)
             {
@@ -71,15 +71,26 @@ namespace RDB_Project
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-            Paginator p = new Paginator(10, 108);
+            /*Paginator p = new Paginator(10, 108);
             p.CurrentPage = 11;
                 MessageBox.Show(string.Format("Záznamy od {0} do {1}\nCelkem stran: {2}", p.Offset, p.Length,
-                    p.TotalPages));
+                    p.TotalPages));*/
             /*Log.Insert("Devices");
             MessageBox.Show("Uloženo");*/
-        }
+            /////////////////////////////////////////////////////////////
+            SearchResult argumentsResult = new SearchResult();
+            argumentsResult.dateFrom = dateFrom.SelectedDate.Value;
+            argumentsResult.dateTo = dateTo.SelectedDate.Value;
+            argumentsResult.x = double.Parse(placeX.Text);
+            argumentsResult.y = double.Parse(placeY.Text);
+            argumentsResult.difference = double.Parse(variance.Text);
+            argumentsResult.serialNumber = device.Text;
 
-        private void test_Click(object sender, RoutedEventArgs e)
+            DatabaseReader reader = new DatabaseReader(argumentsResult);
+
+            MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(reader.Search()));
+        }
+        private void btn_test_Click(object sender, RoutedEventArgs e)
         {
             List<MType> mTypes = new List<MType>();
             MType mType = new MType();
