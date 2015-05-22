@@ -78,10 +78,19 @@ namespace RDB_Project
             /*Log.Insert("Devices");
             MessageBox.Show("Uloženo");*/
         }
-
         private void btn_test_Click(object sender, RoutedEventArgs e)
         {
+            List<MType> mTypes = new List<MType>();
+            MType mType = new MType();
+            mType.idType = 1;
+            mType.name = "A";
+            mTypes.Add(mType);
 
+            MType mType2 = new MType();
+            mType2.idType = 1;
+            mType2.name = "A";
+
+            MessageBox.Show(mTypes.Contains(mType2).ToString());
         }
     }
 }

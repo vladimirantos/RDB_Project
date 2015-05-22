@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 bin/*
 obj/*
 Properties/*
@@ -15,3 +16,21 @@ RDB_Project.csproj.user
 Connector.edmx
 Connector.edmx
 Connector.edmx.diagram
+=======
+bin/*
+obj/*
+Properties/*
+Resources/*
+App.config
+RDB_Project.csproj
+RDB_Project.csproj.user
+/RDB_Project.csproj.user.orig
+/Connector.edmx
+/Connector.edmx.diagram
+/Prdel_test.sql
+*.user
+*.suo
+*.Context.*
+Connector.edmx.diagram
+Connector.edmx
+>>>>>>> 6e0eaffec0b9bac5983bbe2043ed6691081a0a98
