@@ -19,7 +19,7 @@ namespace RDB_Project.DataReading
     class DatabaseReader : ISearching
     {
 
-        private SearchResult _arguments;
+        private SearchInput _arguments;
 
         private IEnumerable<SearchResult> _results;
 
@@ -29,7 +29,7 @@ namespace RDB_Project.DataReading
         }
 
         /// <param name="arguments">Hodnoty podle kterých se bude vyhledávat</param>
-        public DatabaseReader(SearchResult arguments)
+        public DatabaseReader(SearchInput arguments)
         {
             _arguments = arguments;
             _results = Query();
@@ -48,6 +48,11 @@ namespace RDB_Project.DataReading
         {
             using (var entities = new DbEntities())
             {
+
+                DateTime from = _arguments.DateTimeTo;
+                DateTime to = _arguments.DateTimeTo;
+                SearchResult searchResult = _arguments as SearchResult;
+
                /* var r =
                     entities.SearchResults.Where(
                         x => x.dateFrom == _arguments.dateFrom && x.difference == _arguments.difference &&

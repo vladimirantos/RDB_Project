@@ -23,7 +23,7 @@ namespace RDB_Project.DataReading
             return _searcher.Search().Skip(_paginator.Offset).Take(_paginator.Length);
         }
 
-        public static ReaderFactory CreateFactory(SearchResult searchArgument, int itemsPerPage)
+        public static ReaderFactory CreateFactory(SearchInput searchArgument, int itemsPerPage)
         {
             ISearching searcher = new DatabaseReader(searchArgument);
             Paginator paginator = new Paginator(itemsPerPage, searcher.TotalRecords);
