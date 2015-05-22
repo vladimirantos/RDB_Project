@@ -78,7 +78,7 @@ namespace RDB_Project
             /*Log.Insert("Devices");
             MessageBox.Show("Uloženo");*/
             /////////////////////////////////////////////////////////////
-            SearchResult argumentsResult = new SearchResult();
+            SearchInput argumentsResult = new SearchInput();
             /*argumentsResult.dateFrom = dateFrom.SelectedDate.Value;
             argumentsResult.dateTo = dateTo.SelectedDate.Value;
             argumentsResult.x = double.Parse(placeX.Text);
@@ -87,8 +87,8 @@ namespace RDB_Project
             argumentsResult.serialNumber = device.Text;*/
 
             DatabaseReader reader = new DatabaseReader(argumentsResult);
-            reader.Search();
-            //MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(reader.Search()));
+            //reader.Search();
+            MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(reader.Search().ToList()));
         }
         private void btn_test_Click(object sender, RoutedEventArgs e)
         {
