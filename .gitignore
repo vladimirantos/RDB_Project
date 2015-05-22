@@ -34,3 +34,9 @@ RDB_Project.csproj.user
 Connector.edmx.diagram
 Connector.edmx
 >>>>>>> 6e0eaffec0b9bac5983bbe2043ed6691081a0a98
+Connector.Context.cs
+Connector.Designer.cs
+Connector.edmx
+Connector.edmx.diagram
+Device.cs
+RDB_Project.csproj.user
