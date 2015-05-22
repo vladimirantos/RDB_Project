@@ -24,7 +24,6 @@ namespace RDB_Project
 {
     //todo - vyřešit vlákna, aby nedocházelo k zatuhnutí okna při výpisu logu atd.
     //todo - centrování textu tlačítek - windows > 7 jsou vlevo
-    //todo - vyřešit ukládání času do databáze
 
     internal class RdbException : ApplicationException
     {
@@ -113,6 +112,7 @@ namespace RDB_Project
             }
             catch (RdbException v)
             {
+                MainGrid.Children.Clear();
                 MessageBox.Show(v.Message);
             }
             
