@@ -35,7 +35,7 @@ namespace RDB_Project.DataReading
         {
             get
             {
-                double offset = Length - (_itemsPerPage - 1);
+                double offset = Length - (_itemsPerPage);
                 if(offset > _totalRecords)
                     throw new IndexOutOfRangeException("Offset je za poslední stránkou.");
                 return (int)offset;
@@ -49,11 +49,21 @@ namespace RDB_Project.DataReading
         {
             get
             {
-                double length = _itemsPerPage * CurrentPage;
-                if(length > _totalRecords)
-                    throw new IndexOutOfRangeException("Délka je za poslední stránkou");
-                return (int)length;
+                int length = _itemsPerPage * CurrentPage;
+                //if(length > _totalRecords)
+                //    throw new IndexOutOfRangeException("Délka je za poslední stránkou");
+                return length;
             }
+        }
+
+        public bool IsLast
+        {
+            get { return CurrentPage == TotalPages; }
+        }
+
+        public bool IsFirst
+        {
+            get { return CurrentPage == 1; }
         }
 
         /// <param name="itemsPerPage">Počet záznamů na stránku</param>
@@ -63,14 +73,6 @@ namespace RDB_Project.DataReading
             _itemsPerPage = itemsPerPage;
             _totalRecords = totalRecords;
             
-        }
-
-        /// <summary>
-        /// Kontroluje jestli není aktuální stránka za poslední stránkou.
-        /// </summary>
-        public bool IsValid()
-        {
-            return CurrentPage <= TotalPages;
         }
     }
 }

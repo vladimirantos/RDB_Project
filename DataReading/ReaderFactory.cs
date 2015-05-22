@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RDB_Project.DataReading
 {
@@ -12,17 +13,32 @@ namespace RDB_Project.DataReading
 
         private Paginator _paginator;
 
-        public IEnumerable<SearchResult> Results { get; private set; }  
+        public IEnumerable<SearchResult> Results { get; private set; }
+
+        public bool IsLastPage {  get { return _paginator.IsLast; } }
+
+        public bool IsFirstPage { get { return _paginator.IsFirst; } }
 
         public ReaderFactory(ISearching searcher, Paginator paginator)
         {
             _searcher = searcher;
             _paginator = paginator;
+            _paginator.CurrentPage = 1;
+            Results = _searcher.Search();
+        }
+
+        public void NextPage()
+        {
+            _paginator.CurrentPage++;
+        }
+
+        public void PreviousPage()
+        {
+            _paginator.CurrentPage--;
         }
 
         public IEnumerable<SearchResult> GetResults()
         {
-            Results = _searcher.Search();
             return Results.Skip(_paginator.Offset).Take(_paginator.Length);
         }
 
