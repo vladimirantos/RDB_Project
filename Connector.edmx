@@ -30,7 +30,7 @@
           <Property Name="idMtype" Type="int" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="unit" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="date" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="MTypes">
           <Key>
@@ -174,7 +174,7 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
           <Property Name="idMtype" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="unit" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="date" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Device" Relationship="Self.fk_device" FromRole="Measurements" ToRole="Devices" />
           <NavigationProperty Name="Points" Relationship="Self.fk_measurement" FromRole="Measurements" ToRole="Points" />
           <NavigationProperty Name="MType" Relationship="Self.fk_mtype" FromRole="Measurements" ToRole="MTypes" />
