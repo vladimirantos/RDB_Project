@@ -45,10 +45,10 @@ namespace RDB_Project.DataReading
         {
             using (DbEntities entities = new DbEntities())
             {
-                var r =
-                    entities.SearchResults.Where(
-                        x => x.dateFrom == _arguments.dateFrom && x.difference == _arguments.difference &&
-                             x.serialNumber == _arguments.serialNumber && x.x == _arguments.x && x.y == _arguments.y).Take(2);
+                var r = from ur in entities.SearchResults
+                        where ur.serialNumber == "2148DRFES-583"
+                        select ur;
+                return r;
                 return r;
                 //return from result in entities.SearchResults select result;
             }    

@@ -46,17 +46,17 @@ create table Points(
 	constraint chk_variance check(variance >= 0 and variance <= 1)
 );
 
-create view SearchResult as 
-select date, x, y, value1, value2, (value1 - value2) as difference, serialNumber from Measurements as m
-join Devices as d on d.serialNumber = m.serialNumberDevice
-join Points as p on p.idMeasurement = m.idMeasurement
+--create view SearchResult as 
+--select date, x, y, value1, value2, (value1 - value2) as difference, serialNumber from Measurements as m
+--join Devices as d on d.serialNumber = m.serialNumberDevice
+--join Points as p on p.idMeasurement = m.idMeasurement
 
-create view Test as
-select date, unit, id_point as idPoint, x, y, po.description as poinDescription, value1, value2, variance,
-serialNumber, de.description as deviceDescription, mt.idType, mt.name from Measurements as m
-join Devices as de ON de.serialNumber = m.serialNumberDevice
-join MTypes as mt ON mt.idType = m.idMtype
-join Points as po ON po.idMeasurement = m.idMeasurement;
+--create view Test as
+--select date, unit, id_point as idPoint, x, y, po.description as poinDescription, value1, value2, variance,
+--serialNumber, de.description as deviceDescription, mt.idType, mt.name from Measurements as m
+--join Devices as de ON de.serialNumber = m.serialNumberDevice
+--join MTypes as mt ON mt.idType = m.idMtype
+--join Points as po ON po.idMeasurement = m.idMeasurement;
 
 insert into Devices(serialNumber, accuracy, description)VALUES('001', 0.1, 'Jirka'), ('002', 0.5, 'Pristroj1'), ('003', 0.4, 'Pristroj2');
 insert into MTypes(idType, name)VALUES(1, 'mìøení 1'), (2, 'Mìøení2'), (3, 'mìøení 3');
