@@ -89,11 +89,6 @@ namespace RDB_Project.DataWriting
                         databaseObjects.Measurements = new List<Measurement>(measurements);
                         databaseObjects.Points = new List<Point>(points);
 
-                        foreach (Device device1 in databaseObjects.Devices)
-                        {
-                            MessageBox.Show("Parser dev: " + device1.ToString());
-                        }
-
                         devices = new List<Device>();
                         mTypes = new List<MType>();
                         measurements = new List<Measurement>();
@@ -109,10 +104,7 @@ namespace RDB_Project.DataWriting
                     databaseObjects.MTypes = new List<MType>(mTypes);
                     databaseObjects.Measurements = new List<Measurement>(measurements);
                     databaseObjects.Points = new List<Point>(points);
-                    foreach (Device device1 in databaseObjects.Devices)
-                    {
-                        MessageBox.Show("END dev: " + device1.ToString());
-                    }
+
                     
                     devices = new List<Device>();
                     mTypes = new List<MType>();

@@ -21,15 +21,10 @@ namespace RDB_Project.DataWriting
     {///s
         public void Write(BlockingCollection<DatabaseObjects> input)
         {
-           // MessageBox.Show(input.GetConsumingEnumerable().Count().ToString());
             using (var ctx = new DbEntities()) 
             {
                 foreach (DatabaseObjects data in input.GetConsumingEnumerable())
                 {
-                    foreach (Device device in data.Devices)
-                    {
-                        MessageBox.Show("Writer: " + device);
-                    }
                     ctx.BulkInsert(data.Devices);
                     ctx.BulkInsert(data.MTypes);
                     ctx.BulkInsert(data.Measurements);
