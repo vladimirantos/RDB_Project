@@ -18,6 +18,7 @@ namespace RDB_Project.DataReading
 
     class DatabaseReader : ISearching
     {
+        private List<SearchResult> data;
 
         private SearchInput _arguments;
 
@@ -44,21 +45,14 @@ namespace RDB_Project.DataReading
             return _results;
         }
 
-        private IEnumerable<SearchResult> Query() // --- vypis zadanych boxu z databaze, zjistit limit pro zaznamy, data strkat do searchResult, vysledek davat do vlastnosti
+        private IEnumerable<SearchResult> Query() // --- zjistit limit pro zaznamy, vysledek davat do vlastnosti
         {
             using (var entities = new DbEntities())
             {
-
                 DateTime timeFrom = _arguments.DateTimeFrom;
                 DateTime timeTo = _arguments.DateTimeTo;
                 SearchResult searchResult = _arguments as SearchResult;
-
-                /*var r =
-                    entities.SearchResults.Where(
-                        x => x.date >= timeFrom && x.date <= timeTo && x.difference == _arguments.difference &&
-                             x.serialNumber == _arguments.serialNumber && x.x == _arguments.x && x.y == _arguments.y)};
-                return r.ToList();*/
-
+                
                 var result =
                     from res in entities.SearchResults select res;
                 if(timeFrom != new DateTime(1,1,1) || timeTo != new DateTime(1,1,1))
@@ -72,13 +66,14 @@ namespace RDB_Project.DataReading
                 if (searchResult.y > -1)
                     result = result.Where(x => x.y == searchResult.y);
 
-                return result.ToList();
-                /*var r = from ur in entities.SearchResults
-                        where ur.serialNumber == "2148DRFES-583"
-                    select ur;
-                return r.ToList();*/
-                //return from result in entities.SearchResults select result;
+                data = result.ToList();
+                return data;
             }    
+        }
+
+        public List<SearchResult> SearchedResults
+        {
+            get { return data; }
         }
     }
 }
