@@ -14,8 +14,7 @@ namespace RDB_Project
     
     public partial class SearchResult
     {
-        public System.DateTime dateFrom { get; set; }
-        public System.DateTime dateTo { get; set; }
+        public System.DateTime date { get; set; }
         public double x { get; set; }
         public double y { get; set; }
         public double value1 { get; set; }

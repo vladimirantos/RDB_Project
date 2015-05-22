@@ -78,28 +78,44 @@ namespace RDB_Project
             /*Log.Insert("Devices");
             MessageBox.Show("Uloženo");*/
             /////////////////////////////////////////////////////////////
-            SearchResult argumentsResult = new SearchResult();
-            argumentsResult.dateFrom = dateFrom.SelectedDate.Value;
-            argumentsResult.dateTo = dateTo.SelectedDate.Value;
+            SearchInput argumentsResult = new SearchInput();
+            if(dateFrom.SelectedDate.HasValue)
+                argumentsResult.DateFrom = dateFrom.SelectedDate.Value;
+            if(dateTo.SelectedDate.HasValue)
+                argumentsResult.DateTo = dateTo.SelectedDate.Value;
+
+            TimeSpan timeFromSpan;
+            bool boolTimeFrom = TimeSpan.TryParse(timeFrom.Text, out timeFromSpan);
+            argumentsResult.TimeFrom = boolTimeFrom ? timeFromSpan : new TimeSpan(0, 0, 0);
+
+            TimeSpan timeToSpan;
+            bool boolTimeTo = TimeSpan.TryParse(timeTo.Text, out timeToSpan);
+            argumentsResult.TimeTo = boolTimeTo ? timeToSpan : new TimeSpan(0,0,0);
 
             double x;
-            double.TryParse(placeX.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-            if (x != 0)
-            {
-                argumentsResult.x = x;
-            }
+            bool boolX = double.TryParse(placeX.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out x);
+            argumentsResult.x = boolX ? x : -1;
 
             double y;
-            double.TryParse(placeX.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-            if (y != 0)
-            {
-                argumentsResult.y = y;
-            }
-            argumentsResult.difference = double.Parse(variance.Text);
+            bool boolY = double.TryParse(placeY.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out y);
+            argumentsResult.y = boolY ? y : -1;
+
+            double varianceD;
+            bool boolVariance = double.TryParse(variance.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out varianceD);
+            argumentsResult.difference = boolVariance ? varianceD : -1;
+
             argumentsResult.serialNumber = device.Text;
 
             DatabaseReader reader = new DatabaseReader(argumentsResult);
-            MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(reader.Search().ToList()));
+            try
+            {
+                MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(reader.Search().ToList()));
+            }
+            catch (RdbException v)
+            {
+                MessageBox.Show(v.Message);
+            }
+            
         }
         private void btn_test_Click(object sender, RoutedEventArgs e)
         {

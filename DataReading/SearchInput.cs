@@ -12,23 +12,23 @@ namespace RDB_Project.DataReading
 
         public DateTime DateTo { get; set; }
 
-        public DateTime TimeFrom { get; set; }
+        public TimeSpan TimeFrom { get; set; }
 
-        public DateTime TimeTo { get; set; }
+        public TimeSpan TimeTo { get; set; }
 
         public DateTime DateTimeFrom
         {
-            get
-            {
-                return new DateTime(); // spojení datumu a času od
+            get 
+            { 
+                return DateFrom + TimeFrom; // spojení datumu a času od
             }
         }
 
         public DateTime DateTimeTo
         {
-            get
-            {
-                return new DateTime(); //spojení datumu a času do
+            get 
+            { 
+                return DateTo + TimeTo; //spojení datumu a času do
             }
         }
     }

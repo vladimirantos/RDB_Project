@@ -49,19 +49,34 @@ namespace RDB_Project.DataReading
             using (var entities = new DbEntities())
             {
 
-                DateTime from = _arguments.DateTimeTo;
-                DateTime to = _arguments.DateTimeTo;
+                DateTime timeFrom = _arguments.DateTimeFrom;
+                DateTime timeTo = _arguments.DateTimeTo;
                 SearchResult searchResult = _arguments as SearchResult;
 
-               /* var r =
+                /*var r =
                     entities.SearchResults.Where(
-                        x => x.dateFrom == _arguments.dateFrom && x.difference == _arguments.difference &&
-                             x.serialNumber == _arguments.serialNumber && x.x == _arguments.x && x.y == _arguments.y).Take(2);*/
+                        x => x.date >= timeFrom && x.date <= timeTo && x.difference == _arguments.difference &&
+                             x.serialNumber == _arguments.serialNumber && x.x == _arguments.x && x.y == _arguments.y)};
+                return r.ToList();*/
 
-                var r = from ur in entities.SearchResults
+                var result =
+                    from res in entities.SearchResults select res;
+                if(timeFrom != new DateTime(1,1,1) || timeTo != new DateTime(1,1,1))
+                result = result.Where(x => x.date >= timeFrom && x.date <= timeTo);
+                if (searchResult.difference > -1)
+                    result = result.Where(x => x.difference == searchResult.difference);
+                if (searchResult.serialNumber != "")
+                    result = result.Where(x => x.serialNumber == searchResult.serialNumber);
+                if (searchResult.x > -1)
+                    result = result.Where(x => x.x == searchResult.x);
+                if (searchResult.y > -1)
+                    result = result.Where(x => x.y == searchResult.y);
+
+                return result.ToList();
+                /*var r = from ur in entities.SearchResults
                         where ur.serialNumber == "2148DRFES-583"
                     select ur;
-                return r.ToList();
+                return r.ToList();*/
                 //return from result in entities.SearchResults select result;
             }    
         }
