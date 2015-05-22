@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,12 @@ namespace RDB_Project.DataReading
         {
             using (DbEntities entities = new DbEntities())
             {
-                return from result in entities.SearchResults select result;
+                var r =
+                    entities.SearchResults.Where(
+                        x => x.dateFrom == _arguments.dateFrom && x.difference == _arguments.difference &&
+                             x.serialNumber == _arguments.serialNumber && x.x == _arguments.x && x.y == _arguments.y).Take(2);
+                return r;
+                //return from result in entities.SearchResults select result;
             }    
         }
     }
