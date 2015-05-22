@@ -18,11 +18,11 @@ namespace RDB_Project.DataWriting
 
     //todo přidat logování, čítač počtu uložení
     class DatabaseWriter : IDatabaseWriter
-    {
+    {///s
         public void Write(BlockingCollection<DatabaseObjects> input)
         {
            // MessageBox.Show(input.GetConsumingEnumerable().Count().ToString());
-            using (var ctx = new DbEntities())
+            using (var ctx = new DbEntities()) 
             {
                 foreach (DatabaseObjects data in input.GetConsumingEnumerable())
                 {

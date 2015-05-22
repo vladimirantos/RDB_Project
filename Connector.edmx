@@ -65,7 +65,7 @@ warning 6002: The table/view 'rdb_measurement.dbo.SearchResult' does not have a 
             <PropertyRef Name="difference" />
             <PropertyRef Name="serialNumber" />
           </Key>
-          <Property Name="date" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="x" Type="float" Nullable="false" />
           <Property Name="y" Type="float" Nullable="false" />
           <Property Name="value1" Type="float" Nullable="false" />
@@ -84,6 +84,18 @@ warning 6002: The table/view 'rdb_measurement.dbo.SearchResult' does not have a 
             </Principal>
             <Dependent Role="Measurements">
               <PropertyRef Name="serialNumberDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_measurement">
+          <End Role="Measurements" Type="Self.Measurements" Multiplicity="1" />
+          <End Role="Points" Type="Self.Points" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurements">
+              <PropertyRef Name="idMeasurement" />
+            </Principal>
+            <Dependent Role="Points">
+              <PropertyRef Name="idMeasurement" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -121,6 +133,10 @@ warning 6002: The table/view 'rdb_measurement.dbo.SearchResult' does not have a 
           <AssociationSet Name="fk_device" Association="Self.fk_device">
             <End Role="Devices" EntitySet="Devices" />
             <End Role="Measurements" EntitySet="Measurements" />
+          </AssociationSet>
+          <AssociationSet Name="fk_measurement" Association="Self.fk_measurement">
+            <End Role="Measurements" EntitySet="Measurements" />
+            <End Role="Points" EntitySet="Points" />
           </AssociationSet>
           <AssociationSet Name="fk_mtype" Association="Self.fk_mtype">
             <End Role="MTypes" EntitySet="MTypes" />
@@ -160,6 +176,7 @@ warning 6002: The table/view 'rdb_measurement.dbo.SearchResult' does not have a 
           <Property Name="unit" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Device" Relationship="Self.fk_device" FromRole="Measurements" ToRole="Devices" />
+          <NavigationProperty Name="Points" Relationship="Self.fk_measurement" FromRole="Measurements" ToRole="Points" />
           <NavigationProperty Name="MType" Relationship="Self.fk_mtype" FromRole="Measurements" ToRole="MTypes" />
         </EntityType>
         <EntityType Name="MType">
@@ -183,6 +200,7 @@ warning 6002: The table/view 'rdb_measurement.dbo.SearchResult' does not have a 
           <Property Name="value2" Type="Double" Nullable="false" />
           <Property Name="variance" Type="Double" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Measurement" Relationship="Self.fk_measurement" FromRole="Points" ToRole="Measurements" />
         </EntityType>
         <EntityType Name="SearchResult">
           <Key>
@@ -194,7 +212,7 @@ warning 6002: The table/view 'rdb_measurement.dbo.SearchResult' does not have a 
             <PropertyRef Name="difference" />
             <PropertyRef Name="serialNumber" />
           </Key>
-          <Property Name="date" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="x" Type="Double" Nullable="false" />
           <Property Name="y" Type="Double" Nullable="false" />
           <Property Name="value1" Type="Double" Nullable="false" />
@@ -213,6 +231,18 @@ warning 6002: The table/view 'rdb_measurement.dbo.SearchResult' does not have a 
             </Principal>
             <Dependent Role="Measurements">
               <PropertyRef Name="serialNumberDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_measurement">
+          <End Role="Measurements" Type="Self.Measurement" Multiplicity="1" />
+          <End Role="Points" Type="Self.Point" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurements">
+              <PropertyRef Name="idMeasurement" />
+            </Principal>
+            <Dependent Role="Points">
+              <PropertyRef Name="idMeasurement" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -240,6 +270,10 @@ warning 6002: The table/view 'rdb_measurement.dbo.SearchResult' does not have a 
           <AssociationSet Name="fk_device" Association="Self.fk_device">
             <End Role="Devices" EntitySet="Devices" />
             <End Role="Measurements" EntitySet="Measurements" />
+          </AssociationSet>
+          <AssociationSet Name="fk_measurement" Association="Self.fk_measurement">
+            <End Role="Measurements" EntitySet="Measurements" />
+            <End Role="Points" EntitySet="Points" />
           </AssociationSet>
           <AssociationSet Name="fk_mtype" Association="Self.fk_mtype">
             <End Role="MTypes" EntitySet="MTypes" />

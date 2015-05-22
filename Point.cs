@@ -22,5 +22,7 @@ namespace RDB_Project
         public double value2 { get; set; }
         public double variance { get; set; }
         public string description { get; set; }
+    
+        public virtual Measurement Measurement { get; set; }
     }
 }

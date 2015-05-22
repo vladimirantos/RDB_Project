@@ -14,6 +14,11 @@ namespace RDB_Project
     
     public partial class Measurement
     {
+        public Measurement()
+        {
+            this.Points = new HashSet<Point>();
+        }
+    
         public int idMeasurement { get; set; }
         public string serialNumberDevice { get; set; }
         public int idMtype { get; set; }
@@ -22,6 +27,7 @@ namespace RDB_Project
         public System.DateTime date { get; set; }
     
         public virtual Device Device { get; set; }
+        public virtual ICollection<Point> Points { get; set; }
         public virtual MType MType { get; set; }
     }
 }

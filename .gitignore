@@ -12,3 +12,5 @@ RDB_Project.csproj.user
 *.user
 *.suo
 *.Context.*
+Connector.edmx.diagram
+Connector.edmx

@@ -13,7 +13,7 @@ namespace RDB_Project.DataWriting
     }
 
     class StringParser : IParser
-    {
+    {//ssssssssssssssssssssss
 
         private static int _idMeasurement = 1;
         private int _bufferSize;
@@ -69,7 +69,7 @@ namespace RDB_Project.DataWriting
                     measurement.description = "";
                     measurement.unit = items[1];
                     measurement.date = timestampToDateTime(items[0]);
-                    measurements.Add(measurement);
+                    measurements.Add(measurement); 
                     
                     point.id_point = int.Parse(items[2]);
                     point.idMeasurement = measurement.idMeasurement;
