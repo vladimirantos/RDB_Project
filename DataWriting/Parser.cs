@@ -14,8 +14,7 @@ namespace RDB_Project.DataWriting
     }
 
     class StringParser : IParser
-    {//ssssssssssssssssssssss
-
+    {
         private static int _idMeasurement = 1;
         private int _bufferSize;
 
@@ -41,7 +40,7 @@ namespace RDB_Project.DataWriting
                 {
                     string line = s;
                     string[] items = line.Split(';');
-                    
+
                     Device device = new Device();
                     MType mType = new MType();
                     Measurement measurement = new Measurement();
@@ -94,11 +93,13 @@ namespace RDB_Project.DataWriting
                         {
                             MessageBox.Show("Parser dev: " + device1.ToString());
                         }
+
                         devices = new List<Device>();
                         mTypes = new List<MType>();
                         measurements = new List<Measurement>();
                         points = new List<Point>();
                         output.Add(databaseObjects);
+                        databaseObjects = new DatabaseObjects();
                     }
                     _idMeasurement++;
                 }
@@ -113,12 +114,12 @@ namespace RDB_Project.DataWriting
                         MessageBox.Show("END dev: " + device1.ToString());
                     }
                     
-
                     devices = new List<Device>();
                     mTypes = new List<MType>();
                     measurements = new List<Measurement>();
                     points = new List<Point>();
                     output.Add(databaseObjects);
+                    databaseObjects = new DatabaseObjects();
                 }
             }
             finally

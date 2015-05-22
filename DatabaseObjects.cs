@@ -16,5 +16,13 @@ namespace RDB_Project
         public List<Measurement> Measurements { get; set; }
         public List<MType> MTypes { get; set; }
         public List<Point> Points { get; set; }
+
+        public void Clear()
+        {
+            Devices = new List<Device>();
+            Measurements = new List<Measurement>();
+            MTypes = new List<MType>();
+            Points = new List<Point>();
+        }
     }
 }
