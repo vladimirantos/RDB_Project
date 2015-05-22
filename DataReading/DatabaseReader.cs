@@ -13,7 +13,7 @@ namespace RDB_Project.DataReading
     {
         int TotalRecords { get; }
 
-        List<SearchResult> Search();
+        IEnumerable<SearchResult> Search();
     }
 
     class DatabaseReader : ISearching
@@ -21,7 +21,7 @@ namespace RDB_Project.DataReading
 
         private SearchResult _arguments;
 
-        private IQueryable<SearchResult> _results;
+        private IEnumerable<SearchResult> _results;
 
         public int TotalRecords
         {
@@ -39,13 +39,15 @@ namespace RDB_Project.DataReading
         /// Vrací seznam všech záznamů.
         /// </summary>
         /// <returns></returns>
-        public List<SearchResult> Search() {  return _results.ToList(); }
-
-        private IQueryable<SearchResult> Query() // --- vypis zadanych boxu z databaze, zjistit limit pro zaznamy, data strkat do searchResult, vysledek davat do vlastnosti
+        public IEnumerable<SearchResult> Search()
         {
-            using (DbEntities entities = new DbEntities())
-            {
+            return _results;
+        }
 
+        private IEnumerable<SearchResult> Query() // --- vypis zadanych boxu z databaze, zjistit limit pro zaznamy, data strkat do searchResult, vysledek davat do vlastnosti
+        {
+            using (var entities = new DbEntities())
+            {
                /* var r =
                     entities.SearchResults.Where(
                         x => x.dateFrom == _arguments.dateFrom && x.difference == _arguments.difference &&
@@ -54,7 +56,7 @@ namespace RDB_Project.DataReading
                 var r = from ur in entities.SearchResults
                         where ur.serialNumber == "2148DRFES-583"
                     select ur;
-                return r;
+                return r.ToList();
                 //return from result in entities.SearchResults select result;
             }    
         }
