@@ -78,5 +78,12 @@ namespace RDB_Project
             /*Log.Insert("Devices");
             MessageBox.Show("Uloženo");*/
         }
+
+        private void test_Click(object sender, RoutedEventArgs e)
+        {
+            System.DateTime dateTime = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
+            dateTime = dateTime.AddSeconds(1432126015);
+            MessageBox.Show(dateTime.ToString());
+        }
     }
 }

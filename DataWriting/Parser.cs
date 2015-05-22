@@ -54,10 +54,10 @@ namespace RDB_Project.DataWriting
                     measurement.idMtype = mType.idType;
                     measurement.description = "";
                     measurement.unit = items[1];
-                    //measurement.date = DateTimeOffset.UtcNow
+                    measurement.date = timestampToDateTime(items[0]);
 
                     point.id_point = int.Parse(items[2]);
-                    point.id_point = measurement.idMeasurement;
+                    point.idMeasurement = measurement.idMeasurement;
                     point.x = float.Parse(items[3], CultureInfo.InvariantCulture);
                     point.y = float.Parse(items[4], CultureInfo.InvariantCulture);
                     point.value1 = float.Parse(items[6], CultureInfo.InvariantCulture);
@@ -65,12 +65,23 @@ namespace RDB_Project.DataWriting
                     point.variance = float.Parse(items[8], CultureInfo.InvariantCulture);
                     point.description = items[5];
 
-                    _devices.Add(device);
+                    if (!_existingDevices.Contains(device))
+                    {
+                        _existingDevices.Add(device);
+                        _devices.Add(device);
+                    }
+
                     _measurements.Add(measurement);
-                    _mTypes.Add(mType);
+
+                    if (!_existingMTypes.Contains(mType))
+                    {
+                        _existingMTypes.Add(mType);
+                        _mTypes.Add(mType);
+                    }
+                    
                     _points.Add(point);
                     
-                    if ((_devices.Count % _bufferSize) == 0) //vyprázdnění
+                    if ((_measurements.Count % _bufferSize) == 0) //vyprázdnění
                     {
                         databaseObjects.Devices = new List<Device>(_devices);
                         databaseObjects.Measurements = new List<Measurement>(_measurements);
@@ -83,7 +94,8 @@ namespace RDB_Project.DataWriting
                         _mTypes = new List<MType>();
                         _points = new List<Point>();
                     }
-                    if (_devices.Count > 0)
+
+                    if (_measurements.Count > 0)
                     {
                         databaseObjects.Devices = new List<Device>(_devices);
                         databaseObjects.Measurements = new List<Measurement>(_measurements);
@@ -103,6 +115,12 @@ namespace RDB_Project.DataWriting
             {
                 output.CompleteAdding();
             }
+        }
+
+        private DateTime timestampToDateTime(string timestamp)
+        {
+            System.DateTime dateTime = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return dateTime.AddSeconds(1432126015);
         }
     }
 
