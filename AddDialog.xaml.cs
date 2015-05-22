@@ -54,7 +54,7 @@ namespace RDB_Project
         {
             Stopwatch stop = new Stopwatch();
             stop.Start();
-            DataWriteFactory.Create(_fileName, 2).Save();
+            DataWriteFactory.Create(_fileName, 100000).Save();
             stop.Stop();
             MessageBox.Show("Ukládání dokončeno za: " + stop.Elapsed);
         }
