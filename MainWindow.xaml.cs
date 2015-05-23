@@ -24,7 +24,7 @@ namespace RDB_Project
 {
     //todo - vyřešit vlákna, aby nedocházelo k zatuhnutí okna při výpisu logu atd.
     //todo - centrování textu tlačítek - windows > 7 jsou vlevo
-
+    
     internal class RdbException : ApplicationException
     {
         public RdbException(string message)
@@ -38,10 +38,13 @@ namespace RDB_Project
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ReaderFactory _readerFactory;
+        private int _itemsPerPage = 50;
         public MainWindow()
         {
             InitializeComponent();
-            //new NumberFormatInfo() { NumberDecimalSeparator = ".", NumberDecimalDigits = 3 },
+            buttonNext.Visibility = Visibility.Hidden;
+            buttonBack.Visibility = Visibility.Hidden;
         }
 
         private void _Add(object sender, RoutedEventArgs e)
@@ -105,17 +108,17 @@ namespace RDB_Project
 
             argumentsResult.serialNumber = device.Text;
 
-            DatabaseReader reader = new DatabaseReader(argumentsResult);
+            _readerFactory = ReaderFactory.CreateFactory(argumentsResult, _itemsPerPage);
+            
             try
             {
-                MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(reader.Search().ToList()));
+                UpdateGrid();
             }
             catch (RdbException v)
             {
                 MainGrid.Children.Clear();
                 MessageBox.Show(v.Message);
             }
-            
         }
         private void btn_test_Click(object sender, RoutedEventArgs e)
         {
@@ -130,6 +133,38 @@ namespace RDB_Project
             mType2.name = "A";
 
             MessageBox.Show(mTypes.Contains(mType2).ToString());
+        }
+
+        private void buttonNext_Click(object sender, RoutedEventArgs e)
+        {
+            _readerFactory.NextPage();
+            UpdateGrid();
+        }
+
+        private void buttonBack_Click(object sender, RoutedEventArgs e)
+        {
+            _readerFactory.PreviousPage();
+            UpdateGrid();
+        }
+
+        private void UpdateGrid()
+        {
+            DisplayingButtons();
+            MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(_readerFactory.GetResults().ToList()));
+        }
+
+        /// <summary>
+        /// Stará se o zobrazování stránkovacích tlačítek
+        /// </summary>
+        private void DisplayingButtons()
+        {
+            if (_readerFactory.IsFirstPage)
+                buttonBack.Visibility = Visibility.Hidden;
+            else buttonBack.Visibility = Visibility.Visible;
+
+            if (_readerFactory.IsLastPage)
+                buttonNext.Visibility = Visibility.Hidden;
+            else buttonNext.Visibility = Visibility.Visible;
         }
     }
 }
