@@ -19,6 +19,8 @@ namespace RDB_Project.DataReading
 
         public bool IsFirstPage { get { return _paginator.IsFirst; } }
 
+        public int TotalRecords { get { return Results.Count(); } }
+
         public ReaderFactory(ISearching searcher, Paginator paginator)
         {
             _searcher = searcher;
