@@ -120,7 +120,6 @@ namespace RDB_Project
 
             try
             {
-                
                 StatusProgress.IsIndeterminate = true;
                 UpdateGrid();
             }
@@ -141,7 +140,7 @@ namespace RDB_Project
             MType mType2 = new MType();
             mType2.idType = 1;
             mType2.name = "A";
-
+            DateTime d = new DateTime();
             MessageBox.Show(mTypes.Contains(mType2).ToString());
         }
 
@@ -160,16 +159,13 @@ namespace RDB_Project
         private void UpdateGrid()
         {
             DisplayingButtons();
-            //TaskFactory taskFactory = new TaskFactory(TaskCreationOptions.LongRunning, TaskContinuationOptions.None);
-            //Task<List<SearchResult>> readData = taskFactory.StartNew(() => _readerFactory.GetResults().ToList());
             List<SearchResult> data = _readerFactory.GetResults().ToList();
             MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(data));
-          //  await Task.FromResult(readData);
             MessageBlock.Text = string.Format("Nalezeno celkem: {0} záznamů", _readerFactory.TotalRecords);
             TimeBlock.Text = "Čas dotazu: "+timer.Elapsed.ToString();
             timer.Reset();
-            // StatusProgress.IsIndeterminate = false;
-            //StatusProgress.Value = 100;
+            StatusProgress.IsIndeterminate = false;
+            StatusProgress.Value = 100;
         }
 
         /// <summary>

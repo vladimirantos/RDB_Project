@@ -58,7 +58,7 @@ namespace RDB_Project.DataReading
 
         public bool IsLast
         {
-            get { return CurrentPage == TotalPages; }
+            get { return CurrentPage == TotalPages || _totalRecords < _itemsPerPage; }
         }
 
         public bool IsFirst
