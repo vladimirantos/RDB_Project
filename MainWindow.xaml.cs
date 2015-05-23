@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,11 +42,14 @@ namespace RDB_Project
     {
         private ReaderFactory _readerFactory;
         private int _itemsPerPage = 50;
+        private Stopwatch timer = new Stopwatch();
         public MainWindow()
         {
             InitializeComponent();
             buttonNext.Visibility = Visibility.Hidden;
             buttonBack.Visibility = Visibility.Hidden;
+            MessageBlock.Text = "";
+            TimeBlock.Text = "";
         }
 
         private void _Add(object sender, RoutedEventArgs e)
@@ -80,6 +85,7 @@ namespace RDB_Project
             /*Log.Insert("Devices");
             MessageBox.Show("Uloženo");*/
             /////////////////////////////////////////////////////////////
+           
             SearchInput argumentsResult = new SearchInput();
             if(dateFrom.SelectedDate.HasValue)
                 argumentsResult.DateFrom = dateFrom.SelectedDate.Value;
@@ -109,10 +115,15 @@ namespace RDB_Project
             argumentsResult.serialNumber = device.Text;
 
             _readerFactory = ReaderFactory.CreateFactory(argumentsResult, _itemsPerPage);
-            
+
+
             try
             {
+                timer.Start();
+                StatusProgress.IsIndeterminate = true;
                 UpdateGrid();
+                timer.Stop();
+                
             }
             catch (RdbException v)
             {
@@ -151,6 +162,12 @@ namespace RDB_Project
         {
             DisplayingButtons();
             MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(_readerFactory.GetResults().ToList()));
+
+            MessageBlock.Text = "Výpis databáze";
+            TimeBlock.Text = "Čas dotazu: "+timer.Elapsed.ToString();
+            timer.Reset();
+            // StatusProgress.IsIndeterminate = false;
+            //StatusProgress.Value = 100;
         }
 
         /// <summary>
