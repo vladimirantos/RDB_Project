@@ -8,7 +8,7 @@
         <Menu VerticalAlignment="Top" BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}" DockPanel.Dock="Top" Height="23">
             <MenuItem Width="100" Height="22" FontSize="14" FontWeight="Medium" Click="_Add">
                 <MenuItem.Header>
-                    <TextBlock Text="Přidat" HorizontalAlignment="center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Soubor" HorizontalAlignment="center" VerticalAlignment="Center"/>
                 </MenuItem.Header>
             </MenuItem>
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
@@ -17,12 +17,18 @@
                     <TextBlock Text="Logování" HorizontalAlignment="center" VerticalAlignment="Center"/>
                 </MenuItem.Header>
             </MenuItem>
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            <MenuItem Width="100" Height="22" FontSize="14" FontWeight="Medium" Click="_Export">
+                <MenuItem.Header>
+                    <TextBlock Text="Export" HorizontalAlignment="center" VerticalAlignment="Center"/>
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
 
         <Grid Name="SearchGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Height="579">
 
             <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush EndPoint="0.5,0.9" StartPoint="0.5,0">
                     <GradientStop Color="#FFEEEEEE"/>
                     <GradientStop Color="White" Offset="1"/>
                 </LinearGradientBrush>
@@ -100,8 +106,7 @@
                      HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <Button Name="btn_search" Width="60" Height="30" Content="Vyhledat" Grid.Column="2" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0" Click="btn_search_Click"/>
-            <Button Name="btn_test" Width="60" Height="30" Content="Test" Grid.Column="2" Grid.Row="10" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0" Click="btn_test_Click"/>
-
+            
         </Grid>
 
         <StackPanel Orientation="Vertical">
@@ -112,15 +117,23 @@
             </StackPanel>
             <DockPanel Margin="0,7,0,0">
                 <StatusBar Name="statusBar" >
+                    <StatusBar.Background>
+                        <LinearGradientBrush EndPoint="0.3,0" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
+                            <GradientStop Color="#FFEEEEEE" Offset="1"/>
+                            <GradientStop Color="White"/>
+                        </LinearGradientBrush>
+                    </StatusBar.Background>
                     <StatusBar.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="200" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="5" />
                                     <ColumnDefinition Width="200" />
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="200" />
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="180" />
                                 </Grid.ColumnDefinitions>
                             </Grid>
 
@@ -132,11 +145,15 @@
                     </StatusBarItem>
                     <Separator Grid.Column="1" />
                     <StatusBarItem Grid.Column="2">
-                        <TextBlock Name="TimeBlock" Width="395" TextAlignment="Center"/>
+                        <TextBlock Name="TimeBlock" Width="195" TextAlignment="Center"/>
                     </StatusBarItem>
                     <Separator Grid.Column="3" />
                     <StatusBarItem Grid.Column="4">
-                        <ProgressBar Name="StatusProgress" IsIndeterminate="True" Height="17" Width="200" HorizontalAlignment="Center"/>
+                        <TextBlock Name="TextBlock" Width="195" TextAlignment="Center"/>
+                    </StatusBarItem>
+                    <Separator Grid.Column="5" />
+                    <StatusBarItem Grid.Column="6">
+                        <ProgressBar Name="StatusProgress" IsIndeterminate="True" Height="17" Width="190" HorizontalAlignment="Center"/>
                     </StatusBarItem>
                 </StatusBar>
             </DockPanel>

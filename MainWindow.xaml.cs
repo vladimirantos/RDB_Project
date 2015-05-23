@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using Microsoft.Win32;
 using RDB_Project.DataReading;
 using RDB_Project.DataWriting;
 using RDB_Project.Logging;
@@ -129,20 +130,6 @@ namespace RDB_Project
                 MessageBox.Show(v.Message);
             }
         }
-        private void btn_test_Click(object sender, RoutedEventArgs e)
-        {
-            List<MType> mTypes = new List<MType>();
-            MType mType = new MType();
-            mType.idType = 1;
-            mType.name = "A";
-            mTypes.Add(mType);
-
-            MType mType2 = new MType();
-            mType2.idType = 1;
-            mType2.name = "A";
-            DateTime d = new DateTime();
-            MessageBox.Show(mTypes.Contains(mType2).ToString());
-        }
 
         private void buttonNext_Click(object sender, RoutedEventArgs e)
         {
@@ -180,6 +167,28 @@ namespace RDB_Project
             if (_readerFactory.IsLastPage)
                 buttonNext.Visibility = Visibility.Hidden;
             else buttonNext.Visibility = Visibility.Visible;
+        }
+
+        private void _Export(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "CSV File (*.csv)|*.csv";
+
+            Nullable<bool> result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                string jmeno = dialog.FileName;
+                try
+                {
+                    DataExport.Save(_readerFactory.Results, dialog.FileName);
+                    MessageBox.Show("Data byla uložena!");
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    MessageBox.Show("Nejsou data k uložení!","Chyba!",MessageBoxButton.OK,MessageBoxImage.Error);
+                }
+            }
         }
     }
 }
