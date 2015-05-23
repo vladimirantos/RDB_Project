@@ -42,7 +42,7 @@ namespace RDB_Project
     public partial class MainWindow : Window
     {
         private ReaderFactory _readerFactory;
-        private int _itemsPerPage = 50;
+        private int _itemsPerPage = 23;
         private Stopwatch timer = new Stopwatch();
         public MainWindow()
         {
@@ -115,16 +115,15 @@ namespace RDB_Project
 
             argumentsResult.serialNumber = device.Text;
 
+            timer.Start();
             _readerFactory = ReaderFactory.CreateFactory(argumentsResult, _itemsPerPage);
-
+            timer.Stop();
 
             try
             {
-                timer.Start();
+                
                 StatusProgress.IsIndeterminate = true;
                 UpdateGrid();
-                timer.Stop();
-                
             }
             catch (RdbException v)
             {
@@ -148,9 +147,12 @@ namespace RDB_Project
         private void UpdateGrid()
         {
             DisplayingButtons();
-            MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(_readerFactory.GetResults().ToList()));
-
-            MessageBlock.Text = "Výpis databáze";
+            //TaskFactory taskFactory = new TaskFactory(TaskCreationOptions.LongRunning, TaskContinuationOptions.None);
+            //Task<List<SearchResult>> readData = taskFactory.StartNew(() => _readerFactory.GetResults().ToList());
+            List<SearchResult> data = _readerFactory.GetResults().ToList();
+            MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(data));
+          //  await Task.FromResult(readData);
+            MessageBlock.Text = string.Format("Nalezeno celkem: {0} záznamů", _readerFactory.TotalRecords);
             TimeBlock.Text = "Čas dotazu: "+timer.Elapsed.ToString();
             timer.Reset();
             // StatusProgress.IsIndeterminate = false;
