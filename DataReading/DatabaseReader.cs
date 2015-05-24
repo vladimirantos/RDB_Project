@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
@@ -13,7 +14,7 @@ namespace RDB_Project.DataReading
     {
         int TotalRecords { get; }
 
-        IEnumerable<SearchResult> Search();
+        Task<IEnumerable<SearchResult>> SearchAsync();
     }
 
     class DatabaseReader : ISearching
@@ -33,19 +34,19 @@ namespace RDB_Project.DataReading
         public DatabaseReader(SearchInput arguments)
         {
             _arguments = arguments;
-            _results = Query();
         }
 
         /// <summary>
         /// Vrací seznam všech záznamů.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<SearchResult> Search()
+        public async Task<IEnumerable<SearchResult>> SearchAsync()
         {
+            _results = await Query();
             return _results;
         }
 
-        private IEnumerable<SearchResult> Query() // --- zjistit limit pro zaznamy, vysledek davat do vlastnosti
+        private async Task<IEnumerable<SearchResult>> Query() // --- zjistit limit pro zaznamy, vysledek davat do vlastnosti
         {
             using (var entities = new DbEntities())
             {
@@ -53,7 +54,7 @@ namespace RDB_Project.DataReading
                 DateTime timeTo = _arguments.DateTimeTo;
                 SearchResult searchResult = _arguments as SearchResult;
                 
-                var result =
+                var result = 
                     from res in entities.SearchResults select res;
                 if(timeFrom != new DateTime(1,1,1) || timeTo != new DateTime(1,1,1))
                 result = result.Where(x => x.date >= timeFrom && x.date <= timeTo);
@@ -65,15 +66,52 @@ namespace RDB_Project.DataReading
                     result = result.Where(x => x.x == searchResult.x);
                 if (searchResult.y > -1)
                     result = result.Where(x => x.y == searchResult.y);
-
-                data = result.ToList();
-                return data;
+                return await result.ToListAsync();
             }    
         }
 
         public List<SearchResult> SearchedResults
         {
             get { return data; }
+        }
+
+        public static Dictionary<int, string> GetMTypes()
+        {
+            using (var entities = new DbEntities())
+            {
+                var result = (from res in entities.MTypes select res).ToList();
+                Dictionary<int, string> mTypes = new Dictionary<int, string>();
+                foreach (MType mType in result)
+                {
+                    mTypes.Add(mType.idType, mType.name);
+                }
+                return mTypes;
+            }
+        }
+
+        public static Dictionary<string, string> GetDevices()
+        {
+            using (var entities = new DbEntities())
+            {
+                var result = (from res in entities.Devices select res).ToList();
+                Dictionary<string, string> devices = new Dictionary<string, string>();
+                foreach (Device device in result)
+                {
+                    devices.Add(device.serialNumber, device.description);
+                }
+                return devices;
+            }
+        }
+
+        public static int GetMaxIdMeasurement()
+        {
+            using (var entities = new DbEntities())
+            {
+                if (firstOrDefault != null)
+                var firstOrDefault = entities.Measurements.OrderByDescending(m => m.idMeasurement).FirstOrDefault();
+                    return firstOrDefault.idMeasurement;
+                return 1;
+            }
         }
     }
 }

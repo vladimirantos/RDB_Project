@@ -42,7 +42,7 @@ namespace RDB_Project
     public partial class MainWindow : Window
     {
         private ReaderFactory _readerFactory;
-        private int _itemsPerPage = 23;
+        private int _itemsPerPage = 10;
         private Stopwatch timer = new Stopwatch();
         public MainWindow()
         {
@@ -51,6 +51,7 @@ namespace RDB_Project
             buttonBack.Visibility = Visibility.Hidden;
             MessageBlock.Text = "";
             TimeBlock.Text = "";
+            StatusProgress.IsIndeterminate = false;
         }
 
         private void _Add(object sender, RoutedEventArgs e)
@@ -77,16 +78,11 @@ namespace RDB_Project
             
         }
 
-        private void btn_search_Click(object sender, RoutedEventArgs e)
+        private async void btn_search_Click(object sender, RoutedEventArgs e)
         {
-            /*Paginator p = new Paginator(10, 108);
-            p.CurrentPage = 11;
-                MessageBox.Show(string.Format("Záznamy od {0} do {1}\nCelkem stran: {2}", p.Offset, p.Length,
-                    p.TotalPages));*/
-            /*Log.Insert("Devices");
-            MessageBox.Show("Uloženo");*/
-            /////////////////////////////////////////////////////////////
-           
+            StatusProgress.Value = 0;
+            StatusProgress.IsIndeterminate = true;
+            
             SearchInput argumentsResult = new SearchInput();
             if(dateFrom.SelectedDate.HasValue)
                 argumentsResult.DateFrom = dateFrom.SelectedDate.Value;
@@ -117,11 +113,11 @@ namespace RDB_Project
 
             timer.Start();
             _readerFactory = ReaderFactory.CreateFactory(argumentsResult, _itemsPerPage);
+            await _readerFactory.Prepare();
             timer.Stop();
 
             try
             {
-                StatusProgress.IsIndeterminate = true;
                 UpdateGrid();
             }
             catch (RdbException v)
@@ -147,10 +143,14 @@ namespace RDB_Project
         {
             DisplayingButtons();
             List<SearchResult> data = _readerFactory.GetResults().ToList();
-            MainGrid.Children.Add(element: View.SearchGrid.CreateGrid(data));
+
+            DataGrid searchGrid = View.SearchGrid.CreateGrid(data);
+            MainGrid.Children.Add(element: searchGrid);
+            
             MessageBlock.Text = string.Format("Nalezeno celkem: {0} záznamů", _readerFactory.TotalRecords);
             TimeBlock.Text = "Čas dotazu: "+timer.Elapsed.ToString();
-            timer.Reset();
+            TextBlock.Text = string.Format("Stránka {0} z {1}", _readerFactory.Paginator.CurrentPage,
+                _readerFactory.Paginator.TotalPages);
             StatusProgress.IsIndeterminate = false;
             StatusProgress.Value = 100;
         }
@@ -181,7 +181,7 @@ namespace RDB_Project
                 string jmeno = dialog.FileName;
                 try
                 {
-                    DataExport.Save(_readerFactory.Results, dialog.FileName);
+                   // DataExport.Save(_readerFactory.Results, dialog.FileName);
                     MessageBox.Show("Data byla uložena!");
                 }
                 catch (ArgumentOutOfRangeException)

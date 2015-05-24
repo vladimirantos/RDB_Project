@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
+using RDB_Project.DataReading;
 
 namespace RDB_Project.DataWriting
 {
@@ -32,9 +33,13 @@ namespace RDB_Project.DataWriting
 
         public static DataWriteFactory Create(string path, int bufferSize)
         {
+            IParser parser = new StringParser(bufferSize);
+            parser.ExistingDevices = DatabaseReader.GetDevices();
+            parser.ExistingMTypes = DatabaseReader.GetMTypes();
+            parser.IdMeasurement = DatabaseReader.GetMaxIdMeasurement();
             return new DataWriteFactory(
-                new FileReader(path), 
-                new StringParser(bufferSize), 
+                new FileReader(path),
+                parser, 
                 new DatabaseWriter()) { BufferSize = bufferSize};
         }
 

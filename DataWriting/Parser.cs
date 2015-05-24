@@ -11,15 +11,21 @@ namespace RDB_Project.DataWriting
     interface IParser
     {
         void Parse(BlockingCollection<string> input, BlockingCollection<DatabaseObjects> output);
+        Dictionary<int, string> ExistingMTypes { set; }
+        Dictionary<string, string> ExistingDevices { set; }
+        int IdMeasurement { set; }
     }
 
     class StringParser : IParser
     {
         private static int _idMeasurement = 1;
+        public int IdMeasurement { set { _idMeasurement = value + 1; } }
         private int _bufferSize;
 
         private Dictionary<int, string> _existingMTypes = new Dictionary<int, string>(); 
-        private Dictionary<string, string> _existingDevices = new Dictionary<string, string>(); 
+        private Dictionary<string, string> _existingDevices = new Dictionary<string, string>();
+        public Dictionary<int, string> ExistingMTypes { set { _existingMTypes = value; } }
+        public Dictionary<string, string> ExistingDevices { set { _existingDevices = value; } }
         public StringParser(int bufferSize)
         {
             _bufferSize = bufferSize;
@@ -192,5 +198,9 @@ namespace RDB_Project.DataWriting
                 output.CompleteAdding();
             }*/
         }
+
+        public Dictionary<int, string> ExistingMTypes { set; private get; }
+        public Dictionary<string, string> ExistingDevices { set; private get; }
+        public int IdMeasurement { set; private get; }
     }
 }

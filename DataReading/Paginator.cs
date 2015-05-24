@@ -12,6 +12,8 @@ namespace RDB_Project.DataReading
 
         private int _totalRecords;
 
+        public int TotalRecords { set { _totalRecords = value; } }
+
         /// <summary>
         /// Aktuální stránka
         /// </summary>
@@ -73,6 +75,11 @@ namespace RDB_Project.DataReading
             _itemsPerPage = itemsPerPage;
             _totalRecords = totalRecords;
             
+        }
+
+        public Paginator(int itemsPerPage)
+        {
+            _itemsPerPage = itemsPerPage;
         }
     }
 }

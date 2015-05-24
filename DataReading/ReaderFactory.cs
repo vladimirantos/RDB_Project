@@ -21,12 +21,13 @@ namespace RDB_Project.DataReading
 
         public int TotalRecords { get { return Results.Count(); } }
 
+        public Paginator Paginator { get { return _paginator; } }
+
         public ReaderFactory(ISearching searcher, Paginator paginator)
         {
             _searcher = searcher;
             _paginator = paginator;
             _paginator.CurrentPage = 1;
-            Results = _searcher.Search();
         }
 
         public void NextPage()
@@ -39,6 +40,13 @@ namespace RDB_Project.DataReading
             _paginator.CurrentPage--;
         }
 
+        public async Task<IEnumerable<SearchResult>> Prepare()
+        {
+            Results = await _searcher.SearchAsync();
+            _paginator.TotalRecords = _searcher.TotalRecords;
+            return Results;
+        }
+
         public IEnumerable<SearchResult> GetResults()
         {
             return Results.Skip(_paginator.Offset).Take(_paginator.Length);
@@ -47,7 +55,7 @@ namespace RDB_Project.DataReading
         public static ReaderFactory CreateFactory(SearchInput searchArgument, int itemsPerPage)
         {
             ISearching searcher = new DatabaseReader(searchArgument);
-            Paginator paginator = new Paginator(itemsPerPage, searcher.TotalRecords);
+            Paginator paginator = new Paginator(itemsPerPage);
             return new ReaderFactory(searcher, paginator);
         }
     }

@@ -20,6 +20,7 @@ namespace RDB_Project.View
         {
             _data = data;
             _grid = new DataGrid();
+            _grid.Items.Clear();
             AddValues();
             _grid.AlternatingRowBackground = Brushes.DarkSeaGreen;
         }
