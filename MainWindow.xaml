@@ -153,7 +153,7 @@
                     </StatusBarItem>
                     <Separator Grid.Column="5" />
                     <StatusBarItem Grid.Column="6">
-                        <ProgressBar Name="StatusProgress" IsIndeterminate="True" Height="17" Width="190" HorizontalAlignment="Center"/>
+                        <ProgressBar Name="StatusProgress" IsIndeterminate="False" Height="17" Width="190" HorizontalAlignment="Center"/>
                     </StatusBarItem>
                 </StatusBar>
             </DockPanel>

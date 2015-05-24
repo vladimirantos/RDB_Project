@@ -14,7 +14,6 @@ namespace RDB_Project.Logging
 {
     class LogGrid:AbstractGrid<Dblog>
     {
-         
         private LogGrid(List<Dblog> data):base(data)
         {
             _data = data;
@@ -23,8 +22,7 @@ namespace RDB_Project.Logging
             ColNamesList = new List<string> {"Akce", "Tabulka", "Čas"};
             _grid.AlternatingRowBackground = Brushes.DarkSeaGreen;
         }
-
-
+        
         /// <summary>
         /// Nastavení sloupců DataGridu
         /// </summary>

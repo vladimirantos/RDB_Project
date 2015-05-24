@@ -52,9 +52,11 @@ namespace RDB_Project
 
         private void _Upload(object sender, RoutedEventArgs e)
         {
+            Cursor = Cursors.Wait;
             Stopwatch stop = new Stopwatch();
             stop.Start();
             DataWriteFactory.Create(_fileName, 100000).Save();
+            Cursor = Cursors.Arrow;
             stop.Stop();
             MessageBox.Show("Ukládání dokončeno za: " + stop.Elapsed);
         }

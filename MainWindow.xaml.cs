@@ -51,7 +51,6 @@ namespace RDB_Project
             buttonBack.Visibility = Visibility.Hidden;
             MessageBlock.Text = "";
             TimeBlock.Text = "";
-            StatusProgress.IsIndeterminate = false;
         }
 
         private void _Add(object sender, RoutedEventArgs e)
@@ -181,10 +180,10 @@ namespace RDB_Project
                 string jmeno = dialog.FileName;
                 try
                 {
-                   // DataExport.Save(_readerFactory.Results, dialog.FileName);
+                    DataExport.Save(_readerFactory.Results, dialog.FileName);
                     MessageBox.Show("Data byla uložena!");
                 }
-                catch (ArgumentOutOfRangeException)
+                catch (NullReferenceException)
                 {
                     MessageBox.Show("Nejsou data k uložení!","Chyba!",MessageBoxButton.OK,MessageBoxImage.Error);
                 }

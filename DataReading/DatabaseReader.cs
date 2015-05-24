@@ -107,8 +107,9 @@ namespace RDB_Project.DataReading
         {
             using (var entities = new DbEntities())
             {
-                if (firstOrDefault != null)
+                
                 var firstOrDefault = entities.Measurements.OrderByDescending(m => m.idMeasurement).FirstOrDefault();
+                if (firstOrDefault != null)
                     return firstOrDefault.idMeasurement;
                 return 1;
             }
