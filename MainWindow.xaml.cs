@@ -177,12 +177,12 @@ namespace RDB_Project
                 string jmeno = dialog.FileName;
                 try
                 {
-                   // DataExport.Save(_readerFactory.Results, dialog.FileName);
+                    DataExport.Save(_readerFactory.Results, dialog.FileName);
                     MessageBox.Show("Data byla uložena!");
                 }
-                catch (ArgumentOutOfRangeException)
+                catch (NullReferenceException)
                 {
-                    MessageBox.Show("Nejsou data k uložení!","Chyba!",MessageBoxButton.OK,MessageBoxImage.Error);
+                    MessageBox.Show("Nejsou data k uložení!", "Chyba!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
