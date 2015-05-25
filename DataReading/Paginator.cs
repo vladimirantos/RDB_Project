@@ -51,7 +51,7 @@ namespace RDB_Project.DataReading
         {
             get
             {
-                int length = _itemsPerPage * CurrentPage;
+                int length = _itemsPerPage* CurrentPage;
                 //if(length > _totalRecords)
                 //    throw new IndexOutOfRangeException("Délka je za poslední stránkou");
                 return length;
