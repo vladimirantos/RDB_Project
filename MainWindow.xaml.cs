@@ -81,6 +81,7 @@ namespace RDB_Project
         {
             StatusProgress.Value = 0;
             StatusProgress.IsIndeterminate = true;
+            timer.Reset();
             
             SearchInput argumentsResult = new SearchInput();
             if(dateFrom.SelectedDate.HasValue)
@@ -185,7 +186,7 @@ namespace RDB_Project
                 }
                 catch (NullReferenceException)
                 {
-                    MessageBox.Show("Nejsou data k uložení!","Chyba!",MessageBoxButton.OK,MessageBoxImage.Error);
+                    MessageBox.Show("Nejsou žádná data k uložení!","Chyba!",MessageBoxButton.OK,MessageBoxImage.Error);
                 }
             }
         }

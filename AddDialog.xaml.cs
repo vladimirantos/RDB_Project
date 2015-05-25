@@ -27,6 +27,7 @@ namespace RDB_Project
         {
             InitializeComponent();
             tl_upload.Visibility = System.Windows.Visibility.Hidden;
+            text.Content = "Nahrej soubor";
         }
 
         private void _OpenFile(object sender, RoutedEventArgs e)
@@ -58,7 +59,8 @@ namespace RDB_Project
             DataWriteFactory.Create(_fileName, 100000).Save();
             Cursor = Cursors.Arrow;
             stop.Stop();
-            MessageBox.Show("Ukládání dokončeno za: " + stop.Elapsed);
+            MessageBox.Show("Ukládání dokončeno za: " + stop.Elapsed,"Průběh ukládání",MessageBoxButton.OK,MessageBoxImage.Information);
+            this.Close();
         }
     }
 }
