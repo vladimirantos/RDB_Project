@@ -10,6 +10,7 @@ create table Dblog(
 create table Devices(
 	serialNumber varchar(40) not null,
 	description varchar(50) not null,
+	accuracy float not null,
 	constraint pk_serialNumber primary key (serialNumber)
 );
 
