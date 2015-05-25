@@ -221,7 +221,6 @@ namespace RDB_Project
                 }
                 
                 UpdateGrid();
-                MessageBox.Show(r.value1.ToString());
                
             }
         }
