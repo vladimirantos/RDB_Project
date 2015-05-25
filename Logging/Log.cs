@@ -16,14 +16,21 @@ namespace RDB_Project.Logging
     {
         private LogActions _action;
         private string _table;
-
+        private int _count;
 
         /// <summary>
         /// Vytvoří Log bez podmínky, použíje se pro akce Insert, Update a Delete
         /// </summary>
-        private Log(LogActions action, string table)
+        private Log(LogActions action, string table, int count)
         {
             _action = action;
+            _table = table;
+            _count = count;
+        }
+
+        private Log(LogActions actions, string table)
+        {
+            _action = actions;
             _table = table;
         }
 
@@ -35,7 +42,9 @@ namespace RDB_Project.Logging
             Dblog dblog = new Dblog
             {
                 action = _action.ToString(),
-                table = _table
+                table = _table,
+                count =  _count,
+                time = DateTime.Now
             };
             using (var entities = new DbEntities())
             {
@@ -67,11 +76,27 @@ namespace RDB_Project.Logging
         }
 
         /// <summary>
+        /// Uloží akci Update do logu
+        /// </summary>
+        public static void Update(string table, int count)
+        {
+            new Log(LogActions.Update, table, count).Save();
+        }
+
+        /// <summary>
         /// Uloží akci Delete do logu
         /// </summary>
         public static void Delete(string table)
         {
             new Log(LogActions.Delete, table).Save();
+        }
+
+        /// <summary>
+        /// Uloží akci Delete do logu
+        /// </summary>
+        public static void Delete(string table, int count)
+        {
+            new Log(LogActions.Delete, table, count).Save();
         }
 
         /// <summary>
@@ -83,11 +108,27 @@ namespace RDB_Project.Logging
         }
 
         /// <summary>
+        /// Uloží akci Select do logu
+        /// </summary>
+        public static void Select(string table, int count)
+        {
+            new Log(LogActions.Select, table, count).Save();
+        }
+
+        /// <summary>
         /// Uloží akci Insert do logu bez podmínky
         /// </summary>
         public static void Insert(string table)
         {
             new Log(LogActions.Insert, table).Save();
+        }
+
+        /// <summary>
+        /// Uloží akci Insert do logu bez podmínky
+        /// </summary>
+        public static void Insert(string table, int count)
+        {
+            new Log(LogActions.Insert, table, count).Save();
         }
     }
 }

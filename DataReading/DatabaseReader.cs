@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using RDB_Project.Logging;
 
 namespace RDB_Project.DataReading
@@ -43,6 +44,7 @@ namespace RDB_Project.DataReading
         public async Task<IEnumerable<SearchResult>> SearchAsync()
         {
             _results = await Query();
+            Log.Select("SearchResult", TotalRecords);
             return _results;
         }
 

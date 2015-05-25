@@ -49,7 +49,12 @@ namespace RDB_Project.DataReading
 
         public IEnumerable<SearchResult> GetResults()
         {
-            return Results.Skip(_paginator.Offset).Take(_paginator.Length);
+            return Results.Skip(_paginator.Length).Take(MainWindow.ItemsPerPage);
+        }
+
+        public void Remove(SearchResult searchResult)
+        {
+            Results.ToList().Remove(searchResult);
         }
 
         public static ReaderFactory CreateFactory(SearchInput searchArgument, int itemsPerPage)
