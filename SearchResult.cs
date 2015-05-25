@@ -14,6 +14,8 @@ namespace RDB_Project
     
     public partial class SearchResult
     {
+        public int id_point { get; set; }
+        public int idMeasurement { get; set; }
         public System.DateTime date { get; set; }
         public double x { get; set; }
         public double y { get; set; }

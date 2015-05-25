@@ -16,7 +16,7 @@ using RDB_Project.DataWriting;
 using System.Diagnostics;
 
 namespace RDB_Project
-{ 
+{  //
     /// <summary>
     /// Interaction logic for AddDialog.xaml
     /// </summary>
@@ -37,13 +37,13 @@ namespace RDB_Project
             dialog.Filter = "CSV File (*.csv)|*.csv";
 
             Nullable<bool> result = dialog.ShowDialog();
-                      
+
             if (result == true)
             {
                 int size = 44;
                 string name = dialog.FileName;
-                if( name.Length > size)
-                    name = name.Substring(0,size-1) + "...";
+                if (name.Length > size)
+                    name = name.Substring(0, size - 1) + "...";
 
                 this.text.Content = name;
                 this._fileName = dialog.FileName;
@@ -62,12 +62,7 @@ namespace RDB_Project
             factory.Save();
             stop.Stop();
             Cursor = Cursors.Arrow;
-<<<<<<< HEAD
-            _mainWindow.MessageBlock.Text = "Ukládání dokončeno za: " + stop.Elapsed;
-            _mainWindow.StatusProgress.IsIndeterminate = false;
-=======
             MessageBox.Show("Ukládání dokončeno za: " + stop.Elapsed);
->>>>>>> origin/master
             this.Close();
         }
     }

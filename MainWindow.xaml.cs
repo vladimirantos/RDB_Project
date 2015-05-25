@@ -188,12 +188,7 @@ namespace RDB_Project
                 }
                 catch (NullReferenceException)
                 {
-<<<<<<< HEAD
                     MessageBox.Show("Nejsou žádná data k uložení!","Chyba!",MessageBoxButton.OK,MessageBoxImage.Error);
-=======
-
-                    MessageBox.Show("Nejsou data k uložení!", "Chyba!", MessageBoxButton.OK, MessageBoxImage.Error);
->>>>>>> origin/master
                 }
             }
         }
@@ -212,9 +207,18 @@ namespace RDB_Project
 
                 SearchResult r = (SearchResult)g.SelectedItem;
 
-                _readerFactory.Results.ToList().Remove(r);
-                List<SearchResult> l = _readerFactory.Results.ToList();
+                _readerFactory.Remove(r);
 
+                Measurement mes = null;
+                using (var context = new DbEntities())
+                {
+                    mes = (from s in context.Measurements
+                            where s.idMeasurement== r.idMeasurement
+                            select s).FirstOrDefault();
+                    context.Measurements.Remove(mes);
+                    context.SaveChanges();
+                }
+                
                 UpdateGrid();
                 MessageBox.Show(r.value1.ToString());
                

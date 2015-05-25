@@ -17,6 +17,7 @@ namespace RDB_Project
         public int idLog { get; set; }
         public string action { get; set; }
         public string table { get; set; }
-        public Nullable<System.DateTime> time { get; set; }
+        public int count { get; set; }
+        public System.DateTime time { get; set; }
     }
 }

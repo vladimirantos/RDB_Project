@@ -2,7 +2,8 @@ create table Dblog(
 	idLog int identity,
 	action varchar(10) not null,
 	[table] varchar(12) not null,
-	time datetime DEFAULT GETDATE(),
+	[count] int not null,
+	time datetime not null,
 	constraint pk_id_log primary key(idLog),
 	constraint ck_action check (action='insert' OR action='update' OR action='delete' OR action='select')
 );
@@ -43,14 +44,14 @@ create table Points(
 	variance float not null,
 	description varchar(50) not null,
 	constraint pk_points primary key (id_point, idMeasurement),
-	constraint fk_measurement foreign key(idMeasurement) references Measurements(idMeasurement),
+	constraint fk_measurement foreign key(idMeasurement) references Measurements(idMeasurement) on delete cascade,
 	constraint chk_variance check(variance >= 0 and variance <= 1)
 );
 
---create view SearchResult as 
---select date, x, y, value1, value2, (value1 - value2) as difference, serialNumber from Measurements as m
---join Devices as d on d.serialNumber = m.serialNumberDevice
---join Points as p on p.idMeasurement = m.idMeasurement
+create view SearchResult as 
+select id_point, m.idMeasurement, date, x, y, value1, value2, (value1 - value2) as difference, serialNumber from Measurements as m
+join Devices as d on d.serialNumber = m.serialNumberDevice
+join Points as p on p.idMeasurement = m.idMeasurement
 
 --create view Test as
 --select date, unit, id_point as idPoint, x, y, po.description as poinDescription, value1, value2, variance,
