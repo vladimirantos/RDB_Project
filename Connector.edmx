@@ -20,6 +20,7 @@
           </Key>
           <Property Name="serialNumber" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="accuracy" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Measurements">
           <Key>
@@ -163,6 +164,7 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
           </Key>
           <Property Name="serialNumber" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="accuracy" Type="Double" Nullable="false" />
           <NavigationProperty Name="Measurements" Relationship="Self.fk_device" FromRole="Devices" ToRole="Measurements" />
         </EntityType>
         <EntityType Name="Measurement">
@@ -301,6 +303,7 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
               <MappingFragment StoreEntitySet="Devices">
                 <ScalarProperty Name="serialNumber" ColumnName="serialNumber" />
                 <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="accuracy" ColumnName="accuracy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

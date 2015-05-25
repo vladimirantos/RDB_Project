@@ -72,6 +72,7 @@ namespace RDB_Project
             Cursor = Cursors.Arrow;
             _mainWindow.MessageBlock.Text = "Ukládání dokončeno za: " + stop.Elapsed;
             _mainWindow.StatusProgress.IsIndeterminate = false;
+            this.Close();
         }
     }
 }

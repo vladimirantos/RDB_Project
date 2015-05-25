@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -43,7 +44,7 @@ namespace RDB_Project
     public partial class MainWindow : Window
     {
         private ReaderFactory _readerFactory;
-        private const int ItemsPerPage = 10;
+        public const int ItemsPerPage = 23;
         private readonly Stopwatch _timer = new Stopwatch();
         public MainWindow()
         {
@@ -83,12 +84,7 @@ namespace RDB_Project
         {
             StatusProgress.Value = 0;
             StatusProgress.IsIndeterminate = true;
-<<<<<<< HEAD
-            timer.Reset();
-
-=======
             _timer.Reset();
->>>>>>> 6e54cd117528bde87dbe8f818e0249ad7bdb90f3
             SearchInput argumentsResult = new SearchInput();
             if(dateFrom.SelectedDate.HasValue)
                 argumentsResult.DateFrom = dateFrom.SelectedDate.Value;
@@ -188,12 +184,31 @@ namespace RDB_Project
                 }
                 catch (NullReferenceException)
                 {
-<<<<<<< HEAD
                     MessageBox.Show("Nejsou žádná data k uložení!","Chyba!",MessageBoxButton.OK,MessageBoxImage.Error);
-=======
-                    MessageBox.Show("Nejsou data k uložení!", "Chyba!", MessageBoxButton.OK, MessageBoxImage.Error);
->>>>>>> 6e54cd117528bde87dbe8f818e0249ad7bdb90f3
                 }
+            }
+        }
+
+        private void TheDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            //MessageBox.Show("awfewae");
+
+
+            Grid grid = sender as Grid;
+            if (Key.Delete == e.Key)
+            {
+                
+              //  DataGridRow dgr = (DataGridRow)(grid.ItemContainerGenerator.ContainerFromIndex(grid.SelectedIndex));
+                DataGrid g  = (DataGrid)grid.Children[0];
+
+                SearchResult r = (SearchResult)g.SelectedItem;
+
+                _readerFactory.Results.ToList().Remove(r);
+                List<SearchResult> l = _readerFactory.Results.ToList();
+
+                UpdateGrid();
+                MessageBox.Show(r.value1.ToString());
+               
             }
         }
     }
