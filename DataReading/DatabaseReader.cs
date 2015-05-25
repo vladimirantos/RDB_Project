@@ -19,7 +19,7 @@ namespace RDB_Project.DataReading
 
     class DatabaseReader : ISearching
     {
-        private List<SearchResult> data;
+        private List<SearchResult> data = new List<SearchResult>();
 
         private SearchInput _arguments;
 
@@ -112,6 +112,14 @@ namespace RDB_Project.DataReading
                 if (firstOrDefault != null)
                     return firstOrDefault.idMeasurement;
                 return 1;
+            }
+        }
+
+        public static void IsConnected()
+        {
+            using (var entities = new DbEntities())
+            {
+                var count = (from c in entities.Devices where c.serialNumber == "0000-000" select c).Count();
             }
         }
     }

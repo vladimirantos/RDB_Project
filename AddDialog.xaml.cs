@@ -55,12 +55,12 @@ namespace RDB_Project
         {
             Cursor = Cursors.Wait;
             Stopwatch stop = new Stopwatch();
+            DataWriteFactory factory = DataWriteFactory.Create(_fileName, 100000);
             stop.Start();
-            DataWriteFactory.Create(_fileName, 100000).Save();
-            Cursor = Cursors.Arrow;
+            factory.Save();
             stop.Stop();
-            MessageBox.Show("Ukládání dokončeno za: " + stop.Elapsed,"Průběh ukládání",MessageBoxButton.OK,MessageBoxImage.Information);
-            this.Close();
+            Cursor = Cursors.Arrow;
+            MessageBox.Show("Ukládání dokončeno za: " + stop.Elapsed);
         }
     }
 }

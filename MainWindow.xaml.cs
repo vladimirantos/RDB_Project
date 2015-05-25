@@ -51,6 +51,8 @@ namespace RDB_Project
             buttonBack.Visibility = Visibility.Hidden;
             MessageBlock.Text = "";
             TimeBlock.Text = "";
+            StatusProgress.IsIndeterminate = false;
+            DatabaseReader.IsConnected();
         }
 
         private void _Add(object sender, RoutedEventArgs e)
@@ -74,7 +76,6 @@ namespace RDB_Project
             {
                 MessageBox.Show(mes.Message,"Chyba!",MessageBoxButton.OK,MessageBoxImage.Information);
             }
-            
         }
 
         private async void btn_search_Click(object sender, RoutedEventArgs e)
@@ -82,7 +83,10 @@ namespace RDB_Project
             StatusProgress.Value = 0;
             StatusProgress.IsIndeterminate = true;
             timer.Reset();
+<<<<<<< HEAD
             
+=======
+>>>>>>> d7af8c3ef77327d5646c2d605566a4c786122e19
             SearchInput argumentsResult = new SearchInput();
             if(dateFrom.SelectedDate.HasValue)
                 argumentsResult.DateFrom = dateFrom.SelectedDate.Value;
@@ -111,13 +115,12 @@ namespace RDB_Project
 
             argumentsResult.serialNumber = device.Text;
 
-            timer.Start();
-            _readerFactory = ReaderFactory.CreateFactory(argumentsResult, _itemsPerPage);
-            await _readerFactory.Prepare();
-            timer.Stop();
-
             try
             {
+                timer.Start();
+                _readerFactory = ReaderFactory.CreateFactory(argumentsResult, _itemsPerPage);
+                await _readerFactory.Prepare();
+                timer.Stop();
                 UpdateGrid();
             }
             catch (RdbException v)
@@ -142,15 +145,12 @@ namespace RDB_Project
         private void UpdateGrid()
         {
             DisplayingButtons();
-            List<SearchResult> data = _readerFactory.GetResults().ToList();
-
-            DataGrid searchGrid = View.SearchGrid.CreateGrid(data);
+            DataGrid searchGrid = View.SearchGrid.CreateGrid(_readerFactory.GetResults().ToList());
             MainGrid.Children.Add(element: searchGrid);
             
             MessageBlock.Text = string.Format("Nalezeno celkem: {0} záznamů", _readerFactory.TotalRecords);
             TimeBlock.Text = "Čas dotazu: "+timer.Elapsed.ToString();
-            TextBlock.Text = string.Format("Stránka {0} z {1}", _readerFactory.Paginator.CurrentPage,
-                _readerFactory.Paginator.TotalPages);
+            TextBlock.Text = string.Format("Stránka {0} z {1}", _readerFactory.Paginator.CurrentPage, arg1: _readerFactory.Paginator.TotalPages == 0 ? 1 : _readerFactory.Paginator.TotalPages);
             StatusProgress.IsIndeterminate = false;
             StatusProgress.Value = 100;
         }
@@ -186,7 +186,11 @@ namespace RDB_Project
                 }
                 catch (NullReferenceException)
                 {
+<<<<<<< HEAD
                     MessageBox.Show("Nejsou žádná data k uložení!","Chyba!",MessageBoxButton.OK,MessageBoxImage.Error);
+=======
+                    MessageBox.Show("Nejsou data k uložení!", "Chyba!", MessageBoxButton.OK, MessageBoxImage.Error);
+>>>>>>> d7af8c3ef77327d5646c2d605566a4c786122e19
                 }
             }
         }
