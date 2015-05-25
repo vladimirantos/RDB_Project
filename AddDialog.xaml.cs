@@ -16,7 +16,7 @@ using RDB_Project.DataWriting;
 using System.Diagnostics;
 
 namespace RDB_Project
-{ 
+{  //
     /// <summary>
     /// Interaction logic for AddDialog.xaml
     /// </summary>
