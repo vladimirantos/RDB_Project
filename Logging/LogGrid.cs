@@ -15,11 +15,11 @@ namespace RDB_Project.Logging
     class LogGrid:AbstractGrid<Dblog>
     {
         private LogGrid(List<Dblog> data):base(data)
-        {
+        { 
             _data = data;
             _grid = new DataGrid();
             AddValues();
-            ColNamesList = new List<string> {"Akce", "Tabulka", "Čas"};
+            ColNamesList = new List<string> {"Akce", "Tabulka", "Počet", "Čas"};
             _grid.AlternatingRowBackground = Brushes.DarkSeaGreen;
         }
         
@@ -35,7 +35,7 @@ namespace RDB_Project.Logging
 
                 foreach (PropertyInfo name in names)
                 {
-                    if (name.Name == "id_log") continue;
+                    if (name.Name == "idLog") continue;
                     DataGridTextColumn c = new DataGridTextColumn
                     {
                         Header = ColNamesList[count],

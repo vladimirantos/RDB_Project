@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RDB_Project.DataReading
 {
     class Paginator
-    {
+    { 
         private int _itemsPerPage;
 
         private int _totalRecords;
@@ -51,7 +51,7 @@ namespace RDB_Project.DataReading
         {
             get
             {
-                int length = _itemsPerPage* (CurrentPage-1);
+                int length = _itemsPerPage * (CurrentPage - 1);
                 //if(length > _totalRecords)
                 //    throw new IndexOutOfRangeException("Délka je za poslední stránkou");
                 return length;

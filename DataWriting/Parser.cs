@@ -17,7 +17,7 @@ namespace RDB_Project.DataWriting
     }
 
     class StringParser : IParser
-    {
+    { 
         private static int _idMeasurement = 1;
         public int IdMeasurement { set { _idMeasurement = value + 1; } }
         private int _bufferSize;
@@ -53,15 +53,17 @@ namespace RDB_Project.DataWriting
                     Point point = new Point();
 
                     device.serialNumber = items[9];
+
                     device.accuracy = float.Parse(items[10], CultureInfo.InvariantCulture);
                     device.description = items[11];
 
                     if (!_existingDevices.ContainsKey(device.serialNumber))
                     {
                         _existingDevices.Add(device.serialNumber, device.description);
-                        devices.Add(device);
+                        devices.Add(device); 
                     }
-
+                    
+                    
                     mType.idType = int.Parse(items[12]);
                     mType.name = items[13];
                     if (!_existingMTypes.ContainsKey(mType.idType))
@@ -81,8 +83,8 @@ namespace RDB_Project.DataWriting
                     point.id_point = int.Parse(items[2]);
                     point.idMeasurement = measurement.idMeasurement;
                     point.id_point = measurement.idMeasurement;
-                    point.x = float.Parse(items[3], CultureInfo.InvariantCulture);
-                    point.y = float.Parse(items[4], CultureInfo.InvariantCulture);
+                    point.x = Math.Round(float.Parse(items[3], CultureInfo.InvariantCulture), 2);
+                    point.y = Math.Round(float.Parse(items[4], CultureInfo.InvariantCulture), 2);
                     point.value1 = float.Parse(items[6], CultureInfo.InvariantCulture);
                     point.value2 = float.Parse(items[7], CultureInfo.InvariantCulture);
                     point.variance = float.Parse(items[8], CultureInfo.InvariantCulture);
@@ -129,8 +131,11 @@ namespace RDB_Project.DataWriting
 
         private DateTime timestampToDateTime(string timestamp)
         {
-            System.DateTime dateTime = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return dateTime.AddSeconds(1432126015);
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(double.Parse(timestamp)).ToLocalTime();
+            return dtDateTime;
+            // System.DateTime dateTime = new System.DateTime(1970, 1, 1, 0, 0, 1, 0);
+            // return dateTime.AddSeconds(long.Parse(timestamp));
         }
     }
 

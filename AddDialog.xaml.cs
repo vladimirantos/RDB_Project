@@ -16,14 +16,13 @@ using RDB_Project.DataWriting;
 using System.Diagnostics;
 
 namespace RDB_Project
-{
+{ 
     /// <summary>
     /// Interaction logic for AddDialog.xaml
     /// </summary>
     public partial class AddDialog : Window
     {
         private string _fileName;
-        private MainWindow _mainWindow;
         public AddDialog()
         {
             InitializeComponent();
@@ -31,11 +30,6 @@ namespace RDB_Project
             text.Content = "Nahrej soubor";
         }
 
-        public AddDialog(MainWindow mainWindow)
-        {
-            InitializeComponent();
-            _mainWindow = mainWindow;
-        }
 
         private void _OpenFile(object sender, RoutedEventArgs e)
         {
@@ -61,8 +55,6 @@ namespace RDB_Project
         private void _Upload(object sender, RoutedEventArgs e)
         {
             Cursor = Cursors.Wait;
-            _mainWindow.MessageBlock.Text = "Probíhá ukládání souboru " + _fileName;
-            _mainWindow.StatusProgress.IsIndeterminate = true;
 
             Stopwatch stop = new Stopwatch();
             DataWriteFactory factory = DataWriteFactory.Create(_fileName, 100000);
@@ -70,8 +62,12 @@ namespace RDB_Project
             factory.Save();
             stop.Stop();
             Cursor = Cursors.Arrow;
+<<<<<<< HEAD
             _mainWindow.MessageBlock.Text = "Ukládání dokončeno za: " + stop.Elapsed;
             _mainWindow.StatusProgress.IsIndeterminate = false;
+=======
+            MessageBox.Show("Ukládání dokončeno za: " + stop.Elapsed);
+>>>>>>> origin/master
             this.Close();
         }
     }

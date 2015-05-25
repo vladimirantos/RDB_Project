@@ -55,11 +55,13 @@ namespace RDB_Project
             TimeBlock.Text = "";
             StatusProgress.IsIndeterminate = false;
             MessageBlock.Text = string.Format("Velikost DB: {0}", DatabaseReader.DatabaseSize().ToString("N0"));
+
+            //MessageBox.Show(float.Parse("13264.000",System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture).ToString());
         }
 
         private void _Add(object sender, RoutedEventArgs e)
         {
-            AddDialog dialog = new AddDialog(this);
+            AddDialog dialog = new AddDialog();
             dialog.Show();
         }
 
@@ -126,6 +128,7 @@ namespace RDB_Project
                 MainGrid.Children.Clear();
                 MessageBox.Show(v.Message);
             }
+            StatusProgress.IsIndeterminate = false;
         }
 
         private void buttonNext_Click(object sender, RoutedEventArgs e)
@@ -145,12 +148,13 @@ namespace RDB_Project
             DisplayingButtons();
             DataGrid searchGrid = View.SearchGrid.CreateGrid(_readerFactory.GetResults().ToList());
             MainGrid.Children.Add(element: searchGrid);
-            
-            MessageBlock.Text = string.Format("Nalezeno celkem: {0} záznamů", _readerFactory.TotalRecords);
-            TimeBlock.Text = "Čas dotazu: "+_timer.Elapsed.ToString();
+
+            MessageBlock.Text = string.Format("Nalezeno celkem: {0} záznamů", _readerFactory.TotalRecords.ToString("N0"));
+            TimeBlock.Text = "Čas: "+_timer.Elapsed.ToString();
             TextBlock.Text = string.Format("Stránka {0} z {1}", _readerFactory.Paginator.CurrentPage, arg1: _readerFactory.Paginator.TotalPages == 0 ? 1 : _readerFactory.Paginator.TotalPages);
             StatusProgress.IsIndeterminate = false;
             StatusProgress.Value = 100;
+            StatusProgress.IsIndeterminate = false;   
         }
 
         /// <summary>
@@ -184,7 +188,12 @@ namespace RDB_Project
                 }
                 catch (NullReferenceException)
                 {
+<<<<<<< HEAD
                     MessageBox.Show("Nejsou žádná data k uložení!","Chyba!",MessageBoxButton.OK,MessageBoxImage.Error);
+=======
+
+                    MessageBox.Show("Nejsou data k uložení!", "Chyba!", MessageBoxButton.OK, MessageBoxImage.Error);
+>>>>>>> origin/master
                 }
             }
         }

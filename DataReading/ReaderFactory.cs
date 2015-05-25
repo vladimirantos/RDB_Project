@@ -8,7 +8,7 @@ using System.Windows;
 namespace RDB_Project.DataReading
 {
     class ReaderFactory
-    {
+    { 
         private ISearching _searcher;
 
         private Paginator _paginator;
@@ -50,6 +50,11 @@ namespace RDB_Project.DataReading
         public IEnumerable<SearchResult> GetResults()
         {
             return Results.Skip(_paginator.Length).Take(MainWindow.ItemsPerPage);
+        }
+
+        public void Remove(SearchResult searchResult)
+        {
+            Results.ToList().Remove(searchResult);
         }
 
         public static ReaderFactory CreateFactory(SearchInput searchArgument, int itemsPerPage)
