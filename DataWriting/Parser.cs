@@ -54,6 +54,8 @@ namespace RDB_Project.DataWriting
 
                     device.serialNumber = items[9];
                     device.description = items[10];
+                    device.accuracy = int.Parse(items[11]);
+
                     if (!_existingDevices.ContainsKey(device.serialNumber))
                     {
                         _existingDevices.Add(device.serialNumber, device.description);
@@ -61,8 +63,8 @@ namespace RDB_Project.DataWriting
                     }
                     
                     
-                    mType.idType = int.Parse(items[11]);
-                    mType.name = items[12];
+                    mType.idType = int.Parse(items[12]);
+                    mType.name = items[13];
                     if (!_existingMTypes.ContainsKey(mType.idType))
                     {
                         mTypes.Add(mType);
