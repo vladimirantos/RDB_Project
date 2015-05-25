@@ -53,8 +53,9 @@ namespace RDB_Project
         private void _Upload(object sender, RoutedEventArgs e)
         {
             Stopwatch stop = new Stopwatch();
+            DataWriteFactory factory = DataWriteFactory.Create(_fileName, 100000);
             stop.Start();
-            DataWriteFactory.Create(_fileName, 100000).Save();
+            factory.Save();
             stop.Stop();
             MessageBox.Show("Ukládání dokončeno za: " + stop.Elapsed);
         }
