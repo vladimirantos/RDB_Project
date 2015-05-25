@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -42,8 +43,8 @@ namespace RDB_Project
     public partial class MainWindow : Window
     {
         private ReaderFactory _readerFactory;
-        private int _itemsPerPage = 10;
-        private Stopwatch timer = new Stopwatch();
+        private const int ItemsPerPage = 10;
+        private readonly Stopwatch _timer = new Stopwatch();
         public MainWindow()
         {
             InitializeComponent();
@@ -52,12 +53,12 @@ namespace RDB_Project
             MessageBlock.Text = "";
             TimeBlock.Text = "";
             StatusProgress.IsIndeterminate = false;
-            DatabaseReader.IsConnected();
+            MessageBlock.Text = string.Format("Velikost DB: {0}", DatabaseReader.DatabaseSize().ToString("N0"));
         }
 
         private void _Add(object sender, RoutedEventArgs e)
         {
-            AddDialog dialog = new AddDialog();
+            AddDialog dialog = new AddDialog(this);
             dialog.Show();
         }
 
@@ -82,7 +83,7 @@ namespace RDB_Project
         {
             StatusProgress.Value = 0;
             StatusProgress.IsIndeterminate = true;
-            timer.Reset();
+            _timer.Reset();
             SearchInput argumentsResult = new SearchInput();
             if(dateFrom.SelectedDate.HasValue)
                 argumentsResult.DateFrom = dateFrom.SelectedDate.Value;
@@ -113,10 +114,10 @@ namespace RDB_Project
 
             try
             {
-                timer.Start();
-                _readerFactory = ReaderFactory.CreateFactory(argumentsResult, _itemsPerPage);
+                _timer.Start();
+                _readerFactory = ReaderFactory.CreateFactory(argumentsResult, ItemsPerPage);
                 await _readerFactory.Prepare();
-                timer.Stop();
+                _timer.Stop();
                 UpdateGrid();
             }
             catch (RdbException v)
@@ -145,7 +146,7 @@ namespace RDB_Project
             MainGrid.Children.Add(element: searchGrid);
             
             MessageBlock.Text = string.Format("Nalezeno celkem: {0} záznamů", _readerFactory.TotalRecords);
-            TimeBlock.Text = "Čas dotazu: "+timer.Elapsed.ToString();
+            TimeBlock.Text = "Čas dotazu: "+_timer.Elapsed.ToString();
             TextBlock.Text = string.Format("Stránka {0} z {1}", _readerFactory.Paginator.CurrentPage, arg1: _readerFactory.Paginator.TotalPages == 0 ? 1 : _readerFactory.Paginator.TotalPages);
             StatusProgress.IsIndeterminate = false;
             StatusProgress.Value = 100;
@@ -177,7 +178,7 @@ namespace RDB_Project
                 string jmeno = dialog.FileName;
                 try
                 {
-                    DataExport.Save(_readerFactory.Results, dialog.FileName);
+                    //DataExport.Save(_readerFactory.Results, dialog.FileName);
                     MessageBox.Show("Data byla uložena!");
                 }
                 catch (NullReferenceException)

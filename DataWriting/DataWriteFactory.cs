@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace RDB_Project.DataWriting
 {
     class DataWriteFactory
     {
+
         IFileReader _fileReader;
 
         IParser _parser;
@@ -22,6 +24,8 @@ namespace RDB_Project.DataWriting
 
         public const int DefaultBufferSize = 100000;
 
+        private static string _path;
+
         public DataWriteFactory(IFileReader reader, IParser parser, IDatabaseWriter writer)
         {
             _fileReader = reader;
@@ -33,6 +37,7 @@ namespace RDB_Project.DataWriting
 
         public static DataWriteFactory Create(string path, int bufferSize)
         {
+            _path = path;
             IParser parser = new StringParser(bufferSize);
             parser.ExistingDevices = DatabaseReader.GetDevices();
             parser.ExistingMTypes = DatabaseReader.GetMTypes();

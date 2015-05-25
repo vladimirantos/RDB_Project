@@ -115,11 +115,11 @@ namespace RDB_Project.DataReading
             }
         }
 
-        public static void IsConnected()
+        public static int DatabaseSize()
         {
             using (var entities = new DbEntities())
             {
-                var count = (from c in entities.Devices where c.serialNumber == "0000-000" select c).Count();
+                return (from c in entities.Measurements select c).Count();
             }
         }
     }

@@ -22,11 +22,18 @@ namespace RDB_Project
     /// </summary>
     public partial class AddDialog : Window
     {
-        string _fileName;
+        private string _fileName;
+        private MainWindow _mainWindow;
         public AddDialog()
         {
             InitializeComponent();
             tl_upload.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        public AddDialog(MainWindow mainWindow)
+        {
+            InitializeComponent();
+            _mainWindow = mainWindow;
         }
 
         private void _OpenFile(object sender, RoutedEventArgs e)
@@ -53,13 +60,17 @@ namespace RDB_Project
         private void _Upload(object sender, RoutedEventArgs e)
         {
             Cursor = Cursors.Wait;
+            _mainWindow.MessageBlock.Text = "Probíhá ukládání souboru " + _fileName;
+            _mainWindow.StatusProgress.IsIndeterminate = true;
+
             Stopwatch stop = new Stopwatch();
             DataWriteFactory factory = DataWriteFactory.Create(_fileName, 100000);
             stop.Start();
             factory.Save();
             stop.Stop();
             Cursor = Cursors.Arrow;
-            MessageBox.Show("Ukládání dokončeno za: " + stop.Elapsed);
+            _mainWindow.MessageBlock.Text = "Ukládání dokončeno za: " + stop.Elapsed;
+            _mainWindow.StatusProgress.IsIndeterminate = false;
         }
     }
 }
