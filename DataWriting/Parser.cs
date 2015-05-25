@@ -104,7 +104,7 @@ namespace RDB_Project.DataWriting
                     }
                     _idMeasurement++;
                 }
-                if (devices.Count > 0)
+                if (measurements.Count > 0)
                 {
                     databaseObjects.Devices = new List<Device>(devices);
                     databaseObjects.MTypes = new List<MType>(mTypes);
