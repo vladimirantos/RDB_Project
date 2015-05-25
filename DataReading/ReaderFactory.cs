@@ -13,7 +13,7 @@ namespace RDB_Project.DataReading
 
         private Paginator _paginator;
 
-        public IEnumerable<SearchResult> Results { get; private set; }
+        public List<SearchResult> Results { get; private set; }
 
         public bool IsLastPage {  get { return _paginator.IsLast; } }
 
@@ -40,9 +40,10 @@ namespace RDB_Project.DataReading
             _paginator.CurrentPage--;
         }
 
-        public async Task<IEnumerable<SearchResult>> Prepare()
+        public async Task<List<SearchResult>> Prepare()
         {
-            Results = await _searcher.SearchAsync();
+            IEnumerable<SearchResult> data = await _searcher.SearchAsync();
+            Results = data.ToList();
             _paginator.TotalRecords = _searcher.TotalRecords;
             return Results;
         }
@@ -54,7 +55,7 @@ namespace RDB_Project.DataReading
 
         public void Remove(SearchResult searchResult)
         {
-            Results.ToList().Remove(searchResult);
+            Results.Remove(searchResult);
         }
 
         public static ReaderFactory CreateFactory(SearchInput searchArgument, int itemsPerPage)
