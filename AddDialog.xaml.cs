@@ -28,6 +28,7 @@ namespace RDB_Project
         {
             InitializeComponent();
             tl_upload.Visibility = System.Windows.Visibility.Hidden;
+            text.Content = "Nahrej soubor";
         }
 
         public AddDialog(MainWindow mainWindow)
