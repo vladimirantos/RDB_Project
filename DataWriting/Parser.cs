@@ -53,8 +53,9 @@ namespace RDB_Project.DataWriting
                     Point point = new Point();
 
                     device.serialNumber = items[9];
-                    device.description = items[10];
-                    device.accuracy = int.Parse(items[11]);
+
+                    device.accuracy = float.Parse(items[10], CultureInfo.InvariantCulture);
+                    device.description = items[11];
 
                     if (!_existingDevices.ContainsKey(device.serialNumber))
                     {
