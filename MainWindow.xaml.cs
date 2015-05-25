@@ -183,11 +183,12 @@ namespace RDB_Project
                 string jmeno = dialog.FileName;
                 try
                 {
-                    //DataExport.Save(_readerFactory.Results, dialog.FileName);
+                    DataExport.Save(_readerFactory.Results, dialog.FileName);
                     MessageBox.Show("Data byla uložena!");
                 }
                 catch (NullReferenceException)
                 {
+<<<<<<< HEAD
                     MessageBox.Show("Nejsou žádná data k uložení!","Chyba!",MessageBoxButton.OK,MessageBoxImage.Error);
                 }
             }
@@ -218,6 +219,9 @@ namespace RDB_Project
                             select s).FirstOrDefault();
                     context.Measurements.Remove(mes);
                     context.SaveChanges();
+=======
+                    MessageBox.Show("Nejsou data k uložení!", "Chyba!", MessageBoxButton.OK, MessageBoxImage.Error);
+>>>>>>> origin/master
                 }
                 
                 UpdateGrid();
