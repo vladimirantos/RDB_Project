@@ -13,7 +13,7 @@ using RDB_Project.Logging;
 namespace RDB_Project.DataWriting
 {
     interface IDatabaseWriter
-    {
+    { 
         void Write(BlockingCollection<DatabaseObjects> input);
     }
 

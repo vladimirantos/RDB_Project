@@ -153,7 +153,7 @@ namespace RDB_Project
             TextBlock.Text = string.Format("Stránka {0} z {1}", _readerFactory.Paginator.CurrentPage, arg1: _readerFactory.Paginator.TotalPages == 0 ? 1 : _readerFactory.Paginator.TotalPages);
             StatusProgress.IsIndeterminate = false;
             StatusProgress.Value = 100;
-            MessageBlock.Text = string.Format("Velikost DB: {0}", DatabaseReader.DatabaseSize().ToString("N0"));
+            StatusProgress.IsIndeterminate = false;   
         }
 
         /// <summary>

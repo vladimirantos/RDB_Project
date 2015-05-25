@@ -17,7 +17,7 @@ namespace RDB_Project.DataWriting
     }
 
     class StringParser : IParser
-    {
+    { 
         private static int _idMeasurement = 1;
         public int IdMeasurement { set { _idMeasurement = value + 1; } }
         private int _bufferSize;

@@ -12,7 +12,7 @@ using RDB_Project.Logging;
 namespace RDB_Project.DataReading
 {
     interface ISearching
-    {
+    {   
         int TotalRecords { get; }
 
         Task<IEnumerable<SearchResult>> SearchAsync();

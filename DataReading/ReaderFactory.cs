@@ -8,7 +8,7 @@ using System.Windows;
 namespace RDB_Project.DataReading
 {
     class ReaderFactory
-    {
+    { 
         private ISearching _searcher;
 
         private Paginator _paginator;

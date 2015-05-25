@@ -13,7 +13,7 @@ namespace RDB_Project.Logging
         Insert, Select, Update, Delete
     }
     class Log
-    {
+    { 
         private LogActions _action;
         private string _table;
         private int _count;

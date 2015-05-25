@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RDB_Project.DataReading
 {
     class Paginator
-    {
+    { 
         private int _itemsPerPage;
 
         private int _totalRecords;

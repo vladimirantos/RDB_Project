@@ -15,7 +15,7 @@ namespace RDB_Project.Logging
     class LogGrid:AbstractGrid<Dblog>
     {
         private LogGrid(List<Dblog> data):base(data)
-        {
+        { 
             _data = data;
             _grid = new DataGrid();
             AddValues();
