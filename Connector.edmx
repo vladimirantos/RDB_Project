@@ -12,7 +12,8 @@
           <Property Name="idLog" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="action" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="table" Type="varchar" MaxLength="12" Nullable="false" />
-          <Property Name="time" Type="datetime" />
+          <Property Name="count" Type="int" Nullable="false" />
+          <Property Name="time" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Devices">
           <Key>
@@ -58,6 +59,8 @@
 warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SearchResult">
           <Key>
+            <PropertyRef Name="id_point" />
+            <PropertyRef Name="idMeasurement" />
             <PropertyRef Name="date" />
             <PropertyRef Name="x" />
             <PropertyRef Name="y" />
@@ -66,6 +69,8 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
             <PropertyRef Name="difference" />
             <PropertyRef Name="serialNumber" />
           </Key>
+          <Property Name="id_point" Type="int" Nullable="false" />
+          <Property Name="idMeasurement" Type="int" Nullable="false" />
           <Property Name="date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="x" Type="float" Nullable="false" />
           <Property Name="y" Type="float" Nullable="false" />
@@ -89,7 +94,9 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_measurement">
-          <End Role="Measurements" Type="Self.Measurements" Multiplicity="1" />
+          <End Role="Measurements" Type="Self.Measurements" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Points" Type="Self.Points" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Measurements">
@@ -122,6 +129,8 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
           <EntitySet Name="Points" EntityType="Self.Points" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SearchResult" EntityType="Self.SearchResult" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [SearchResult].[id_point] AS [id_point], 
+    [SearchResult].[idMeasurement] AS [idMeasurement], 
     [SearchResult].[date] AS [date], 
     [SearchResult].[x] AS [x], 
     [SearchResult].[y] AS [y], 
@@ -156,7 +165,8 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
           <Property Name="idLog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="action" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="table" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="time" Type="DateTime" Precision="3" />
+          <Property Name="count" Type="Int32" Nullable="false" />
+          <Property Name="time" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Device">
           <Key>
@@ -206,6 +216,8 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
         </EntityType>
         <EntityType Name="SearchResult">
           <Key>
+            <PropertyRef Name="id_point" />
+            <PropertyRef Name="idMeasurement" />
             <PropertyRef Name="date" />
             <PropertyRef Name="x" />
             <PropertyRef Name="y" />
@@ -214,6 +226,8 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
             <PropertyRef Name="difference" />
             <PropertyRef Name="serialNumber" />
           </Key>
+          <Property Name="id_point" Type="Int32" Nullable="false" />
+          <Property Name="idMeasurement" Type="Int32" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="x" Type="Double" Nullable="false" />
           <Property Name="y" Type="Double" Nullable="false" />
@@ -237,7 +251,9 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_measurement">
-          <End Role="Measurements" Type="Self.Measurement" Multiplicity="1" />
+          <End Role="Measurements" Type="Self.Measurement" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Points" Type="Self.Point" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Measurements">
@@ -294,6 +310,7 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
                 <ScalarProperty Name="idLog" ColumnName="idLog" />
                 <ScalarProperty Name="action" ColumnName="action" />
                 <ScalarProperty Name="table" ColumnName="table" />
+                <ScalarProperty Name="count" ColumnName="count" />
                 <ScalarProperty Name="time" ColumnName="time" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -344,6 +361,8 @@ warning 6002: The table/view 'db_measurement.dbo.SearchResult' does not have a p
           <EntitySetMapping Name="SearchResults">
             <EntityTypeMapping TypeName="db_measurementModel.SearchResult">
               <MappingFragment StoreEntitySet="SearchResult">
+                <ScalarProperty Name="id_point" ColumnName="id_point" />
+                <ScalarProperty Name="idMeasurement" ColumnName="idMeasurement" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="x" ColumnName="x" />
                 <ScalarProperty Name="y" ColumnName="y" />

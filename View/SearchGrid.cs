@@ -18,7 +18,11 @@ namespace RDB_Project.View
             _data = data;
             _grid = new DataGrid();
             AddValues();
+<<<<<<< HEAD
             ColNamesList = new List<string> { "IDBod", "IDMereni", "Datum", "x", "y", "Hodnota 1", "Hodnota 2", "Rozdíl Hodnot", "Přístroj", "Přesnost" };
+=======
+            ColNamesList = new List<string> {"IDBod", "IDMereni", "Datum","x","y","Hodnota 1","Hodnota 2","Rozdíl Hodnot","Přístroj","Přesnost"};
+>>>>>>> 78a6233bb799a9c1eaed17247caa1af1cd508987
             _grid.AlternatingRowBackground = Brushes.DarkSeaGreen;
         }
 
