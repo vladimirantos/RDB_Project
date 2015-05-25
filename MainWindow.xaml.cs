@@ -83,7 +83,12 @@ namespace RDB_Project
         {
             StatusProgress.Value = 0;
             StatusProgress.IsIndeterminate = true;
+<<<<<<< HEAD
+            timer.Reset();
+
+=======
             _timer.Reset();
+>>>>>>> 6e54cd117528bde87dbe8f818e0249ad7bdb90f3
             SearchInput argumentsResult = new SearchInput();
             if(dateFrom.SelectedDate.HasValue)
                 argumentsResult.DateFrom = dateFrom.SelectedDate.Value;
@@ -183,7 +188,11 @@ namespace RDB_Project
                 }
                 catch (NullReferenceException)
                 {
+<<<<<<< HEAD
+                    MessageBox.Show("Nejsou žádná data k uložení!","Chyba!",MessageBoxButton.OK,MessageBoxImage.Error);
+=======
                     MessageBox.Show("Nejsou data k uložení!", "Chyba!", MessageBoxButton.OK, MessageBoxImage.Error);
+>>>>>>> 6e54cd117528bde87dbe8f818e0249ad7bdb90f3
                 }
             }
         }
