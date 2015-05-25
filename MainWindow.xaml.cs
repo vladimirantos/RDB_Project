@@ -197,6 +197,7 @@ namespace RDB_Project
         {
             //MessageBox.Show("awfewae");
 
+            SearchResult r = new SearchResult();
 
             Grid grid = sender as Grid;
             if (Key.Delete == e.Key)
@@ -204,8 +205,8 @@ namespace RDB_Project
                 
               //  DataGridRow dgr = (DataGridRow)(grid.ItemContainerGenerator.ContainerFromIndex(grid.SelectedIndex));
                 DataGrid g  = (DataGrid)grid.Children[0];
-
-                SearchResult r = (SearchResult)g.SelectedItem;
+                
+                r = (SearchResult)g.SelectedItem;
 
                 _readerFactory.Remove(r);
 
